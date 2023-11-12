@@ -25,7 +25,7 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _trigger;
     [SerializeField]
-    private float _dragCoefficientZ = 4f;
+    private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
     private float _moveForce = 40f;
     [SerializeField]
@@ -69,7 +69,7 @@ public class ActorBehaviour : MonoBehaviour
         }
 
         Vector3 dragForce = _direction != Vector3.zero ? 
-            -_dragCoefficientZ * _rigidbody.velocity.x_z() : Vector3.zero;
+            -_dragCoefficientHorizontal * _rigidbody.velocity.x_z() : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
 
         _rigidbody?.AddForce(totalMoveForce);
