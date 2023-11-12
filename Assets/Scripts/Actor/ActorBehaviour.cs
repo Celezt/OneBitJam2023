@@ -8,7 +8,11 @@ public class ActorBehaviour : MonoBehaviour
     /// <summary>
     /// Direction in world space.
     /// </summary>
-    public Vector3 Direction => _direction;
+    public Vector3 Direction
+    {
+        get => _direction;
+        set => _direction = value.normalized;
+    }
     public float MoveForce
     {
         get => _moveForce;
@@ -25,9 +29,13 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _trigger;
     [SerializeField]
+    private float _moveForce = 40f;
+    [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
-    private float _moveForce = 40f;
+    private AnimationCurve _initialForceCurve = AnimationCurve.EaseInOut(0, 20, 1, 0);
+    [SerializeField]
+    private AnimationCurve _stopForceCurve = AnimationCurve.EaseInOut(0, 0, 1, 20);
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
 
