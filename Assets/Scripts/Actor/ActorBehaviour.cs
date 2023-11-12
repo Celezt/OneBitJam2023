@@ -78,17 +78,17 @@ public class ActorBehaviour : MonoBehaviour
                 break;
         }
 
-        _isMoving = _direction != Vector3.zero;
-
-        if (_isMoving)  // Only update when a direction exist.
-            _lookDirection = _direction;
-
         float angle = Vector3.Angle(_rigidbody.transform.forward, _direction);
-        if (angle > _angleDifferenceForInitial && _initialForceAwaiter.IsCompleted)
+        if ((angle > _angleDifferenceForInitial || !_isMoving) && _initialForceAwaiter.IsCompleted)
         {
             CTSUtility.Reset(ref _cancellationTokenSource);
             _initialForceAwaiter = InitialForceAsync(_cancellationTokenSource.Token).GetAwaiter();
         }
+
+        _isMoving = _direction != Vector3.zero;
+
+        if (_isMoving)  // Only update when a direction exist.
+            _lookDirection = _direction;
     }
 
     private void Start()
