@@ -20,6 +20,8 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _trigger;
     [SerializeField]
+    private float _dragCoefficientZ = 0.1f;
+    [SerializeField]
     private float _moveForce;
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
@@ -37,9 +39,6 @@ public class ActorBehaviour : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        if (!_trigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
-            return;
-
         direction.Normalize();
 
         switch (_coordinate)
@@ -58,6 +57,14 @@ public class ActorBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody?.AddForce(_direction * _moveForce);
+        if (!_trigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
+        {
+            _direction = Vector3.zero;
+            return;
+        }
+
+        Vector3 dragForce = -_dragCoefficientZ * _rigidbody.velocity.x_z();
+        Vector3 totalForce = (_direction * _moveForce) + dragForce;
+        _rigidbody?.AddForce(totalForce);
     }
 }
