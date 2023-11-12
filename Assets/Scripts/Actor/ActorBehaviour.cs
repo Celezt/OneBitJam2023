@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +10,7 @@ public class ActorBehaviour : MonoBehaviour
     /// <summary>
     /// Direction in world space.
     /// </summary>
-    public Vector3 Direction
-    {
-        get => _direction;
-        set => _direction = value.normalized;
-    }
+    public Vector3 Direction => _direction;
     public float MoveForce
     {
         get => _moveForce;
@@ -39,7 +37,9 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
 
+    private CancellationTokenSource _cancellationTokenSource;
     private Vector3 _direction;
+    private bool _isMoving;
 
     public enum Coordinates
     {
@@ -66,6 +66,21 @@ public class ActorBehaviour : MonoBehaviour
                 _direction = relativeDirection;
                 break;
         }
+
+        if (_direction == Vector3.zero)
+        {
+            _isMoving = false;
+        }
+        else
+        {
+            if (!_isMoving)
+            {
+                CTSUtility.Reset(ref _cancellationTokenSource);
+                InitialForceAsync(_cancellationTokenSource.Token).Forget();
+            }
+
+            _isMoving = true;
+        }
     }
 
     private void FixedUpdate()
@@ -81,5 +96,33 @@ public class ActorBehaviour : MonoBehaviour
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
 
         _rigidbody?.AddForce(totalMoveForce);
+    }
+
+    private void OnDestroy()
+    {
+        CTSUtility.Clear(ref _cancellationTokenSource);
+    }
+
+    private async UniTaskVoid InitialForceAsync(CancellationToken cancellationToken)
+    {
+        if (_initialForceCurve.length == 0) // There is no keys.
+            return;
+
+        float maxDuration = _initialForceCurve[_initialForceCurve.length - 1].time;
+        float startTime = Time.time;
+
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            float currentTime = Time.time;
+            float duration = currentTime - startTime;
+
+            if (duration >= maxDuration)
+                break;
+
+            float force = _initialForceCurve.Evaluate(duration);
+            _rigidbody.AddForce(_direction * force);
+
+            await UniTask.WaitForFixedUpdate(cancellationToken);
+        }
     }
 }
