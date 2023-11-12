@@ -272,7 +272,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &11692466830018619
 CapsuleCollider:
@@ -311,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 6651697219118420470}
   _trigger: {fileID: 623063492829522824}
+  _rotationSpeed: 8
   _moveForce: 40
   _dragCoefficientHorizontal: 4
   _initialForceCurve:
@@ -337,6 +338,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _angleDifferenceForInitial: 80
   _stopForceCurve:
     serializedVersion: 2
     m_Curve:
