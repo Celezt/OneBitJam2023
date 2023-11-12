@@ -9,6 +9,11 @@ public class ActorBehaviour : MonoBehaviour
     /// Direction in world space.
     /// </summary>
     public Vector3 Direction => _direction;
+    public float MoveForce
+    {
+        get => _moveForce;
+        set => _moveForce = value;
+    }
     public Coordinates Coordinate
     {
         get => _coordinate;
@@ -20,9 +25,9 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _trigger;
     [SerializeField]
-    private float _dragCoefficientZ = 0.1f;
+    private float _dragCoefficientZ = 4f;
     [SerializeField]
-    private float _moveForce;
+    private float _moveForce = 40f;
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
 
@@ -63,8 +68,10 @@ public class ActorBehaviour : MonoBehaviour
             return;
         }
 
-        Vector3 dragForce = -_dragCoefficientZ * _rigidbody.velocity.x_z();
-        Vector3 totalForce = (_direction * _moveForce) + dragForce;
-        _rigidbody?.AddForce(totalForce);
+        Vector3 dragForce = _direction != Vector3.zero ? 
+            -_dragCoefficientZ * _rigidbody.velocity.x_z() : Vector3.zero;
+        Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
+
+        _rigidbody?.AddForce(totalMoveForce);
     }
 }
