@@ -454,6 +454,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Debug
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 95f0a018-bb7b-469a-88e4-97784efa81e7
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: Gamepad
       m_Id: 809f371f-c5e2-4e7a-83a1-d867598f40dd
@@ -758,6 +766,14 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: XR
       m_Action: TrackedDeviceOrientation
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 83f325ca-232b-4561-8468-1da960bf1ca6
+      m_Path: "<Keyboard>/#(\xA7)"
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: ;Keyboard&Mouse
+      m_Action: Debug
       m_Flags: 0
   m_ControlSchemes:
   - m_Name: Keyboard&Mouse
@@ -1525,6 +1541,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -9024026263344295118}
   m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
+--- !u!114 &7183929055939244622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: UI/Debug
+  m_EditorClassIdentifier: 
+  m_Asset: {fileID: -9024026263344295118}
+  m_ActionId: 95f0a018-bb7b-469a-88e4-97784efa81e7
 --- !u!114 &8741557830772610996
 MonoBehaviour:
   m_ObjectHideFlags: 0

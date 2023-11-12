@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4924128753465598162}
   - component: {fileID: 4200628917161547129}
   - component: {fileID: 8984583894862664708}
+  - component: {fileID: 5224686895313404754}
   m_Layer: 5
   m_Name: DebugCanvas
   m_TagString: Untagged
@@ -102,6 +103,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5224686895313404754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793289055704518644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64e11e78c11bb54086525d387eabb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container: {fileID: 6115050006320061547}
+  _isActiveByDefault: 0
+  _velocityText: {fileID: 969353832145163327}
 --- !u!1 &6115050006320061547
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +128,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8313831183262666549}
   - component: {fileID: 2063368918007701154}
-  - component: {fileID: 3473292257585228723}
   m_Layer: 5
   m_Name: TopRightContent
   m_TagString: Untagged
@@ -166,19 +181,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3473292257585228723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6115050006320061547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64e11e78c11bb54086525d387eabb29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _velocityText: {fileID: 969353832145163327}
 --- !u!1 &7397702397717783067
 GameObject:
   m_ObjectHideFlags: 0
