@@ -38,16 +38,17 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
-    private AnimationCurve _initialForceCurve = AnimationCurve.EaseInOut(0, 20, 1, 0);
+    private AnimationCurve _dashCoefficientCurve = AnimationCurve.EaseInOut(0, 1, 0.5f, 0);
     [SerializeField, Range(0, 360)]
-    private float _angleDifferenceForInitial = 80;
+    private float _angleDifferenceToDash = 80;
     [SerializeField]
-    private AnimationCurve _stopForceCurve = AnimationCurve.EaseInOut(0, 0, 1, 20);
+    private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
 
-    private CancellationTokenSource _cancellationTokenSource;
-    private UniTask.Awaiter _initialForceAwaiter;
+    private CancellationTokenSource _dashForceCancellationTokenSource;
+    private CancellationTokenSource _stopForceCancellationTokenSource;
+    private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
     private Vector3 _lookDirection;
     private bool _isMoving;
@@ -78,11 +79,19 @@ public class ActorBehaviour : MonoBehaviour
                 break;
         }
 
-        float angle = Vector3.Angle(_rigidbody.transform.forward, _direction);
-        if ((angle > _angleDifferenceForInitial || !_isMoving) && _initialForceAwaiter.IsCompleted)
+        if (_direction != Vector3.zero)
         {
-            CTSUtility.Reset(ref _cancellationTokenSource);
-            _initialForceAwaiter = InitialForceAsync(_cancellationTokenSource.Token).GetAwaiter();
+            float angle = Vector3.Angle(_rigidbody.transform.forward, _direction);
+            if ((angle > _angleDifferenceToDash || !_isMoving) && _stopForceAwaiter.IsCompleted)
+            {
+                CTSUtility.Reset(ref _dashForceCancellationTokenSource);
+                _stopForceAwaiter = DashForceAsync(_dashForceCancellationTokenSource.Token).GetAwaiter();
+            }
+        }
+        else
+        {
+            CTSUtility.Reset(ref _stopForceCancellationTokenSource);
+            StopForceAsync(_stopForceCancellationTokenSource.Token).Forget();
         }
 
         _isMoving = _direction != Vector3.zero;
@@ -116,15 +125,16 @@ public class ActorBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
-        CTSUtility.Clear(ref _cancellationTokenSource);
+        CTSUtility.Clear(ref _dashForceCancellationTokenSource);
+        CTSUtility.Clear(ref _stopForceCancellationTokenSource);
     }
 
-    private async UniTask InitialForceAsync(CancellationToken cancellationToken)
+    private async UniTask DashForceAsync(CancellationToken cancellationToken)
     {
-        if (_initialForceCurve.length == 0) // There is no keys.
+        if (_dashCoefficientCurve.length == 0)     // There is no keys.
             return;
 
-        float maxDuration = _initialForceCurve[_initialForceCurve.length - 1].time;
+        float maxDuration = _dashCoefficientCurve[_dashCoefficientCurve.length - 1].time;
         float startTime = Time.time;
         Vector3 startDirection = _direction;
 
@@ -139,8 +149,35 @@ public class ActorBehaviour : MonoBehaviour
             if (_direction == Vector3.zero)
                 startDirection = Vector3.zero;
 
-            float force = _initialForceCurve.Evaluate(duration);
+            float force = _dashCoefficientCurve.Evaluate(duration) * _moveForce;
             _rigidbody.AddForce(startDirection * force);
+
+            await UniTask.WaitForFixedUpdate(cancellationToken);
+        }
+    }
+
+    private async UniTask StopForceAsync(CancellationToken cancellationToken)
+    {
+        if (_stopCoefficientCurve.length == 0)    // There is no keys.
+            return;
+
+        float maxDuration = _stopCoefficientCurve[_stopCoefficientCurve.length - 1].time;
+        float startTime = Time.time;
+        Vector3 startDirection = _rigidbody.velocity.x_z().normalized;
+
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            float currentTime = Time.time;
+            float duration = currentTime - startTime;
+
+            if (duration >= maxDuration)
+                break;
+
+            if (_direction != Vector3.zero)
+                break;
+
+            float force = _stopCoefficientCurve.Evaluate(duration) * _moveForce;
+            _rigidbody.AddForce(-startDirection * force);
 
             await UniTask.WaitForFixedUpdate(cancellationToken);
         }
