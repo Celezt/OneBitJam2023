@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +10,12 @@ public class ActorBehaviour : MonoBehaviour
     /// <summary>
     /// Direction in world space.
     /// </summary>
-    public Vector3 Direction
-    {
-        get => _direction;
-        set => _direction = value.normalized;
-    }
+    public Vector3 Direction => _direction;
+    /// <summary>
+    /// Direction the actor should looking towards. Is never zero.
+    /// </summary>
+    public Vector3 LookDirection => _lookDirection;
+    public bool IsMoving => _isMoving;
     public float MoveForce
     {
         get => _moveForce;
@@ -27,19 +30,28 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField] 
     private Rigidbody _rigidbody;
     [SerializeField]
-    private TriggerHandler _trigger;
+    private TriggerHandler _groundTrigger;
+    [SerializeField]
+    private float _rotationSpeed = 8f;
     [SerializeField]
     private float _moveForce = 40f;
     [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
-    private AnimationCurve _initialForceCurve = AnimationCurve.EaseInOut(0, 20, 1, 0);
+    private AnimationCurve _dashCoefficientCurve = AnimationCurve.EaseInOut(0, 1, 0.5f, 0);
+    [SerializeField, Range(0, 360)]
+    private float _angleDifferenceToDash = 80;
     [SerializeField]
-    private AnimationCurve _stopForceCurve = AnimationCurve.EaseInOut(0, 0, 1, 20);
+    private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
 
+    private CancellationTokenSource _dashForceCancellationTokenSource;
+    private CancellationTokenSource _stopForceCancellationTokenSource;
+    private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
+    private Vector3 _lookDirection;
+    private bool _isMoving;
 
     public enum Coordinates
     {
@@ -66,20 +78,108 @@ public class ActorBehaviour : MonoBehaviour
                 _direction = relativeDirection;
                 break;
         }
+
+        if (_direction != Vector3.zero)
+        {
+            float angle = Vector3.Angle(_rigidbody.transform.forward, _direction);
+            if ((angle > _angleDifferenceToDash || !_isMoving) && _stopForceAwaiter.IsCompleted)
+            {
+                CTSUtility.Reset(ref _dashForceCancellationTokenSource);
+                _stopForceAwaiter = DashForceAsync(_dashForceCancellationTokenSource.Token).GetAwaiter();
+            }
+        }
+        else
+        {
+            CTSUtility.Reset(ref _stopForceCancellationTokenSource);
+            StopForceAsync(_stopForceCancellationTokenSource.Token).Forget();
+        }
+
+        _isMoving = _direction != Vector3.zero;
+
+        if (_isMoving)  // Only update when a direction exist.
+            _lookDirection = _direction;
+    }
+
+    private void Start()
+    {
+        _lookDirection = transform.forward;
     }
 
     private void FixedUpdate()
     {
-        if (!_trigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
-        {
+        float deltaTime = Time.deltaTime;
+
+        if (!_groundTrigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
             _direction = Vector3.zero;
-            return;
-        }
 
         Vector3 dragForce = _direction != Vector3.zero ? 
             -_dragCoefficientHorizontal * _rigidbody.velocity.x_z() : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
 
+        Quaternion lookRotation = Quaternion.LookRotation(_lookDirection, Vector3.up);
+        Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, lookRotation, deltaTime * _rotationSpeed);
+        _rigidbody.MoveRotation(rotation);
+
         _rigidbody?.AddForce(totalMoveForce);
+    }
+
+    private void OnDestroy()
+    {
+        CTSUtility.Clear(ref _dashForceCancellationTokenSource);
+        CTSUtility.Clear(ref _stopForceCancellationTokenSource);
+    }
+
+    private async UniTask DashForceAsync(CancellationToken cancellationToken)
+    {
+        if (_dashCoefficientCurve.length == 0)     // There is no keys.
+            return;
+
+        float maxDuration = _dashCoefficientCurve[_dashCoefficientCurve.length - 1].time;
+        float startTime = Time.time;
+        Vector3 startDirection = _direction;
+
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            float currentTime = Time.time;
+            float duration = currentTime - startTime;
+
+            if (duration >= maxDuration)
+                break;
+
+            if (_direction == Vector3.zero)
+                startDirection = Vector3.zero;
+
+            float force = _dashCoefficientCurve.Evaluate(duration) * _moveForce;
+            _rigidbody.AddForce(startDirection * force);
+
+            await UniTask.WaitForFixedUpdate(cancellationToken);
+        }
+    }
+
+    private async UniTask StopForceAsync(CancellationToken cancellationToken)
+    {
+        if (_stopCoefficientCurve.length == 0)    // There is no keys.
+            return;
+
+        float maxDuration = _stopCoefficientCurve[_stopCoefficientCurve.length - 1].time;
+        float startTime = Time.time;
+        Vector3 startDirection = _rigidbody.velocity.x_z().normalized;
+
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            float currentTime = Time.time;
+            float duration = currentTime - startTime;
+
+            if (duration >= maxDuration)
+                break;
+
+            if (_direction != Vector3.zero)
+                break;
+
+            float force = _stopCoefficientCurve.Evaluate(duration) * _moveForce;
+            _rigidbody.AddForce(-startDirection * force);
+
+            await UniTask.WaitForFixedUpdate(cancellationToken);
+        }
     }
 }
