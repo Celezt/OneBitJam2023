@@ -30,7 +30,7 @@ public class ActorBehaviour : MonoBehaviour
     [SerializeField] 
     private Rigidbody _rigidbody;
     [SerializeField]
-    private TriggerHandler _trigger;
+    private TriggerHandler _groundTrigger;
     [SerializeField]
     private float _rotationSpeed = 8f;
     [SerializeField]
@@ -109,7 +109,7 @@ public class ActorBehaviour : MonoBehaviour
     {
         float deltaTime = Time.deltaTime;
 
-        if (!_trigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
+        if (!_groundTrigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
             _direction = Vector3.zero;
 
         Vector3 dragForce = _direction != Vector3.zero ? 
