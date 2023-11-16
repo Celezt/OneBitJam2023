@@ -27,12 +27,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == enemyTag)
+        if(other.gameObject.CompareTag(enemyTag))
         {
+            Debug.Log("Hit " + other.name);
+            Destroy(other.gameObject);
             for (int i = 0; i < bulletBehaviours.Count; i++)
             {
-                Destroy(gameObject);
-                Debug.Log("Hit " + other.name);
             }
         }
     }

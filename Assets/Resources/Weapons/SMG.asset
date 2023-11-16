@@ -18,5 +18,5 @@ MonoBehaviour:
   bulletSpread: 0.1
   bulletAmount: 1
   bulletSpeed: 0.2
-  firerate: 0.1
+  fireDelay: 0.1
   isAutomatic: 1

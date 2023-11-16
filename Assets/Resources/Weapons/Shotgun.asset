@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   powerUp: []
   bulletSpread: 0.3
-  bulletAmount: 10
+  bulletAmount: 5
   bulletSpeed: 0.1
-  firerate: 1
+  fireDelay: 1
   isAutomatic: 1

@@ -9,11 +9,11 @@ using UnityEngine.UIElements;
 public class Weapon : ScriptableObject
 {
     public GameObject bulletPrefab;
-    public PowerUp[] powerUp;
+    public Perk[] powerUp;
     public float bulletSpread;
     public int bulletAmount;
     public float bulletSpeed;
-    public float firerate;
+    public float fireDelay;
     public bool isAutomatic;
 
     public void Shoot(Vector3 position, Vector3 direction)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 179742981850473109}
   - component: {fileID: 4093821421843550388}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: TestBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef88ebcd0c521e439438878201e081d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletBehaviours: []
+  bulletBehaviours:
+  - {fileID: 11400000, guid: fec49b6aaf36815479023eb5fdbb32c5, type: 2}
   enemyTag: Enemy
   weapon: {fileID: 11400000, guid: 2ea2f625779d76a499f439a2c2de3fbf, type: 2}
   lifespan: 0.3

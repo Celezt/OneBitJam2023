@@ -10,11 +10,10 @@ public class WeaponHandler : MonoBehaviour
     private bool isShooting;
     public void OnShoot()
     {
-        if((Time.time - lastFiredTime) > weapon.firerate)
+        if((Time.time - lastFiredTime) > weapon.fireDelay)
         {
             weapon.Shoot(this.transform.position, this.transform.forward);
             lastFiredTime = Time.time;
-            Debug.Log("Enemy shot");
         }
     }
 
