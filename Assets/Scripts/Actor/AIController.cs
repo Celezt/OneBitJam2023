@@ -10,8 +10,17 @@ public enum AIState
 
 public class AIController : ActorBehaviour
 {
-	[SerializeField] float maxMoveTime = 2.5f;
+	[Header("Generic AI settings")]
 	[SerializeField] float minPlayerDistance = 3.5f;
+	[SerializeField] float minEdgeDistance = 7;
+
+	[Header("Wander behavior settings")]
+	[SerializeField] float maxMoveTime = 2.5f;
+
+	[Header("Attack behavior settings")]
+	[SerializeField] float maxPlayerDistance = 5.5f;
+	[SerializeField] float minCirclingDirectionSwitchTime = 2;
+	[SerializeField] float maxCirclingDirectionSwitchTime = 4.5f;
 
 	private AIState activeState;
 
@@ -24,8 +33,8 @@ public class AIController : ActorBehaviour
 	void Start()
 	{
 		ActorBehaviour player = GameObject.Find("PlayerActor").GetComponent<ActorBehaviour>();
-		wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, player);
-		attackBehavior = new AIAttackBehavior(this, minPlayerDistance, player);
+		wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, minEdgeDistance, player);
+		attackBehavior = new AIAttackBehavior(this, minPlayerDistance, maxPlayerDistance, minEdgeDistance, minCirclingDirectionSwitchTime, maxCirclingDirectionSwitchTime, player);
 
 		SwitchBehavior(AIState.wandering, true);
 	}

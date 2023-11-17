@@ -12,29 +12,30 @@ public class AIWanderBehavior : AIBaseBehavior
 	private float maxMoveTime;
 	private float minPlayerDistance;
 
-	private ActorBehaviour player;
+	private Vector3 moveDirection;
 
-	private Vector2 moveDirection;
-
-	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, ActorBehaviour _player)
+	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, ActorBehaviour _player)
 	{
 		controller = _controller;
 		maxMoveTime = _maxMoveTime;
 		minPlayerDistance = _minPlayerDistance;
 		player = _player;
+		detectEdgeDistance = _detectEdgeDistance;
 	}
 
 	public override void OnInit() { }
 
 	public override void OnEnter() { }
 
-	public override void OnExit() { }
+	public override void OnExit()
+	{
+		controller.Move(Vector2.zero);
+	}
 
 	public override void OnUpdate()
 	{
 		if (Vector3.Distance(player.transform.position, controller.transform.position) <= minPlayerDistance)
 		{
-			controller.Move(Vector2.zero);
 			controller.SwitchBehavior(AIState.attacking);
 			return;
 		}
@@ -42,15 +43,23 @@ public class AIWanderBehavior : AIBaseBehavior
 		if (moveTime <= 0.0f)
 		{
 			moveDirection = URand.insideUnitSphere;
-			Vector3 projectedMoveDirection = Vector3.ProjectOnPlane(moveDirection, Vector3.up);
-			moveDirection = new Vector2(projectedMoveDirection.x, projectedMoveDirection.z);
 			moveTime = maxMoveTime;
 		}
 		else
 		{
 			moveTime -= Time.deltaTime;
 		}
-		controller.Move(moveDirection);
+
+		if (!Physics.Raycast(controller.transform.position + Vector3.up, moveDirection, detectEdgeDistance))
+		{
+			if (!Physics.Raycast(controller.transform.position + Vector3.up + moveDirection * detectEdgeDistance, Vector3.down, 2))
+			{
+				controller.Move(Vector2.zero);
+				return;
+			}
+		}
+
+		controller.Move(new Vector2(moveDirection.x, moveDirection.z));
 	}
 
 	public override void OnFixedUpdate() { }

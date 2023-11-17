@@ -62,11 +62,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b6d6f3591c5984640ae23dbfb51c2a93, type: 2}
+      objectReference: {fileID: 2100000, guid: 55daeefc3e8fcf04ab098f7428b2f54e, type: 2}
     - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_Name
       value: AIActor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
@@ -115,9 +120,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 7401894400906341932}
-  _trigger: {fileID: 3626185153956959314}
-  _dragCoefficientZ: 4
+  _groundTrigger: {fileID: 3626185153956959314}
+  _rotationSpeed: 8
   _moveForce: 40
+  _dragCoefficientHorizontal: 4
+  _dashCoefficientCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _angleDifferenceToDash: 80
+  _stopCoefficientCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _coordinate: 1
-  maxMoveTime: 2.5
   minPlayerDistance: 3.5
+  minEdgeDistance: 7
+  maxMoveTime: 2.5
+  maxPlayerDistance: 5.5
+  minCirclingDirectionSwitchTime: 2
+  maxCirclingDirectionSwitchTime: 4.5

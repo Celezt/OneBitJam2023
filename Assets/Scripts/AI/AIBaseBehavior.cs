@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class AIBaseBehavior
 {
 	protected AIController controller;
+	protected ActorBehaviour player;
+	protected float detectEdgeDistance;
 
 	public abstract void OnInit();
 	public abstract void OnEnter();
