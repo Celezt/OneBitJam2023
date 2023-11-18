@@ -41,8 +41,9 @@ public class Billboard : MonoBehaviour
         if (ActiveFacedObject == null) 
             return;
 
-        Vector3 forward = ActiveFacedObject.forward.x_z().normalized;
-        transform.rotation = _initialRotation * Quaternion.Euler(forward);
+        float cameraAngle = ActiveFacedObject.transform.eulerAngles.y;
+        Quaternion relativeRotation = _initialRotation * Quaternion.Euler(0, cameraAngle, 0);
+        transform.rotation = relativeRotation;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
