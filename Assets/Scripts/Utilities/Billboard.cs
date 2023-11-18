@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,18 @@ public class Billboard : MonoBehaviour
     private static Camera _camera;
 
     [SerializeField]
-    private Transform _facedObject;
-
+    private Transform _target;
+    [SerializeField]
+    private bool _fixedRotation;
+    [SerializeField, EnableIf(nameof(_fixedRotation)), Indent]
     private Quaternion _initialRotation;
 
     private Transform ActiveFacedObject
     {
         get
         {
-            if (_facedObject != null) 
-                return _facedObject;
+            if (_target != null) 
+                return _target;
 
             if (_camera != null) 
                 return _camera.transform;
@@ -29,7 +32,8 @@ public class Billboard : MonoBehaviour
 
     private void OnEnable()
     {
-        _initialRotation = transform.rotation;
+        if (!_fixedRotation)
+            _initialRotation = transform.rotation;
     }
 
     private void Update()

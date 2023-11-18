@@ -641,7 +641,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f77b6813d5e341b93cb0210581457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facedObject: {fileID: 0}
+  _target: {fileID: 0}
+  _fixedRotation: 1
+  _initialRotation: {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
 --- !u!4 &9021522505579928866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
