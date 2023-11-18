@@ -457,17 +457,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
@@ -493,6 +493,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -6511705460739230324, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0028586378
+      objectReference: {fileID: 0}
+    - target: {fileID: -6511705460739230324, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0012507609
+      objectReference: {fileID: 0}
+    - target: {fileID: -6511705460739230324, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -6303116636865536453, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
@@ -627,6 +642,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6767709335892932101}
+    - targetCorrespondingSourceObject: {fileID: -101109824079779681, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234202395868591702}
     - targetCorrespondingSourceObject: {fileID: 6365309745006458486, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       insertIndex: -1
@@ -659,6 +678,56 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1234202395868591702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297398861571936854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246455474a0d74a4291b3cedc896ebdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonePaths:
+  - 
+  - Root
+  - Root/Thigh.L
+  - Root/Thigh.L/Calf.L
+  - Root/Thigh.L/Calf.L/Foot.L
+  - Root/Thigh.R
+  - Root/Thigh.R/Calf.R
+  - Root/Thigh.R/Calf.R/Foot.R
+  - Root/Torso
+  - Root/Torso/Arm.L
+  - Root/Torso/Arm.L/Hand.L
+  - Root/Torso/Arm.L/Hand.L/Hold.L
+  - Root/Torso/Arm.R
+  - Root/Torso/Arm.R/Hand.R
+  - Root/Torso/Arm.R/Hand.R/Hold.R
+  - Root/Torso/Battery
+  - Root/Torso/Head
+  - Root/Torso/Head/Ear.L
+  - Root/Torso/Head/Ear.R
+  - Root/Torso/Head/Plant
+  - Root/Torso/Head/Plant/Plant.002
+  - Root/Torso/Head/Plant/Plant.002/Plant.001
+  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf
+  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf/Leaf.001
+  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002
+  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002/Leaf.003
+  showBones: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+  foldoutBones: 18000000160000001500000014000000100000000d0000000c0000000a000000090000000800000006000000050000000300000002000000010000000000000013000000
+  mirrorBones: ffffffffffffffff050000000600000007000000020000000300000004000000ffffffff0c0000000d0000000e000000090000000a0000000b000000ffffffffffffffff1200000011000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  mirrorBlendShape: []
+  animatorIkData: []
+  originalIkData: []
+  selectionData: []
+  lastSelectAnimationClip: {fileID: 7400000, guid: 2cae20509b264674787d0d2f9d5dbc4c,
+    type: 2}
+  handPoseList: []
+  blendShapeList: []
 --- !u!1 &2517025014440840383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6365309745006458486, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
