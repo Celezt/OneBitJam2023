@@ -571,6 +571,11 @@ PrefabInstance:
       propertyPath: _stopForceCurve.m_Curve.Array.data[1].value
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 3280221510740631355, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+        type: 3}
+      propertyPath: _fixedRotation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4170092767132382167, guid: bd45b73470d7bd34db85f6b5e03c35b6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -772,6 +777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984583894862664708, guid: ef420e36cdfdc40409d396554bdaebba,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 9114801965026349719, guid: ef420e36cdfdc40409d396554bdaebba,
         type: 3}

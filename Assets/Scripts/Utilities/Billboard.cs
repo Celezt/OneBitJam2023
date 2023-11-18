@@ -7,7 +7,7 @@ public class Billboard : MonoBehaviour
 {
     private static Camera _camera;
 
-    [SerializeField]
+    [SerializeField, SuffixLabel("Optional")]
     private Transform _target;
     [SerializeField]
     private bool _fixedRotation;
