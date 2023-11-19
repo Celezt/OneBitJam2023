@@ -14,7 +14,7 @@ public class AIWanderBehavior : AIBaseBehavior
 
 	private Vector3 moveDirection;
 
-	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, ActorBehaviour _player)
+	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, MoveBehaviour _player)
 	{
 		controller = _controller;
 		maxMoveTime = _maxMoveTime;

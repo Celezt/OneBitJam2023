@@ -146,6 +146,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e6bc313-0d92-467f-bdd6-976703642951
+    m_ActionName: Player/RightAttack[/Mouse/rightButton,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 95f0a018-bb7b-469a-88e4-97784efa81e7
+    m_ActionName: UI/Debug[/Keyboard/backquote]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -383,6 +391,41 @@ PrefabInstance:
         type: 3}
       propertyPath: _initialForceCurve.m_Curve.Array.data[1].tangentMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9212195994810034599}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AnimationBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3767711668668664341, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -638,6 +681,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9212195994810034599}
     - targetCorrespondingSourceObject: {fileID: -101109824079779681, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       insertIndex: -1
@@ -724,7 +771,7 @@ MonoBehaviour:
   animatorIkData: []
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 2cae20509b264674787d0d2f9d5dbc4c,
+  lastSelectAnimationClip: {fileID: 7400000, guid: a2bb3d0fbab75384b98c3d537f6979f9,
     type: 2}
   handPoseList: []
   blendShapeList: []
@@ -749,6 +796,31 @@ MonoBehaviour:
   _target: {fileID: 0}
   _fixedRotation: 1
   _initialRotation: {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
+--- !u!95 &3157813059577530200 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8842918571516754633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8536909849936054168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8842918571516754633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9212195994810034599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536909849936054168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0d0a4ee0616864dabf299c43009465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 3157813059577530200}
 --- !u!4 &9021522505579928866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,

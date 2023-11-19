@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ActorBehaviour : MonoBehaviour
+public class MoveBehaviour : MonoBehaviour
 {
     /// <summary>
     /// Direction in world space.
@@ -45,6 +46,9 @@ public class ActorBehaviour : MonoBehaviour
     private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
     [SerializeField]
     private Coordinates _coordinate = Coordinates.World;
+
+    [SerializeField]
+    private UnityEvent<float> _onSpeedChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
     private CancellationTokenSource _stopForceCancellationTokenSource;
@@ -109,18 +113,23 @@ public class ActorBehaviour : MonoBehaviour
     {
         float deltaTime = Time.deltaTime;
 
-        if (!_groundTrigger?.IsTriggered ?? false)  // Don't move if it actor is not on the ground.
+        if (_groundTrigger == null && _groundTrigger.IsTriggered)  // Don't move if it actor is not on the ground.
             _direction = Vector3.zero;
 
+        Vector3 velocity = _rigidbody.velocity.x_z();
+
         Vector3 dragForce = _direction != Vector3.zero ? 
-            -_dragCoefficientHorizontal * _rigidbody.velocity.x_z() : Vector3.zero;
+            -_dragCoefficientHorizontal * velocity : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
 
         Quaternion lookRotation = Quaternion.LookRotation(_lookDirection, Vector3.up);
         Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, lookRotation, deltaTime * _rotationSpeed);
         _rigidbody.MoveRotation(rotation);
 
-        _rigidbody?.AddForce(totalMoveForce);
+        _rigidbody.AddForce(totalMoveForce);
+
+        float speed = velocity.magnitude;
+        _onSpeedChangeEvent.Invoke(speed);
     }
 
     private void OnDestroy()

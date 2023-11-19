@@ -8,7 +8,7 @@ public enum AIState
 	attacking
 }
 
-public class AIController : ActorBehaviour
+public class AIController : MoveBehaviour
 {
 	[Header("Generic AI settings")]
 	[SerializeField] float minPlayerDistance = 3.5f;
@@ -32,7 +32,7 @@ public class AIController : ActorBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		ActorBehaviour player = GameObject.Find("PlayerActor").GetComponent<ActorBehaviour>();
+		MoveBehaviour player = GameObject.Find("PlayerActor").GetComponent<MoveBehaviour>();
 		wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, minEdgeDistance, player);
 		attackBehavior = new AIAttackBehavior(this, minPlayerDistance, maxPlayerDistance, minEdgeDistance, minCirclingDirectionSwitchTime, maxCirclingDirectionSwitchTime, player);
 

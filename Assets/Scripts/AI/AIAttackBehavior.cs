@@ -14,7 +14,7 @@ public class AIAttackBehavior : AIBaseBehavior
 	private Vector3 circleDirection;
 	private Vector3 lastCross;
 
-	public AIAttackBehavior(AIController _controller, float _minPlayerDistance, float _maxPlayerDistance, float _detectEdgeDistance, float _minCircleSwitchTime, float _maxCircleSwitchTime, ActorBehaviour _player)
+	public AIAttackBehavior(AIController _controller, float _minPlayerDistance, float _maxPlayerDistance, float _detectEdgeDistance, float _minCircleSwitchTime, float _maxCircleSwitchTime, MoveBehaviour _player)
 	{
 		controller = _controller;
 		minPlayerDistance = _minPlayerDistance;
