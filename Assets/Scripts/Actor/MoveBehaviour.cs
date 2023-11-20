@@ -22,11 +22,6 @@ public class MoveBehaviour : MonoBehaviour
         get => _moveForce;
         set => _moveForce = value;
     }
-    public Coordinates Coordinate
-    {
-        get => _coordinate;
-        set => _coordinate = value;
-    }
 
     [SerializeField] 
     private Rigidbody _rigidbody;
@@ -44,8 +39,6 @@ public class MoveBehaviour : MonoBehaviour
     private float _angleDifferenceToDash = 80;
     [SerializeField]
     private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
-    [SerializeField]
-    private Coordinates _coordinate = Coordinates.World;
 
     [SerializeField]
     private UnityEvent<float> _onSpeedChangeEvent;
@@ -57,31 +50,12 @@ public class MoveBehaviour : MonoBehaviour
     private Vector3 _lookDirection;
     private bool _isMoving;
 
-    public enum Coordinates
-    {
-        World,
-        Camera,
-    }
-
     public void Move(InputAction.CallbackContext context)
         => Move(context.ReadValue<Vector2>());
 
     public void Move(Vector2 direction)
     {
-        direction.Normalize();
-
-        switch (_coordinate)
-        {
-            case Coordinates.World:
-                _direction = direction.x_z();
-                break;
-            case Coordinates.Camera:
-                var camera = Camera.main;
-                float cameraAngle = camera.transform.eulerAngles.y;
-                Vector3 relativeDirection = Quaternion.Euler(0, cameraAngle, 0) * direction.x_z();
-                _direction = relativeDirection;
-                break;
-        }
+        _direction = direction.x_z().normalized;
 
         if (_direction != Vector3.zero)
         {
@@ -104,7 +78,7 @@ public class MoveBehaviour : MonoBehaviour
             _lookDirection = _direction;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         _lookDirection = transform.forward;
     }

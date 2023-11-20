@@ -18,16 +18,14 @@ public class LookBehaviour : MonoBehaviour
     public void Look(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
-            Vector2 direction = context.ReadValue<Vector2>();
-
-            if (direction != Vector2.zero)
-                Look(direction);
-        }
+            Look(context.ReadValue<Vector2>());
     }
 
     public void Look(Vector2 direction)
     {
+        if (direction == Vector2.zero)
+            return;
+
         _lookDirection = direction.normalized;
     }
 
