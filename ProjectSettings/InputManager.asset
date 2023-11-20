@@ -25,11 +25,19 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
-    - m_Name: Look
+    - m_Name: LookPosition
       m_Type: 0
       m_ExpectedControlType: Vector2
       m_Id: 6b444451-8a00-4d00-a97e-f47457f736a8
       m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 1
+    - m_Name: LookDelta
+      m_Type: 0
+      m_ExpectedControlType: Vector2
+      m_Id: ada92af8-4cfc-44a6-9eac-759a6432426a
+      m_Processors: StickDeadzone
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
@@ -179,14 +187,6 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     - m_Name: 
-      m_Id: 1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8
-      m_Path: <XRController>/{Primary2DAxis}
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: XR
-      m_Action: Move
-      m_Flags: 0
-    - m_Name: 
       m_Id: 3ea4d645-4504-4529-b061-ab81934c3752
       m_Path: <Joystick>/stick
       m_Interactions: 
@@ -195,32 +195,32 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 0
     - m_Name: 
-      m_Id: c1f7a91b-d0fd-4a62-997e-7fb9b69bf235
+      m_Id: 8c8e490b-c610-4785-884f-f04217b23ca4
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: ;Keyboard&Mouse;Touch
+      m_Action: LookPosition
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 7b92d8fd-e9da-4d34-acdf-736271e9a88c
       m_Path: <Gamepad>/rightStick
       m_Interactions: 
       m_Processors: 
       m_Groups: ;Gamepad
-      m_Action: Look
+      m_Action: LookDelta
       m_Flags: 0
     - m_Name: 
-      m_Id: 8c8e490b-c610-4785-884f-f04217b23ca4
-      m_Path: <Pointer>/delta
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: ;Keyboard&Mouse;Touch
-      m_Action: Look
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 3e5f5442-8668-4b27-a940-df99bad7e831
+      m_Id: 1aea7c15-a089-4fd8-9120-1115adfec819
       m_Path: <Joystick>/{Hatswitch}
       m_Interactions: 
       m_Processors: 
       m_Groups: Joystick
-      m_Action: Look
+      m_Action: LookDelta
       m_Flags: 0
     - m_Name: 
       m_Id: 143bb1cd-cc10-4eca-a2f0-a3664166fe91
-      m_Path: <Gamepad>/buttonWest
+      m_Path: <Gamepad>/leftTrigger
       m_Interactions: 
       m_Processors: 
       m_Groups: ;Gamepad
@@ -235,40 +235,8 @@ MonoBehaviour:
       m_Action: LeftAttack
       m_Flags: 0
     - m_Name: 
-      m_Id: 886e731e-7071-4ae4-95c0-e61739dad6fd
-      m_Path: <Touchscreen>/primaryTouch/tap
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: ;Touch
-      m_Action: LeftAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: ee3d0cd2-254e-47a7-a8cb-bc94d9658c54
-      m_Path: <Joystick>/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: Joystick
-      m_Action: LeftAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 8255d333-5683-4943-a58a-ccb207ff1dce
-      m_Path: <XRController>/{PrimaryAction}
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: XR
-      m_Action: LeftAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: Keyboard&Mouse
-      m_Action: LeftAttack
-      m_Flags: 0
-    - m_Name: 
       m_Id: a53b8a26-3c9f-4b70-8bff-4a088eaf0e10
-      m_Path: <Gamepad>/buttonWest
+      m_Path: <Gamepad>/rightTrigger
       m_Interactions: 
       m_Processors: 
       m_Groups: ;Gamepad
@@ -280,38 +248,6 @@ MonoBehaviour:
       m_Interactions: 
       m_Processors: 
       m_Groups: ;Keyboard&Mouse
-      m_Action: RightAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 606094ff-ebf0-4285-9747-81fc1810942e
-      m_Path: <Touchscreen>/primaryTouch/tap
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: ;Touch
-      m_Action: RightAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 74f37f5b-7b06-4743-ba07-4faae683f6b9
-      m_Path: <Joystick>/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: Joystick
-      m_Action: RightAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: ef7a2b9c-6e36-4433-bfca-38848eae86ec
-      m_Path: <XRController>/{PrimaryAction}
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: XR
-      m_Action: RightAttack
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 22bedd1d-12ef-4a1b-9924-43412fa73ce8
-      m_Path: <Keyboard>/enter
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: Keyboard&Mouse
       m_Action: RightAttack
       m_Flags: 0
     - m_Name: 
@@ -873,20 +809,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -9024026263344295118}
   m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
---- !u!114 &-7889987776759355440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/Look
-  m_EditorClassIdentifier: 
-  m_Asset: {fileID: -9024026263344295118}
-  m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
 --- !u!114 &-6642635440725228890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,6 +837,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -9024026263344295118}
   m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
+--- !u!114 &-4475891784072931693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/LookDelta
+  m_EditorClassIdentifier: 
+  m_Asset: {fileID: -9024026263344295118}
+  m_ActionId: ada92af8-4cfc-44a6-9eac-759a6432426a
 --- !u!114 &-4360918696344454294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +949,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -9024026263344295118}
   m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
+--- !u!114 &-359092184707956314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/LookPosition
+  m_EditorClassIdentifier: 
+  m_Asset: {fileID: -9024026263344295118}
+  m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
 --- !u!13 &1
 InputManager:
   m_ObjectHideFlags: 0

@@ -75,7 +75,19 @@ MonoBehaviour:
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7923776060244126443}
+        m_TargetAssemblyTypeName: ScreenPositionToDirection, Assembly-CSharp
+        m_MethodName: OnScreenPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
@@ -154,6 +166,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 95f0a018-bb7b-469a-88e4-97784efa81e7
     m_ActionName: UI/Debug[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 743636590731062179}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ada92af8-4cfc-44a6-9eac-759a6432426a
+    m_ActionName: Player/LookDelta[/DualSenseGamepadHID/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -449,7 +477,15 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 9021522505579928866}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 743636590731062179}
+    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7923776060244126443}
   m_SourcePrefab: {fileID: 100100000, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
 --- !u!4 &990641494243786660 stripped
 Transform:
@@ -463,12 +499,61 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3387282941726537952}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7545885958149031782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82e4c089610de2a478dc7eb6cbb431b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7545885958149031782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+    type: 3}
+  m_PrefabInstance: {fileID: 3387282941726537952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &743636590731062179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7545885958149031782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517d4d5e90ec79345889a7746caee42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotor: {fileID: 122861892835646842}
+  _fixedRotation: 1
+  _initialRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+--- !u!114 &7923776060244126443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7545885958149031782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf17c3ec1f59f146864972db2c2fbac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pivot: {fileID: 990641494243786660}
+  _onDirectionEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 743636590731062179}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &8842918571516754633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,96 +770,17 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9212195994810034599}
-    - targetCorrespondingSourceObject: {fileID: -101109824079779681, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6767709335892932101}
-    - targetCorrespondingSourceObject: {fileID: -101109824079779681, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1234202395868591702}
     - targetCorrespondingSourceObject: {fileID: 6365309745006458486, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3280221510740631355}
   m_SourcePrefab: {fileID: 100100000, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e, type: 3}
---- !u!1 &297398861571936854 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -101109824079779681, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
+--- !u!4 &122861892835646842 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -356868852521146445, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
     type: 3}
   m_PrefabInstance: {fileID: 8842918571516754633}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &6767709335892932101
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297398861571936854}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e, type: 3}
-  m_Controller: {fileID: 9100000, guid: f806602008fc5cc4e8955cece786ace8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1234202395868591702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297398861571936854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246455474a0d74a4291b3cedc896ebdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonePaths:
-  - 
-  - Root
-  - Root/Thigh.L
-  - Root/Thigh.L/Calf.L
-  - Root/Thigh.L/Calf.L/Foot.L
-  - Root/Thigh.R
-  - Root/Thigh.R/Calf.R
-  - Root/Thigh.R/Calf.R/Foot.R
-  - Root/Torso
-  - Root/Torso/Arm.L
-  - Root/Torso/Arm.L/Hand.L
-  - Root/Torso/Arm.L/Hand.L/Hold.L
-  - Root/Torso/Arm.R
-  - Root/Torso/Arm.R/Hand.R
-  - Root/Torso/Arm.R/Hand.R/Hold.R
-  - Root/Torso/Battery
-  - Root/Torso/Head
-  - Root/Torso/Head/Ear.L
-  - Root/Torso/Head/Ear.R
-  - Root/Torso/Head/Plant
-  - Root/Torso/Head/Plant/Plant.002
-  - Root/Torso/Head/Plant/Plant.002/Plant.001
-  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf
-  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf/Leaf.001
-  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002
-  - Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002/Leaf.003
-  showBones: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
-  foldoutBones: 18000000160000001500000014000000100000000d0000000c0000000a000000090000000800000006000000050000000300000002000000010000000000000013000000
-  mirrorBones: ffffffffffffffff050000000600000007000000020000000300000004000000ffffffff0c0000000d0000000e000000090000000a0000000b000000ffffffffffffffff1200000011000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-  mirrorBlendShape: []
-  animatorIkData: []
-  originalIkData: []
-  selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: a2bb3d0fbab75384b98c3d537f6979f9,
-    type: 2}
-  handPoseList: []
-  blendShapeList: []
 --- !u!1 &2517025014440840383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6365309745006458486, guid: 2c3175d5bac8a0e4f8631ba158e3cc9e,
