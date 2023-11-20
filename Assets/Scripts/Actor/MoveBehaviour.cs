@@ -128,7 +128,8 @@ public class MoveBehaviour : MonoBehaviour
 
         _rigidbody.AddForce(totalMoveForce);
 
-        float speed = velocity.magnitude;
+        float minSpeed = (totalMoveForce.magnitude / _rigidbody.mass) * deltaTime * 10.0f;
+        float speed = _direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed);
         _onSpeedChangeEvent.Invoke(speed);
     }
 

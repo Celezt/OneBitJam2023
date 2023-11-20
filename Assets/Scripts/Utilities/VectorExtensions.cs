@@ -14,4 +14,6 @@ public static class VectorExtensions
     public static Vector3 __z(this Vector3 v) => new Vector3(0, 0, v.z);
     public static Vector3 x__(this Vector3 v) => new Vector3(v.x, 0, 0);
     public static Vector3 _y_(this Vector3 v) => new Vector3(0, v.y, 0);
+
+    public static bool IsZero(this Vector3 v) => v == Vector3.zero;
 }
