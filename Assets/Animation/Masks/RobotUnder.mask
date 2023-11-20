@@ -20,9 +20,47 @@ AvatarMask:
   - m_Path: Plant
     m_Weight: 0
   - m_Path: PlayerRobot
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: PlayerRobot/Root
     m_Weight: 1
+  - m_Path: PlayerRobot/Root/Rotor
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.L
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.L/Hand.L
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.L/Hand.L/Hold.L
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.R
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.R/Hand.R
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Arm.R/Hand.R/Hold.R
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Battery
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Ear.L
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Ear.R
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf/Leaf.001
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002
+    m_Weight: 0
+  - m_Path: PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002/Leaf.003
+    m_Weight: 0
   - m_Path: PlayerRobot/Root/Thigh.L
     m_Weight: 1
   - m_Path: PlayerRobot/Root/Thigh.L/Calf.L
@@ -35,41 +73,5 @@ AvatarMask:
     m_Weight: 1
   - m_Path: PlayerRobot/Root/Thigh.R/Calf.R/Foot.R
     m_Weight: 1
-  - m_Path: PlayerRobot/Root/Torso
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.L
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.L/Hand.L
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.L/Hand.L/Hold.L
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.R
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.R/Hand.R
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Arm.R/Hand.R/Hold.R
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Battery
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Ear.L
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Ear.R
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002/Plant.001
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf/Leaf.001
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002
-    m_Weight: 0
-  - m_Path: PlayerRobot/Root/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002/Leaf.003
-    m_Weight: 0
   - m_Path: Top
     m_Weight: 0
