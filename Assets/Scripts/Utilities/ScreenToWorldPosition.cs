@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ScreenPositionToDirection : MonoBehaviour
+public class ScreenToWorldPosition : MonoBehaviour
 {
     private static readonly Plane _plane = new Plane(Vector3.up, Vector3.zero);
 
-    [SerializeField]
-    private Transform _pivot;
-
-    public UnityEvent<Vector2> _onDirectionEvent;
+    public UnityEvent<Vector2> _onPositionChangedEvent;
 
     private Camera _camera;
      
@@ -25,10 +22,7 @@ public class ScreenPositionToDirection : MonoBehaviour
             return;
 
         Vector3 targetWorldPosition = ray.GetPoint(enter);
-        Vector3 pivotWorldPosition = _plane.ClosestPointOnPlane(_pivot.position);
-        Vector2 direction = targetWorldPosition.xz() - pivotWorldPosition.xz();
-
-        _onDirectionEvent.Invoke(direction);
+        _onPositionChangedEvent.Invoke(targetWorldPosition.xz());
     }
 
     private void OnEnable()

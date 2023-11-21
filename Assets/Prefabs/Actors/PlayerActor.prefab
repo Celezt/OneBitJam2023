@@ -572,16 +572,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7545885958149031782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf17c3ec1f59f146864972db2c2fbac, type: 3}
+  m_Script: {fileID: 11500000, guid: 484a231be6a85e547b271f4b93ff4ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pivot: {fileID: 990641494243786660}
-  _onDirectionEvent:
+  _onPositionChangedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 743636590731062179}
         m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
-        m_MethodName: Look
+        m_MethodName: LookAt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
