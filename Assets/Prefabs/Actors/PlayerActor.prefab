@@ -561,6 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotor: {fileID: 123731052324996990}
+  _rotationSpeed: 10
   _fixedRotation: 1
   _initialRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
 --- !u!114 &7923776060244126443
