@@ -5,6 +5,7 @@ using System.Diagnostics;
 using UnityEngine;
 using URand = UnityEngine.Random;
 using UDebug = UnityEngine.Debug;
+using UnityEngine.Scripting.APIUpdating;
 
 public class AIWanderBehavior : AIBaseBehavior
 {
@@ -14,13 +15,14 @@ public class AIWanderBehavior : AIBaseBehavior
 
 	private Vector3 moveDirection;
 
-	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, MoveBehaviour _player)
+	public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, float _detectWallDistance, MoveBehaviour _player)
 	{
 		controller = _controller;
 		maxMoveTime = _maxMoveTime;
 		minPlayerDistance = _minPlayerDistance;
 		player = _player;
 		detectEdgeDistance = _detectEdgeDistance;
+		detectWallDistance = _detectWallDistance;
 	}
 
 	public override void OnInit() { }
@@ -59,7 +61,15 @@ public class AIWanderBehavior : AIBaseBehavior
 			}
 		}
 
+		if (Physics.Raycast(controller.transform.position + Vector3.up, moveDirection, detectWallDistance))
+		{
+			controller.Move(Vector2.zero);
+			moveTime = 0.0f;
+			return;
+		}
+
 		controller.Move(new Vector2(moveDirection.x, moveDirection.z));
+		controller.Look(new Vector2(moveDirection.x, moveDirection.z));
 	}
 
 	public override void OnFixedUpdate() { }

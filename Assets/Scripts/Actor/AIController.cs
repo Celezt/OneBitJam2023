@@ -8,19 +8,23 @@ public enum AIState
 	attacking
 }
 
-public class AIController : MoveBehaviour
+public class AIController : MonoBehaviour
 {
 	[Header("Generic AI settings")]
+	[SerializeField] MoveBehaviour moveController;
+	[SerializeField] LookBehaviour lookController;
 	[SerializeField] float minPlayerDistance = 3.5f;
 	[SerializeField] float minEdgeDistance = 7;
 
 	[Header("Wander behavior settings")]
 	[SerializeField] float maxMoveTime = 2.5f;
+	[SerializeField] float minWallDistance = 5;
 
 	[Header("Attack behavior settings")]
 	[SerializeField] float maxPlayerDistance = 5.5f;
 	[SerializeField] float minCirclingDirectionSwitchTime = 2;
 	[SerializeField] float maxCirclingDirectionSwitchTime = 4.5f;
+	[SerializeField] WeaponHandler weaponHandler;
 
 	private AIState activeState;
 
@@ -33,8 +37,8 @@ public class AIController : MoveBehaviour
 	void Start()
 	{
 		MoveBehaviour player = GameObject.Find("PlayerActor").GetComponent<MoveBehaviour>();
-		wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, minEdgeDistance, player);
-		attackBehavior = new AIAttackBehavior(this, minPlayerDistance, maxPlayerDistance, minEdgeDistance, minCirclingDirectionSwitchTime, maxCirclingDirectionSwitchTime, player);
+		wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, minEdgeDistance, minWallDistance, player);
+		attackBehavior = new AIAttackBehavior(this, minPlayerDistance, maxPlayerDistance, minEdgeDistance, minCirclingDirectionSwitchTime, maxCirclingDirectionSwitchTime, minWallDistance, player, weaponHandler);
 
 		SwitchBehavior(AIState.wandering, true);
 	}
@@ -44,11 +48,6 @@ public class AIController : MoveBehaviour
 	{
 		activeBehavior?.OnUpdate();
 	}
-
-	// void FixedUpdate()
-	// {
-	// 	activeBehavior?.OnFixedUpdate();
-	// }
 
 	public void SwitchBehavior(AIState newState, bool onSceneStart = false)
 	{
@@ -68,4 +67,10 @@ public class AIController : MoveBehaviour
 		activeBehavior?.OnEnter();
 		activeState = newState;
 	}
+
+	public void Move(Vector2 direction) => moveController.Move(direction);
+
+	public void LookAt(Vector2 target) => lookController.LookAt(target);
+
+	public void Look(Vector2 direction) => lookController.Look(direction);
 }
