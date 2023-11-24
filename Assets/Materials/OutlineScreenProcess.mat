@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Outlines
+  m_Name: OutlineScreenProcess
   m_Shader: {fileID: -6465566751694194690, guid: 6cb3983b071d2d94c802c550817c1c65,
     type: 3}
   m_Parent: {fileID: 0}
@@ -106,6 +106,7 @@ Material:
     - _ColorThreshold: 10
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthThreshold: 1.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -126,6 +127,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _SteepAngleMultiplier: 10.5
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
