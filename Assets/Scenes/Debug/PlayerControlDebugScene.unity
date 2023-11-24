@@ -551,75 +551,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8536909849936054168, guid: bd45b73470d7bd34db85f6b5e03c35b6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 552189160}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd45b73470d7bd34db85f6b5e03c35b6, type: 3}
---- !u!1 &552189159 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8536909849936054168, guid: bd45b73470d7bd34db85f6b5e03c35b6,
-    type: 3}
-  m_PrefabInstance: {fileID: 552189158}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &552189160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552189159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246455474a0d74a4291b3cedc896ebdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonePaths:
-  - 
-  - Battery
-  - Bottom
-  - Head
-  - Plant
-  - PlayerRobot
-  - PlayerRobot/Root
-  - PlayerRobot/Root/Rotor
-  - PlayerRobot/Root/Rotor/Torso
-  - PlayerRobot/Root/Rotor/Torso/Arm.L
-  - PlayerRobot/Root/Rotor/Torso/Arm.L/Hand.L
-  - PlayerRobot/Root/Rotor/Torso/Arm.L/Hand.L/Hold.L
-  - PlayerRobot/Root/Rotor/Torso/Arm.R
-  - PlayerRobot/Root/Rotor/Torso/Arm.R/Hand.R
-  - PlayerRobot/Root/Rotor/Torso/Arm.R/Hand.R/Hold.R
-  - PlayerRobot/Root/Rotor/Torso/Battery
-  - PlayerRobot/Root/Rotor/Torso/Head
-  - PlayerRobot/Root/Rotor/Torso/Head/Ear.L
-  - PlayerRobot/Root/Rotor/Torso/Head/Ear.R
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf/Leaf.001
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002
-  - PlayerRobot/Root/Rotor/Torso/Head/Plant/Plant.002/Plant.001/Leaf.002/Leaf.003
-  - PlayerRobot/Root/Thigh.L
-  - PlayerRobot/Root/Thigh.L/Calf.L
-  - PlayerRobot/Root/Thigh.L/Calf.L/Foot.L
-  - PlayerRobot/Root/Thigh.R
-  - PlayerRobot/Root/Thigh.R/Calf.R
-  - PlayerRobot/Root/Thigh.R/Calf.R/Foot.R
-  - Top
-  showBones: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001a0000001b0000001c0000001d0000001e0000001f000000
-  foldoutBones: 1e0000001d0000001b0000001a0000001800000016000000150000001400000013000000100000000d0000000c0000000a000000090000000800000007000000060000000500000000000000
-  mirrorBones: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1d0000001e0000001f0000001a0000001b0000001c000000ffffffff
-  mirrorBlendShape: []
-  animatorIkData: []
-  originalIkData: []
-  selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: a2bb3d0fbab75384b98c3d537f6979f9,
-    type: 2}
-  handPoseList: []
-  blendShapeList: []
 --- !u!1 &641861203
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +613,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac85f9a74f3effd45a4d8d10327a703b, type: 2}
+  - {fileID: 2100000, guid: 369a5e427dac74747b1abda98bcc8a6c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -939,6 +872,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 969353832145163327, guid: ef420e36cdfdc40409d396554bdaebba,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
     - target: {fileID: 5793289055704518644, guid: ef420e36cdfdc40409d396554bdaebba,
         type: 3}
       propertyPath: m_Name
@@ -1047,7 +986,7 @@ PrefabInstance:
     - target: {fileID: 8984583894862664708, guid: ef420e36cdfdc40409d396554bdaebba,
         type: 3}
       propertyPath: m_BlockingMask.m_Bits
-      value: 119
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 9114801965026349719, guid: ef420e36cdfdc40409d396554bdaebba,
         type: 3}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2c3175d5bac8a0e4f8631ba158e3cc9e
+guid: d8fa9dab0517a394b9adef914c2f476b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,12 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PlayerRobotMaterial
-    second: {fileID: 2100000, guid: cb275acc263f9c8479dd4ecd668afafb, type: 2}
+    second: {fileID: 2100000, guid: 402be55d00007244d85a011e1557bd6b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PowerMaterial
-    second: {fileID: 2100000, guid: 6f426f60bf372984e8db14bbdb44b15b, type: 2}
+    second: {fileID: 2100000, guid: 0e613f0ee1aabe449bcd67559d905a4a, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: player_robot
+    second: {fileID: 2800000, guid: ae8759c0210b38f429cbcf5e94b052d1, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

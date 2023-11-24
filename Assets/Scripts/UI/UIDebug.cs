@@ -14,6 +14,8 @@ public class UIDebug : MonoBehaviour
     private bool _isActiveByDefault = false;
     [SerializeField]
     private TextMeshProUGUI _velocityText;
+    [SerializeField]
+    private InputAction _toggleDebugAction;
 
     private PlayerInput _playerInput;
     private Rigidbody _rigidbody;
@@ -23,17 +25,27 @@ public class UIDebug : MonoBehaviour
         _container?.SetActive(_isActiveByDefault);
 
         _playerInput = PlayerInput.GetPlayerByIndex(0);
-        _rigidbody = _playerInput.GetComponentInParent<Rigidbody>();
+
+        if (_playerInput != null)
+        {
+            _rigidbody = _playerInput.GetComponentInParent<Rigidbody>();
+        }
     }
 
     private void OnEnable()
     {
-        InputSystem.actions["Debug"].started += OnDebug;
+        _toggleDebugAction.Enable();
+
+        if (_toggleDebugAction != null)
+            _toggleDebugAction.started += OnDebug;
     }
 
     private void OnDisable()
     {
-        InputSystem.actions["Debug"].started -= OnDebug;
+        _toggleDebugAction.Disable();
+
+        if (_toggleDebugAction != null)
+            _toggleDebugAction.started -= OnDebug;
     }
 
     private void FixedUpdate()

@@ -62,7 +62,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 55daeefc3e8fcf04ab098f7428b2f54e, type: 2}
+      objectReference: {fileID: 2100000, guid: ec02162e73c6bc743b6cfc562f0d7c31, type: 2}
     - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_Name
@@ -182,7 +182,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _coordinate: 1
+  _onSpeedChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   minPlayerDistance: 3.5
   minEdgeDistance: 7
   maxMoveTime: 2.5

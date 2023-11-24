@@ -102,7 +102,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &5224686895313404754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +118,23 @@ MonoBehaviour:
   _container: {fileID: 6115050006320061547}
   _isActiveByDefault: 0
   _velocityText: {fileID: 969353832145163327}
+  _toggleDebugAction:
+    m_Name: Toggle Debug
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 8cd6a714-798d-4b75-9150-4e9dd9c77308
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 196cabe2-74e5-4034-b02b-5eb036c49f77
+      m_Path: "<Keyboard>/#(\xA7)"
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Debug
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &6115050006320061547
 GameObject:
   m_ObjectHideFlags: 0
