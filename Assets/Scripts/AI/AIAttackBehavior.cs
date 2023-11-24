@@ -14,7 +14,9 @@ public class AIAttackBehavior : AIBaseBehavior
 	private Vector3 circleDirection;
 	private Vector3 lastCross;
 
-	public AIAttackBehavior(AIController _controller, float _minPlayerDistance, float _maxPlayerDistance, float _detectEdgeDistance, float _minCircleSwitchTime, float _maxCircleSwitchTime, MoveBehaviour _player)
+	private WeaponHandler weaponHandler;
+
+	public AIAttackBehavior(AIController _controller, float _minPlayerDistance, float _maxPlayerDistance, float _detectEdgeDistance, float _minCircleSwitchTime, float _maxCircleSwitchTime, float _detectWallDistance, MoveBehaviour _player, WeaponHandler _weaponHandler)
 	{
 		controller = _controller;
 		minPlayerDistance = _minPlayerDistance;
@@ -24,6 +26,8 @@ public class AIAttackBehavior : AIBaseBehavior
 		lastCross = Vector3.up;
 		minCircleSwitchTime = _minCircleSwitchTime;
 		maxCircleSwitchTime = _maxCircleSwitchTime;
+		weaponHandler = _weaponHandler;
+		detectWallDistance = _detectWallDistance;
 	}
 
 	public override void OnInit() { }
@@ -42,6 +46,16 @@ public class AIAttackBehavior : AIBaseBehavior
 
 	void SwitchCircleDirection()
 	{
+		if (Physics.Raycast(controller.transform.position + Vector3.up, circleDirection.normalized, out RaycastHit hit, detectWallDistance))
+		{
+			if (hit.transform.TryGetComponent(out AIController aIController))
+			{
+				lastCross *= -1;
+				nextCircleSwitch = Time.time + Random.Range(minCircleSwitchTime, maxCircleSwitchTime);
+				return;
+			}
+		}
+
 		if (Time.time > nextCircleSwitch)
 		{
 			lastCross *= -1;
@@ -68,6 +82,10 @@ public class AIAttackBehavior : AIBaseBehavior
 				return;
 			}
 		}
+
+		weaponHandler.OnShoot();
+
+		controller.Look(aiToPlayer2D);
 
 		if (playerDistance > maxPlayerDistance)
 		{

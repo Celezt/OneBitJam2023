@@ -7,6 +7,7 @@ public abstract class AIBaseBehavior
 	protected AIController controller;
 	protected MoveBehaviour player;
 	protected float detectEdgeDistance;
+	protected float detectWallDistance;
 
 	public abstract void OnInit();
 	public abstract void OnEnter();
