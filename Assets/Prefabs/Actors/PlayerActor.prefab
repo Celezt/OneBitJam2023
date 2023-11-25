@@ -60,9 +60,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5256405082218834020}
-        m_TargetAssemblyTypeName: CoordinateConverter2D, Assembly-CSharp
-        m_MethodName: Convert
+      - m_Target: {fileID: 2019255672150269089}
+        m_TargetAssemblyTypeName: MoveBehaviour, Assembly-CSharp
+        m_MethodName: Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -76,9 +76,9 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/l,/Keyboard/leftArrow,/Keyboard/a,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7923776060244126443}
-        m_TargetAssemblyTypeName: ScreenToWorldPosition, Assembly-CSharp
-        m_MethodName: OnScreenPosition
+      - m_Target: {fileID: 743636590731062179}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
+        m_MethodName: LookAt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -92,9 +92,9 @@ MonoBehaviour:
     m_ActionName: Player/LookPosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8360875575318602752}
-        m_TargetAssemblyTypeName: CoordinateConverter2D, Assembly-CSharp
-        m_MethodName: Convert
+      - m_Target: {fileID: 743636590731062179}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
+        m_MethodName: Look
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -413,19 +413,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5256405082218834020}
-    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 743636590731062179}
-    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7923776060244126443}
-    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8360875575318602752}
   m_SourcePrefab: {fileID: 100100000, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
 --- !u!4 &990641494243786660 stripped
 Transform:
@@ -451,35 +439,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3387282941726537952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5256405082218834020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545885958149031782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd66a7e77422194899d966811082c37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputState: 14
-  _coordinate: 1
-  OnConvertedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2019255672150269089}
-        m_TargetAssemblyTypeName: MoveBehaviour, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &743636590731062179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,62 +455,6 @@ MonoBehaviour:
   _rotationSpeed: 10
   _fixedRotation: 1
   _initialRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
---- !u!114 &7923776060244126443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545885958149031782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484a231be6a85e547b271f4b93ff4ec4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onPositionChangedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 743636590731062179}
-        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
-        m_MethodName: LookAt
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8360875575318602752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545885958149031782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd66a7e77422194899d966811082c37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputState: 4
-  _coordinate: 1
-  OnConvertedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 743636590731062179}
-        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
-        m_MethodName: Look
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &5538226394360159793
 PrefabInstance:
   m_ObjectHideFlags: 0
