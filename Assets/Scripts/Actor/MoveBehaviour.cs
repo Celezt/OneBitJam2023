@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+[HideMonoScript]
 public class MoveBehaviour : MonoBehaviour
 {
     /// <summary>
@@ -15,7 +17,12 @@ public class MoveBehaviour : MonoBehaviour
     /// <summary>
     /// Direction the actor should looking towards. Is never zero.
     /// </summary>
-    public Vector3 LookDirection => _lookDirection;
+    [ShowInInspector, DisableInEditorMode, PropertyOrder(-1), LabelText("Rotation (Runtime)")]
+    public Quaternion LookRotation
+    {
+        get => _lookRotation;
+        set => _lookRotation = value;
+    }
     public bool IsMoving => _isMoving;
     public float MoveForce
     {
@@ -23,7 +30,7 @@ public class MoveBehaviour : MonoBehaviour
         set => _moveForce = value;
     }
 
-    [SerializeField] 
+    [SerializeField, Space(10)] 
     private Rigidbody _rigidbody;
     [SerializeField]
     private TriggerHandler _groundTrigger;
@@ -47,7 +54,7 @@ public class MoveBehaviour : MonoBehaviour
     private CancellationTokenSource _stopForceCancellationTokenSource;
     private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
-    private Vector3 _lookDirection;
+    private Quaternion _lookRotation;
     private bool _isMoving;
 
     public void Move(InputAction.CallbackContext context)
@@ -75,12 +82,12 @@ public class MoveBehaviour : MonoBehaviour
         _isMoving = _direction != Vector3.zero;
 
         if (_isMoving)  // Only update when a direction exist.
-            _lookDirection = _direction;
+            _lookRotation = Quaternion.LookRotation(_direction, Vector3.up);
     }
 
     private void OnEnable()
     {
-        _lookDirection = transform.forward;
+        _lookRotation = transform.rotation;
     }
 
     private void FixedUpdate()
@@ -96,8 +103,7 @@ public class MoveBehaviour : MonoBehaviour
             -_dragCoefficientHorizontal * velocity : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
 
-        Quaternion lookRotation = Quaternion.LookRotation(_lookDirection, Vector3.up);
-        Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, lookRotation, deltaTime * _rotationSpeed);
+        Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
         _rigidbody.MoveRotation(rotation);
 
         _rigidbody.AddForce(totalMoveForce);

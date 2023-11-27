@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[HideMonoScript]
 public class LookBehaviour : MonoBehaviour
 {
     private static readonly Plane _plane = new Plane(Vector3.up, Vector3.zero);
