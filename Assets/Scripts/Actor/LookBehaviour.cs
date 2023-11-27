@@ -35,7 +35,6 @@ public class LookBehaviour : MonoBehaviour
         if (context.performed)
             Look(context.ReadValue<Vector2>());
     }
-
     public void Look(Vector2 direction)
     {
         if (direction == Vector2.zero)
@@ -45,6 +44,8 @@ public class LookBehaviour : MonoBehaviour
         _lookDirection = direction.normalized;
     }
 
+    public void LookAt(InputAction.CallbackContext context)
+        => LookAt(context.ReadValue<Vector2>());
     public void LookAt(Vector2 target)
         => LookAt(target.x_z());
     public void LookAt(Vector3 target)
