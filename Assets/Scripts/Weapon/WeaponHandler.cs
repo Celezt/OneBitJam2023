@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,7 @@ public class WeaponHandler : MonoBehaviour
     {
         if((Time.time - lastFiredTime) > weapon.fireDelay)
         {
-            weapon.Shoot(this.transform.position, this.transform.forward);
+            weapon.Shoot(this.transform.position, this.transform.right);
             lastFiredTime = Time.time;
         }
     }
