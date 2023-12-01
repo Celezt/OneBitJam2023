@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [HideMonoScript]
-public class LookBehaviour : MonoBehaviour
+public class LookTurretBehaviour : MonoBehaviour
 {
     private static readonly Plane _plane = new Plane(Vector3.up, Vector3.zero);
 

@@ -17,7 +17,7 @@ public class MoveBehaviour : MonoBehaviour
     /// <summary>
     /// Direction the actor should looking towards. Is never zero.
     /// </summary>
-    [ShowInInspector, DisableInEditorMode, PropertyOrder(-1), LabelText("Rotation (Runtime)")]
+    [ShowInInspector, HideInEditorMode, PropertyOrder(-1), LabelText("Rotation (Runtime)")]
     public Quaternion LookRotation
     {
         get => _lookRotation;
