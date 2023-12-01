@@ -12,7 +12,7 @@ public class AIController : MonoBehaviour
 {
 	[Header("Generic AI settings")]
 	[SerializeField] MoveBehaviour moveController;
-	[SerializeField] LookBehaviour lookController;
+	[SerializeField] LookTurretBehaviour lookController;
 	[SerializeField] float minPlayerDistance = 3.5f;
 	[SerializeField] float minEdgeDistance = 7;
 
