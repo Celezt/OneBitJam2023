@@ -2391,11 +2391,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 1.044321, y: 1.1768675, z: -2.5717175}
+    position: {x: 1.045155, y: 1.1770527, z: -2.5717432}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 4.130081
+    swivelRotation: 7.60701
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -2403,11 +2403,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.066273004, y: 0.8993915, z: -2.3303537}
-    rotation: {x: -0.5657119, y: -0.5538877, z: -0.3632657, w: -0.491138}
+    position: {x: 0.06622368, y: 0.89940506, z: -2.3305058}
+    rotation: {x: -0.5657486, y: -0.5538404, z: -0.36327034, w: -0.4911457}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -119.20477
+    swivelRotation: -119.05975
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -2415,11 +2415,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.39725685, y: 0.8017036, z: -2.6086216}
-    rotation: {x: -0.45104924, y: -0.08558767, z: -0.8849104, w: -0.078503735}
+    position: {x: 0.33535072, y: 0.793687, z: -2.5673232}
+    rotation: {x: -0.32837328, y: -0.0769627, z: -0.9369933, w: -0.09105645}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -73.907715
+    swivelRotation: -69.93817
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -2427,11 +2427,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.21742176, y: 0.036613762, z: -2.3695726}
-    rotation: {x: 0.000000026077029, y: 0.79070824, z: 0.000016953794, w: 0.61219317}
+    position: {x: 0.21733318, y: 0.036656603, z: -2.3696404}
+    rotation: {x: 0.00000021968481, y: 0.7910338, z: 0.00000016033462, w: 0.6117725}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 72.701935
+    swivelRotation: 72.65259
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -2439,11 +2439,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: -0.34835336, y: 0.036604643, z: -2.8592734}
-    rotation: {x: -0.00001874565, y: 0.9841172, z: 0.000019282092, w: -0.17751992}
+    position: {x: -0.34838942, y: 0.036622982, z: -2.859287}
+    rotation: {x: 0.000000104338035, y: 0.9841287, z: -0.00000004463362, w: -0.1774561}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -16.059265
+    swivelRotation: -16.108887
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   originalIkData: []
