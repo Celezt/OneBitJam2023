@@ -293,7 +293,7 @@ ModelImporter:
     - name: Head
       parentName: Neck
       position: {x: -0, y: 0.00062322733, z: 0}
-      rotation: {x: 1.7867549e-22, y: 0.70710665, z: -1.7867542e-22, w: 0.70710695}
+      rotation: {x: -0.000000024042352, y: -0.00000011920929, z: -5.042464e-14, w: 1}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: Shoulder.L
       parentName: Chest
@@ -303,7 +303,7 @@ ModelImporter:
     - name: UpperArm.L
       parentName: Shoulder.L
       position: {x: -2.3283064e-12, y: 0.0015202662, z: -1.6909325e-10}
-      rotation: {x: 0.020282673, y: -0.0021181852, z: -0.009307534, w: 0.9997487}
+      rotation: {x: 0.020282675, y: -0.0021181852, z: -0.009307535, w: 0.9997487}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: LowerArm.L
       parentName: UpperArm.L
@@ -328,7 +328,7 @@ ModelImporter:
     - name: UpperArm.R
       parentName: Shoulder.R
       position: {x: 2.3283064e-12, y: 0.0015202662, z: -1.6909325e-10}
-      rotation: {x: 0.020282703, y: 0.002118215, z: 0.009307534, w: 0.9997487}
+      rotation: {x: 0.020282704, y: 0.002118215, z: 0.009307535, w: 0.9997487}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: LowerArm.R
       parentName: UpperArm.R

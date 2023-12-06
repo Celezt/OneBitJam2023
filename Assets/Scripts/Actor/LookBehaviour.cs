@@ -2,31 +2,22 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [HideMonoScript]
-public class LookTurretBehaviour : MonoBehaviour
+public class LookBehaviour : MonoBehaviour
 {
-    public bool UseDirection
-    {
-        get => _useDirection;
-        set => _useDirection = value;
-    }
-    public Vector3 TargetPosition => _targetPosition;
-    public Vector2 LookDirection => _lookDirection;
-
-    [SerializeField]
-    private Transform _rotor;
     [SerializeField]
     private float _rotationSpeed = 10;
+
     [SerializeField]
-    private bool _fixedRotation;
-    [SerializeField, EnableIf(nameof(_fixedRotation)), Indent]
-    private Quaternion _initialRotation;
+    private UnityEvent<float> _onAngleChangeEvent;
 
     private Vector2 _lookDirection;
     private Vector3 _targetPosition;
     private Quaternion _rotation;
+    private Quaternion _initialRotation;
     private bool _useDirection = true;
 
     public void Look(InputAction.CallbackContext context)
@@ -53,21 +44,24 @@ public class LookTurretBehaviour : MonoBehaviour
         _targetPosition = target;
     }
 
+    private void Start()
+    {
+        _initialRotation = transform.rotation;
+    }
+
     private void OnEnable()
     {
-        _lookDirection = _rotor.forward.x_z().normalized;
-        _rotation = _rotor.rotation;
-
-        if (!_fixedRotation)
-            _initialRotation = transform.rotation;
+        _lookDirection = transform.forward.x_z().normalized;
+        _rotation = transform.rotation;
     }
 
     private void LateUpdate()
     {
         Vector3 direction = _useDirection ? _lookDirection.x_z() : (_targetPosition - transform.position.x_z()).normalized;
-
+         
         _rotation = Quaternion.Slerp(_rotation, _initialRotation * Quaternion.LookRotation(direction, Vector3.up), Time.deltaTime * _rotationSpeed);
 
-        _rotor.rotation = _rotation;
+        float angle = Quaternion.Dot(transform.rotation, _rotation);
+        _onAngleChangeEvent.Invoke(angle);
     }
 }

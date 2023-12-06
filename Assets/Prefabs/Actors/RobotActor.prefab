@@ -1,124 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3296159778903838986
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4834665968132801847}
-  - component: {fileID: 7576915728390583962}
-  m_Layer: 0
-  m_Name: Input
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4834665968132801847
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296159778903838986}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 990641494243786660}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7576915728390583962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3296159778903838986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 645ab3998e04ead4196b6e445ef420f5,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2019255672150269089}
-        m_TargetAssemblyTypeName: MoveBehaviour, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 42e833f4-0ad3-4575-89e5-5a906c8bae9f
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/l,/Keyboard/leftArrow,/Keyboard/a,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 743636590731062179}
-        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
-        m_MethodName: LookAt
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6916ad10-8fad-4450-8583-7bb5abbd73f4
-    m_ActionName: Player/LookPosition[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 743636590731062179}
-        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
-        m_MethodName: Look
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: bdca9914-4d10-48ba-93a5-6886ed2fc6a2
-    m_ActionName: Player/LookDelta
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5abbc46b-b61a-4e98-a2ca-b0ec3991da7e
-    m_ActionName: Player/LeftAttack[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a40f37a4-3b5e-4fdb-8551-5ae7fcaea63c
-    m_ActionName: Player/RightAttack[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &3387282941726537952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,7 +262,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 376183729598557061}
+      objectReference: {fileID: 4909005915341313875}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -390,12 +271,12 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetSpeed
+      value: SetParameter
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationBehaviour, Assembly-CSharp
+      value: AnimatorSetFloat, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -410,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_Name
-      value: PlayerActor
+      value: RobotActor
       objectReference: {fileID: 0}
     - target: {fileID: 6419540320930992423, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -434,10 +315,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: 0
-      addedObject: {fileID: 4834665968132801847}
-    - targetCorrespondingSourceObject: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      insertIndex: 1
       addedObject: {fileID: 5427122244620581338}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -451,18 +328,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3387282941726537952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2019255672150269089 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-    type: 3}
-  m_PrefabInstance: {fileID: 3387282941726537952}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545885958149031782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e4c089610de2a478dc7eb6cbb431b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7545885958149031782 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -566,7 +431,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8fa9dab0517a394b9adef914c2f476b,
         type: 3}
       propertyPath: m_Name
-      value: PlayerRobot
+      value: Robot
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d8fa9dab0517a394b9adef914c2f476b,
         type: 3}
@@ -585,7 +450,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d8fa9dab0517a394b9adef914c2f476b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 376183729598557061}
+      addedObject: {fileID: 4909005915341313875}
     - targetCorrespondingSourceObject: {fileID: 1061826221597166603, guid: d8fa9dab0517a394b9adef914c2f476b,
         type: 3}
       insertIndex: -1
@@ -609,7 +474,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5538226394360159793}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &376183729598557061
+--- !u!114 &4909005915341313875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -618,10 +483,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4619235548690293600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0d0a4ee0616864dabf299c43009465, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ce65c0a21a40da49b1b416dffdd6341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2139542124122022816}
+  _id: MoveSpeed
 --- !u!1 &4785046852266955322 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1061826221597166603, guid: d8fa9dab0517a394b9adef914c2f476b,
