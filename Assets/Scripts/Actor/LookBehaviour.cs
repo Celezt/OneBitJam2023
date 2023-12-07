@@ -8,17 +8,23 @@ using UnityEngine.InputSystem;
 [HideMonoScript]
 public class LookBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    private float _rotationSpeed = 10;
+    private const int DIRECTION_DISTANCE = 4;
 
     [SerializeField]
-    private UnityEvent<float> _onAngleChangeEvent;
+    private Transform _target;
+    [SerializeField]
+    private bool _isDirectionWorldSpace;
 
-    private Vector2 _lookDirection;
-    private Vector3 _targetPosition;
-    private Quaternion _rotation;
-    private Quaternion _initialRotation;
-    private bool _useDirection = true;
+    private Vector3 _initialPosition;
+    private Vector3 _worldPosition;
+    private Vector3 _direction;
+    private LookType _lookType;
+
+    private enum LookType
+    {
+        Direction,
+        Target,
+    }
 
     public void Look(InputAction.CallbackContext context)
     {
@@ -26,42 +32,43 @@ public class LookBehaviour : MonoBehaviour
             Look(context.ReadValue<Vector2>());
     }
     public void Look(Vector2 direction)
+        => Look(direction.x_z());
+    public void Look(Vector3 direction)
     {
-        if (direction == Vector2.zero)
+        if (direction == Vector3.zero)
             return;
 
-        _useDirection = true;
-        _lookDirection = direction.normalized;
+        _direction = direction.normalized;
+        _target.position = (transform.position + _direction * DIRECTION_DISTANCE).x_z(_initialPosition.y);
+        _lookType = LookType.Direction;
     }
 
     public void LookAt(InputAction.CallbackContext context)
         => LookAt(context.ReadValue<Vector2>());
     public void LookAt(Vector2 target)
-        => LookAt(target.x_z());
+        => LookAt(target.x_z(_initialPosition.y));
     public void LookAt(Vector3 target)
     {
-        _useDirection = false;
-        _targetPosition = target;
+        _worldPosition = target;
+        _lookType = LookType.Target;
     }
 
     private void Start()
     {
-        _initialRotation = transform.rotation;
-    }
-
-    private void OnEnable()
-    {
-        _lookDirection = transform.forward.x_z().normalized;
-        _rotation = transform.rotation;
+        _initialPosition = _target.position;
     }
 
     private void LateUpdate()
     {
-        Vector3 direction = _useDirection ? _lookDirection.x_z() : (_targetPosition - transform.position.x_z()).normalized;
-         
-        _rotation = Quaternion.Slerp(_rotation, _initialRotation * Quaternion.LookRotation(direction, Vector3.up), Time.deltaTime * _rotationSpeed);
+        switch (_lookType)
+        {
 
-        float angle = Quaternion.Dot(transform.rotation, _rotation);
-        _onAngleChangeEvent.Invoke(angle);
+            case LookType.Target:
+                _target.position = _worldPosition;
+                break;
+            case LookType.Direction when _isDirectionWorldSpace:
+                _target.position = (transform.position + _direction * DIRECTION_DISTANCE).x_z(_initialPosition.y);
+                break;
+        }
     }
 }
