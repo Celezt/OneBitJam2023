@@ -29,6 +29,7 @@ public static class VectorExtensions
 
     public static bool IsZero(this Vector3Int v) => v == Vector3Int.zero;
     public static bool IsZero(this Vector3 v) => v == Vector3.zero;
+
     public static bool Inside(this Vector2Int minMax, float value)
         => Inside((Vector2)minMax, value);
     public static bool Inside(this Vector2 minMax, float value)

@@ -35,7 +35,6 @@ public class LookBehaviour : MonoBehaviour
     private Vector3 _worldPosition;
     private Vector3 _direction;
     private LookTypes _lookType;
-    private bool _hasExceeded;
 
     public enum LookTypes
     {
@@ -75,7 +74,7 @@ public class LookBehaviour : MonoBehaviour
         _initialPosition = _target.position;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         Vector3 forward = transform.forward;
         Vector3 position = transform.position;
@@ -97,17 +96,9 @@ public class LookBehaviour : MonoBehaviour
         }
 
         Vector3 targetDirection = (targetPosition.x_z() - position.x_z()).normalized;
-        float angle = Vector3.Angle(forward.x_z().normalized, targetDirection);
-        //Debug.Log(angle);
+        float angle = Vector2.SignedAngle(forward.xz().normalized, targetDirection.xz());
+
         if (!_minMaxLimit.Inside(angle))
-        {
-            if (!_hasExceeded)
-            {
-                _hasExceeded = true;
-                _onExceedingAngleEvent.Invoke(targetDirection);
-            }
-        }
-        else
-            _hasExceeded = false;
+            _onExceedingAngleEvent.Invoke(targetDirection);
     }
 }

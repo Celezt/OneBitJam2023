@@ -8,42 +8,53 @@ public class GizmoRenderer : MonoBehaviour
     [SerializeField]
     private Color _color = new Color(0, 0, 1, 0.8f);
     [SerializeField]
-    private GizmoType _type = GizmoType.Sphere;
+    private GizmoTypes _type = GizmoTypes.Sphere;
     [SerializeField]
     private Vector3 _offset = Vector3.zero;
-    [SerializeField, ShowIf("@_type == GizmoType.Cube || _type == GizmoType.WireCube")]
+    [SerializeField, ShowIf("@_type == GizmoTypes.Cube || _type == GizmoTypes.WireCube")]
     private Vector3 _scale = Vector3.one;
-    [SerializeField, ShowIf("@_type == GizmoType.Sphere || _type == GizmoType.WireSphere")]
+    [SerializeField, ShowIf("@_type == GizmoTypes.Sphere || _type == GizmoTypes.WireSphere")]
     private float _radius = 1.0f;
-    [SerializeField, ShowIf("@_type == GizmoType.Cube || _type == GizmoType.WireCube")]
+    [SerializeField, ShowIf("@_type == GizmoTypes.Cube || _type == GizmoTypes.WireCube")]
     private bool _useTransformScale;
+    [SerializeField, ShowIf("@_type == GizmoTypes.Line")]
+    private Quaternion _rotation = Quaternion.identity;
+    [SerializeField, ShowIf("@_type == GizmoTypes.Line")]
+    private float _length = 1.0f;
 
-    private enum GizmoType
+    private enum GizmoTypes
     {
         Sphere,
         WireSphere,
         Cube,
         WireCube,
+        Line,
     }
 
     private void OnDrawGizmos()
     {
         Color oldColor = Gizmos.color;
         Gizmos.color = _color;
-        
+
+        Vector3 position = transform.position;
+
         switch (_type)
         {
-            case GizmoType.Sphere:
-                Gizmos.DrawSphere(transform.position + _offset, _radius);
+            case GizmoTypes.Sphere:
+                Gizmos.DrawSphere(position + _offset, _radius);
                 break;
-            case GizmoType.WireSphere:
-                Gizmos.DrawWireSphere(transform.position + _offset, _radius);
+            case GizmoTypes.WireSphere:
+                Gizmos.DrawWireSphere(position + _offset, _radius);
                 break;
-            case GizmoType.Cube:
-                Gizmos.DrawCube(transform.position + _offset, _useTransformScale ? Vector3.Scale(transform.localScale, _scale) : _scale);
+            case GizmoTypes.Cube:
+                Gizmos.DrawCube(position + _offset, _useTransformScale ? Vector3.Scale(transform.localScale, _scale) : _scale);
                 break;
-            case GizmoType.WireCube:
-                Gizmos.DrawWireCube(transform.position + _offset, _useTransformScale ? Vector3.Scale(transform.localScale, _scale) : _scale);
+            case GizmoTypes.WireCube:
+                Gizmos.DrawWireCube(position + _offset, _useTransformScale ? Vector3.Scale(transform.localScale, _scale) : _scale);
+                break;
+            case GizmoTypes.Line:
+                Vector3 worldOffset = transform.TransformDirection(_offset );
+                Gizmos.DrawLine(position + worldOffset, position + worldOffset + (transform.rotation * _rotation) * Vector3.forward * _length);
                 break;
         }
 
