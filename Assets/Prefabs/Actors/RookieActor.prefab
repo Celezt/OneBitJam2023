@@ -536,6 +536,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _isRotateWhenMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -592,6 +597,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7111474064906371805}
   m_SourcePrefab: {fileID: 100100000, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
+--- !u!114 &2678796464785602067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+    type: 3}
+  m_PrefabInstance: {fileID: 1597408457314669138}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5877608904329752020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c089610de2a478dc7eb6cbb431b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3789319853362517270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -617,7 +634,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 224593133680069565}
+  _minMaxLimit: {x: -75, y: 80}
+  _deadZoneRadius: 1
   _isDirectionWorldSpace: 1
+  _onExceedingAngleEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2678796464785602067}
+        m_TargetAssemblyTypeName: MoveBehaviour, Assembly-CSharp
+        m_MethodName: SetDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2738407139529171625
 PrefabInstance:
   m_ObjectHideFlags: 0

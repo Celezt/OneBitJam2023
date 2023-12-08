@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -35,6 +36,8 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _groundTrigger;
     [SerializeField]
+    private bool _isRotateWhenMove = true;
+    [SerializeField]
     private float _rotationSpeed = 8f;
     [SerializeField]
     private float _moveForce = 40f;
@@ -47,7 +50,7 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField]
     private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
 
-    [SerializeField]
+    [SerializeField, Space(8)]
     private UnityEvent<float> _onSpeedChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
@@ -55,7 +58,15 @@ public class MoveBehaviour : MonoBehaviour
     private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
     private Quaternion _lookRotation;
+    private float _previousSpeed;
     private bool _isMoving;
+
+    public void SetDirection(Vector2 direction)
+        => SetDirection(direction.x_z());
+    public void SetDirection(Vector3 direction)
+    {
+        _lookRotation = Quaternion.LookRotation(direction, Vector3.up);
+    }
 
     public void Move(InputAction.CallbackContext context)
         => Move(context.ReadValue<Vector2>());
@@ -81,7 +92,7 @@ public class MoveBehaviour : MonoBehaviour
 
         _isMoving = _direction != Vector3.zero;
 
-        if (_isMoving)  // Only update when a direction exist.
+        if (_isMoving && _isRotateWhenMove)  // Only update when a direction exist.
             _lookRotation = Quaternion.LookRotation(_direction, Vector3.up);
     }
 
@@ -102,15 +113,18 @@ public class MoveBehaviour : MonoBehaviour
         Vector3 dragForce = _direction != Vector3.zero ? 
             -_dragCoefficientHorizontal * velocity : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
+        _rigidbody.AddForce(totalMoveForce);
 
         Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
         _rigidbody.MoveRotation(rotation);
 
-        _rigidbody.AddForce(totalMoveForce);
-
         float minSpeed = (totalMoveForce.magnitude / _rigidbody.mass) * deltaTime * 10.0f;
-        float speed = _direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed);
-        _onSpeedChangeEvent.Invoke(speed);
+        float speed = (float)Math.Round(_direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed), 2, MidpointRounding.AwayFromZero);
+
+        if (_previousSpeed != speed)
+            _onSpeedChangeEvent.Invoke(speed);
+
+        _previousSpeed = speed;
     }
 
     private void OnDestroy()
