@@ -15,7 +15,6 @@ public class AIController : MonoBehaviour
 	[Header("Generic AI settings")]
 	[SerializeField] MoveBehaviour moveController;
 	[SerializeField] LookTurretBehaviour lookController;
-	[SerializeField] AnimationBehaviour animationController;
 	[SerializeField] AIMovingBase wanderingBehavior;
 	[SerializeField] AIAttackingBase attackingBehavior;
 
@@ -103,7 +102,4 @@ public class AIController : MonoBehaviour
 	public Vector3 GetLookTargetPosition() => lookController.TargetPosition;
 	public void SetLookUseDirection(bool useDirection) => lookController.UseDirection = useDirection;
 	public bool GetLookUseDirection() => lookController.UseDirection;
-
-	public void SetMoveAnimationSpeed(float speed) => animationController.SetSpeed(speed);
-	public void StopMoveAnimation() => animationController.SetSpeed(0.0f);
 }

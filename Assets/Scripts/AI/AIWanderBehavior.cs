@@ -58,7 +58,6 @@ public class AIWanderBehavior : AIMovingBase
 			if (!Physics.Raycast(controller.transform.position + Vector3.up + moveDirection * detectEdgeDistance, Vector3.down, 2))
 			{
 				controller.Move(Vector2.zero);
-				controller.StopMoveAnimation();
 				return;
 			}
 		}
@@ -67,11 +66,9 @@ public class AIWanderBehavior : AIMovingBase
 		{
 			controller.Move(Vector2.zero);
 			moveTime = 0.0f;
-			controller.StopMoveAnimation();
 			return;
 		}
 
-		controller.SetMoveAnimationSpeed(moveAnimSpeed);
 		controller.Move(new Vector2(moveDirection.x, moveDirection.z));
 		controller.Look(new Vector2(moveDirection.x, moveDirection.z));
 	}
