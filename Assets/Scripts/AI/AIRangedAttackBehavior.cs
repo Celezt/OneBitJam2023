@@ -1,28 +1,25 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using URand = UnityEngine.Random;
-using UDebug = UnityEngine.Debug;
 
-public class AIWanderBehavior : AIMovingBase
+public class AIRangedAttackBehavior : AIAttackingBase
 {
-	[SerializeField] private float maxMoveTime = 2.5f;
-
-	private float moveTime;
+	[SerializeField] private float moveTime;
+	[SerializeField] private float maxMoveTime;
 
 	private Vector3 moveDirection;
 
 	#region OLD-SYSTEM
-	// public AIWanderBehavior(AIController _controller, float _maxMoveTime, float _minPlayerDistance, float _detectEdgeDistance, float _detectWallDistance, Transform _player)
+	// public AIRangedAttackBehavior(AIController _controller, float _minPlayerDistance, float _maxMoveTime, float _detectEdgeDistance, float _detectWallDistance, Transform _player, WeaponHandler _weaponHandler)
 	// {
 	// 	controller = _controller;
-	// 	maxMoveTime = _maxMoveTime;
 	// 	minPlayerDistance = _minPlayerDistance;
 	// 	player = _player;
 	// 	detectEdgeDistance = _detectEdgeDistance;
+	// 	weaponHandler = _weaponHandler;
 	// 	detectWallDistance = _detectWallDistance;
+	// 	maxMoveTime = _maxMoveTime;
 	// }
 	#endregion
 
@@ -37,11 +34,7 @@ public class AIWanderBehavior : AIMovingBase
 
 	public override void OnUpdate()
 	{
-		if (Vector3.Distance(player.transform.position, controller.transform.position) <= minPlayerDistance)
-		{
-			controller.SwitchBehavior(AIState.attacking);
-			return;
-		}
+		weaponHandler.OnShoot();
 
 		if (moveTime <= 0.0f)
 		{
@@ -58,7 +51,7 @@ public class AIWanderBehavior : AIMovingBase
 			if (!Physics.Raycast(controller.transform.position + Vector3.up + moveDirection * detectEdgeDistance, Vector3.down, 2))
 			{
 				controller.Move(Vector2.zero);
-				controller.StopMoveAnimation();
+				moveTime = 0.0f;
 				return;
 			}
 		}
@@ -67,13 +60,23 @@ public class AIWanderBehavior : AIMovingBase
 		{
 			controller.Move(Vector2.zero);
 			moveTime = 0.0f;
-			controller.StopMoveAnimation();
 			return;
 		}
 
-		controller.SetMoveAnimationSpeed(moveAnimSpeed);
+		Vector3 aiToPlayer = (player.transform.position - controller.transform.position).normalized;
+		Vector2 aiToPlayer2D = new Vector2(aiToPlayer.x, aiToPlayer.z);
+
+		float playerDistance = Vector3.Distance(player.transform.position, controller.transform.position);
+
+		if (playerDistance < minPlayerDistance)
+		{
+			controller.Move(Vector2.zero);
+			moveTime = 0.0f;
+			return;
+		}
+
 		controller.Move(new Vector2(moveDirection.x, moveDirection.z));
-		controller.Look(new Vector2(moveDirection.x, moveDirection.z));
+		controller.Look(aiToPlayer2D);
 	}
 
 	public override void OnFixedUpdate() { }

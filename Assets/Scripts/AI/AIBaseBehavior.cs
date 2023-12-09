@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AIBaseBehavior
+public abstract class AIBaseBehavior : MonoBehaviour
 {
 	protected AIController controller;
-	protected MoveBehaviour player;
-	protected float detectEdgeDistance;
-	protected float detectWallDistance;
+	protected Transform player;
+	[SerializeField] protected float detectEdgeDistance = 7;
+	[SerializeField] protected float detectWallDistance = 5;
+	[SerializeField] protected float minPlayerDistance = 3.5f;
+
+	protected bool bInitialized = false;
 
 	public abstract void OnInit();
 	public abstract void OnEnter();
