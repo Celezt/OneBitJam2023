@@ -52,13 +52,14 @@ public class MoveBehaviour : MonoBehaviour
 
     [SerializeField, Space(8)]
     private UnityEvent<float> _onSpeedChangeEvent;
+    [SerializeField, Space(8)]
+    private UnityEvent<Vector2> _onMoveChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
     private CancellationTokenSource _stopForceCancellationTokenSource;
     private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
     private Quaternion _lookRotation;
-    private float _previousSpeed;
     private bool _isMoving;
 
     public void SetDirection(Vector2 direction)
@@ -103,28 +104,28 @@ public class MoveBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float deltaTime = Time.deltaTime;
-
         if (_groundTrigger == null && _groundTrigger.IsTriggered)  // Don't move if it actor is not on the ground.
             _direction = Vector3.zero;
 
+        float deltaTime = Time.deltaTime;
         Vector3 velocity = _rigidbody.velocity.x_z();
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
         Vector3 dragForce = _direction != Vector3.zero ? 
             -_dragCoefficientHorizontal * velocity : Vector3.zero;
         Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
-        _rigidbody.AddForce(totalMoveForce);
 
         Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
-        _rigidbody.MoveRotation(rotation);
 
         float minSpeed = (totalMoveForce.magnitude / _rigidbody.mass) * deltaTime * 10.0f;
         float speed = (float)Math.Round(_direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed), 2, MidpointRounding.AwayFromZero);
 
-        if (_previousSpeed != speed)
-            _onSpeedChangeEvent.Invoke(speed);
+        _rigidbody.AddForce(totalMoveForce);
+        _rigidbody.MoveRotation(rotation);
 
-        _previousSpeed = speed;
+        _onMoveChangeEvent.Invoke(new Vector2(0, localVelocity.z));
+        _onSpeedChangeEvent.Invoke(speed);
+        
     }
 
     private void OnDestroy()
