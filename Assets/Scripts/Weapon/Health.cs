@@ -1,8 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    float maxPower, trueMaxPower, powerDrain, tempPower;
+    //float maxPower, trueMaxPower, powerDrain, tempPower;
+    public float maxHealth, trueMaxHealth, healthDrained, currentHealth;
+
+    private void CheckHealth()
+    {
+        if (currentHealth > healthDrained)
+        {
+            currentHealth = healthDrained;
+        }
+
+        if(maxHealth > trueMaxHealth)
+        {
+            maxHealth = trueMaxHealth;
+        }
+    }
+
+    public void DoDamage(float damage)
+    {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public IEnumerator DoDOTDamage(float damage, float time, float startTime, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        while(time <= 0)
+        {
+            currentHealth -= damage;
+            time = startTime;
+        }
+    }
 }

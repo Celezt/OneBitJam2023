@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(BulletBehaviour))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    private List<BulletBehaviour> bulletBehaviours = new List<BulletBehaviour>();
-    [SerializeField]
-    private string enemyTag;
+    private BulletBehaviour bulletBehaviour;
+    public string enemyTag;
     [SerializeField]
     public Weapon weapon;
     [SerializeField]
     private float lifespan;
+    [SerializeField]
+    private float bulletDamage;
 
     private void Update()
     {
@@ -27,13 +29,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag(enemyTag))
+        if(other.gameObject.CompareTag(enemyTag) && other.gameObject.GetComponent<Health>() != null)
         {
             Debug.Log("Hit " + other.name);
-            Destroy(other.gameObject);
-            for (int i = 0; i < bulletBehaviours.Count; i++)
+            if (bulletBehaviour.doT)
             {
+                other.gameObject.GetComponent<Health>().DoDOTDamage(1, 2, 2, 1);
             }
+            else
+            {
+                other.gameObject.GetComponent<Health>().DoDamage(bulletDamage * bulletBehaviour.damageMultiplier); 
+            }
+            Destroy(this.gameObject);
         }
     }
 }
