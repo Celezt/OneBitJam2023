@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3860566201188204571}
   - component: {fileID: 179742981850473109}
   - component: {fileID: 4093821421843550388}
+  - component: {fileID: 516413142987544421}
   m_Layer: 0
   m_Name: TestBullet
   m_TagString: Untagged
@@ -118,8 +119,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef88ebcd0c521e439438878201e081d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletBehaviours:
-  - {fileID: 11400000, guid: fec49b6aaf36815479023eb5fdbb32c5, type: 2}
+  bulletBehaviour: {fileID: 516413142987544421}
   enemyTag: Enemy
   weapon: {fileID: 11400000, guid: 2ea2f625779d76a499f439a2c2de3fbf, type: 2}
   lifespan: 0.3
+  bulletDamage: 5
+--- !u!114 &516413142987544421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848885918236208464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a04ce3a457ce654f895f01583849e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 1
+  doTTimer: 2
+  doT: 1
