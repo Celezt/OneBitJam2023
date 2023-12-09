@@ -4,23 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
-    //float maxPower, trueMaxPower, powerDrain, tempPower;
-    public float maxHealth, trueMaxHealth, healthDrained, currentHealth;
-
-    private void CheckHealth()
-    {
-        if (currentHealth > healthDrained)
-        {
-            currentHealth = healthDrained;
-        }
-
-        if(maxHealth > trueMaxHealth)
-        {
-            maxHealth = trueMaxHealth;
-        }
-    }
+    public float maxHealth, currentHealth;
 
     public void DoDamage(float damage)
     {
