@@ -38,10 +38,10 @@ public class MoveBehaviour : MonoBehaviour
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float angle = Vector2.SignedAngle(localVelocity.xz().normalized, Vector2.up);
 
-            if (_strifeMinMax.Outside(angle))
+            if (_strafeMinMax.Outside(angle))
                 moveForce *= _moveBackwardsMultiplier;
             else if (_forwardMinMax.Outside(angle))
-                moveForce *= _moveStrifeMultiplier;
+                moveForce *= _moveStrafeMultiplier;
 
             return moveForce;
         }
@@ -65,11 +65,11 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField, Indent]
     private float _moveBackwardsMultiplier = 0.65f;
     [SerializeField, Indent]
-    private float _moveStrifeMultiplier = 0.8f;
+    private float _moveStrafeMultiplier = 0.8f;
     [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
     private Vector2Int _forwardMinMax = new Vector2Int(-45, 45);
     [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
-    private Vector2Int _strifeMinMax = new Vector2Int(-110, 110);
+    private Vector2Int _strafeMinMax = new Vector2Int(-110, 110);
     [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
