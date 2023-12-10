@@ -1255,7 +1255,7 @@ MonoBehaviour:
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 2adfae806f726ee4cb652d519d7222be,
+  lastSelectAnimationClip: {fileID: 7400000, guid: e309464cbec998142b19edce6d85aeaf,
     type: 2}
   handPoseList: []
   blendShapeList: []
