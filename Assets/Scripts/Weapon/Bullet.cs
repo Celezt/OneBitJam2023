@@ -29,16 +29,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag(enemyTag) && other.gameObject.GetComponent<Health>() != null)
+        if(other.gameObject.CompareTag(enemyTag) && other.gameObject.GetComponent<EnemyHealth>() != null)
         {
             Debug.Log("Hit " + other.name);
             if (bulletBehaviour.doT)
             {
-                other.gameObject.GetComponent<Health>().DoDOTDamage(1, 2, 2, 1);
+                other.gameObject.GetComponent<EnemyHealth>().DoDOTDamage(1, 2, 2, 1);
             }
             else
             {
-                other.gameObject.GetComponent<Health>().DoDamage(bulletDamage * bulletBehaviour.damageMultiplier); 
+                other.gameObject.GetComponent<EnemyHealth>().DoDamage(bulletDamage * bulletBehaviour.damageMultiplier); 
             }
             Destroy(this.gameObject);
         }
