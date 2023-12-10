@@ -1142,6 +1142,9 @@ MonoBehaviour:
   _animator: {fileID: 2962636615276154850}
   _processors: []
   _id: Speed
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &3366308912340179453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,10 +1159,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
   _processors:
-  - {fileID: 11400000, guid: 73be0bdaa4addba44b456b2f838f54e9, type: 2}
-  - {fileID: 11400000, guid: b4e91d31f1905a941906d2a0c85473bf, type: 2}
+  - rid: 2403426003183206400
+  - rid: 2403426003183206401
   _IdX: MoveX
   _IdY: MoveZ
+  references:
+    version: 2
+    RefIds:
+    - rid: 2403426003183206400
+      type: {class: NormalizeProcessorVector, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2403426003183206401
+      type: {class: LerpProcessorVector, ns: , asm: Assembly-CSharp}
+      data:
+        _lerpSpeed: 4
 --- !u!114 &8945012955507417344
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,15 @@ public abstract class AnimatorSetBase<T> : MonoBehaviour where T : new()
 {
     public Animator Animator => _animator;
 
+    private static IEnumerable<Type> ProcessorFilter => _cachedFilter ??= ReflectionUtility.GetDerivedTypes<IProcessor<T>>(AppDomain.CurrentDomain);
+
+    private static IEnumerable<Type> _cachedFilter;
+
     [SerializeField, HideIf(nameof(_containsAnimator))]
     private Animator _animator;
 
-    [SerializeField, PropertyOrder(int.MaxValue), Space(8), InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-    private List<Processor> _processors = new();
+    [SerializeReference, PropertyOrder(int.MaxValue), Space(8), TypeFilter(nameof(ProcessorFilter))]
+    private List<IProcessor> _processors = new();
 
     private bool _containsAnimator;
 
@@ -23,7 +28,7 @@ public abstract class AnimatorSetBase<T> : MonoBehaviour where T : new()
     {
         foreach (var processor in _processors)
         {
-            if (processor.Value is IProcessor<T> p)
+            if (processor is IProcessor<T> p)
                 value = p.Process(value);
         }
 
@@ -42,5 +47,4 @@ public abstract class AnimatorSetBase<T> : MonoBehaviour where T : new()
             _containsAnimator = true;
         }
     }
-
 }

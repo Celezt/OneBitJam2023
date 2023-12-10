@@ -66,9 +66,9 @@ public class MoveBehaviour : MonoBehaviour
     private float _moveBackwardsMultiplier = 0.65f;
     [SerializeField, Indent]
     private float _moveStrifeMultiplier = 0.8f;
-    [SerializeField, Indent, MinMaxSlider(-180, 180)]
+    [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
     private Vector2Int _forwardMinMax = new Vector2Int(-45, 45);
-    [SerializeField, Indent, MinMaxSlider(-180, 180)]
+    [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
     private Vector2Int _strifeMinMax = new Vector2Int(-110, 110);
     [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
