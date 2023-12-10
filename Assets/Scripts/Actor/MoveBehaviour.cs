@@ -24,7 +24,14 @@ public class MoveBehaviour : MonoBehaviour
         get => _lookRotation;
         set => _lookRotation = value;
     }
+    /// <summary>
+    /// If actor currently has a direction.
+    /// </summary>
     public bool IsMoving => _isMoving;
+    /// <summary>
+    /// The angle of velocity relative to actors forward direction in local space.
+    /// </summary>
+    public float LocalVelocityAngle => Vector2.SignedAngle(LocalVelocity.xz().normalized, Vector2.up);
     /// <summary>
     /// Current move force affected by direction multipliers.
     /// </summary>
@@ -34,62 +41,73 @@ public class MoveBehaviour : MonoBehaviour
         {
             float moveForce = _moveForce;
 
-            Vector3 velocity = _rigidbody.velocity.x_z();
-            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-            float angle = Vector2.SignedAngle(localVelocity.xz().normalized, Vector2.up);
-
-            if (_strafeMinMax.Outside(angle))
+            if (_strafeMinMax.Outside(LocalVelocityAngle))
                 moveForce *= _moveBackwardsMultiplier;
-            else if (_forwardMinMax.Outside(angle))
+            else if (_forwardMinMax.Outside(LocalVelocityAngle))
                 moveForce *= _moveStrafeMultiplier;
 
             return moveForce;
         }
     }
+    /// <summary>
+    /// Move force. Affects all other forces.
+    /// </summary>
     public float MoveForce
     {
         get => _moveForce;
         set => _moveForce = value;
     }
+    /// <summary>
+    /// Velocity in local space.
+    /// </summary>
+    public Vector3 LocalVelocity => _localVelocity;
 
     [SerializeField, Space(10)] 
     private Rigidbody _rigidbody;
     [SerializeField]
     private TriggerHandler _groundTrigger;
-    [SerializeField]
-    private float _rotationSpeed = 8f;
-    [SerializeField]
+
+    [SerializeField, TitleGroup("Force Settings")]
     private float _moveForce = 40f;
-    [SerializeField, LabelText("Rotate When Moving")]
-    private bool _isRotateWhenMove = true;
-    [SerializeField, Indent]
-    private float _moveBackwardsMultiplier = 0.65f;
-    [SerializeField, Indent]
-    private float _moveStrafeMultiplier = 0.8f;
-    [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
-    private Vector2Int _forwardMinMax = new Vector2Int(-45, 45);
-    [SerializeField, Indent, MinMaxSlider(-180, 180, true)]
-    private Vector2Int _strafeMinMax = new Vector2Int(-110, 110);
-    [SerializeField]
+    [SerializeField, TitleGroup("Force Settings")]
     private float _dragCoefficientHorizontal = 4f;
-    [SerializeField]
+    [SerializeField, TitleGroup("Force Settings")]
     private AnimationCurve _dashCoefficientCurve = AnimationCurve.EaseInOut(0, 1, 0.5f, 0);
-    [SerializeField, Range(0, 360)]
+    [SerializeField, TitleGroup("Force Settings"), Range(0, 180)]
     private float _angleDifferenceToDash = 80;
-    [SerializeField]
+    [SerializeField, TitleGroup("Force Settings")]
     private AnimationCurve _stopCoefficientCurve = AnimationCurveBuilder.EaseInOut(0, 0, 0.25f, 0.5f, 0.5f, 0);
+
+    [SerializeField, TitleGroup("Directional Force")]
+    private float _moveBackwardsMultiplier = 0.65f;
+    [SerializeField, TitleGroup("Directional Force")]
+    private float _moveStrafeMultiplier = 0.8f;
+    [SerializeField, TitleGroup("Directional Force"), MinMaxSlider(-180, 180, true)]
+    private Vector2Int _forwardMinMax = new Vector2Int(-45, 45);
+    [SerializeField, TitleGroup("Directional Force"), MinMaxSlider(-180, 180, true)]
+    private Vector2Int _strafeMinMax = new Vector2Int(-110, 110);
+
+    [SerializeField, TitleGroup("Rotation Settings")]
+    private float _rotationSpeed = 8f;
+    [SerializeField, TitleGroup("Rotation Settings"), LabelText("Rotate When Moving")]
+    private bool _isRotateWhenMove = true;
+    [SerializeField, TitleGroup("Rotation Settings"), Range(0, 180)]
+    private float _angleToRotate = 180;
+    [SerializeField, TitleGroup("Rotation Settings"), Indent]
+    private bool _cancelRotateIfExceed = false;
 
     [SerializeField, Space(8)]
     private UnityEvent<float> _onSpeedChangeEvent;
     [SerializeField]
     private UnityEvent<Vector2> _onMoveChangeEvent;
     [SerializeField]
-    private UnityEvent<bool> _onRotateChangeEvent;
+    private UnityEvent<float> _onRotateChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
     private CancellationTokenSource _stopForceCancellationTokenSource;
     private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
+    private Vector3 _localVelocity;
     private Quaternion _lookRotation;
     private bool _isMoving;
 
@@ -107,9 +125,11 @@ public class MoveBehaviour : MonoBehaviour
     {
         _direction = direction.x_z().normalized;
 
+        Vector3 forward = _rigidbody.transform.forward;
+        float angle = Vector3.Angle(forward, _direction);
+
         if (_direction != Vector3.zero)
         {
-            float angle = Vector3.Angle(_rigidbody.transform.forward, _direction);
             if ((angle > _angleDifferenceToDash || !_isMoving) && _stopForceAwaiter.IsCompleted)
             {
                 CTSUtility.Reset(ref _dashForceCancellationTokenSource);
@@ -125,7 +145,19 @@ public class MoveBehaviour : MonoBehaviour
         _isMoving = _direction != Vector3.zero;
 
         if (_isMoving && _isRotateWhenMove)  // Only update when a direction exist.
-            _lookRotation = Quaternion.LookRotation(_direction, Vector3.up);
+        {
+            if (!_cancelRotateIfExceed || angle <= _angleToRotate)  // Skip if exceeding angle and is enabled.
+            {
+                Vector3 clampedDirection = _direction;
+                if (angle > _angleToRotate)
+                {
+                    Vector3 axis = Vector3.Cross(forward, _direction);
+                    clampedDirection = Quaternion.AngleAxis(_angleToRotate, axis) * forward;
+                }
+
+                _lookRotation = Quaternion.LookRotation(clampedDirection, Vector3.up);
+            }
+        }
     }
 
     private void OnEnable()
@@ -141,7 +173,7 @@ public class MoveBehaviour : MonoBehaviour
         float deltaTime = Time.deltaTime;
         Quaternion rotation = _rigidbody.rotation;
         Vector3 velocity = _rigidbody.velocity.x_z();
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        _localVelocity = transform.InverseTransformDirection(velocity);
         Vector3 dragForce = _direction != Vector3.zero ? -_dragCoefficientHorizontal * velocity : Vector3.zero;
 
         Vector3 totalMoveForce = (_direction * CurrentMoveForce) + dragForce;
@@ -154,8 +186,8 @@ public class MoveBehaviour : MonoBehaviour
         _rigidbody.AddForce(totalMoveForce);
         _rigidbody.MoveRotation(newRotation);
 
-        _onRotateChangeEvent.Invoke(Quaternion.Angle(rotation, newRotation) > 8f);
-        _onMoveChangeEvent.Invoke(new Vector2(localVelocity.x, localVelocity.z));
+        _onRotateChangeEvent.Invoke(Quaternion.Angle(rotation, newRotation));
+        _onMoveChangeEvent.Invoke(new Vector2(_localVelocity.x, _localVelocity.z));
         _onSpeedChangeEvent.Invoke(speed);
         
     }
