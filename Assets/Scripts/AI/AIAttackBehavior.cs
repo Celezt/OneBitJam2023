@@ -58,13 +58,17 @@ public class AIAttackBehavior : AIAttackingBase
 			}
 		}
 
-		Vector3 playerToAI = (controller.transform.position - player.transform.position).normalized;
-		if (Vector3.Dot(player.transform.forward, controller.transform.forward) < 0.0f && Vector3.Angle(player.transform.forward, playerToAI) < playerFaceAIMinAngle)
-		{
-			lastCross *= -1;
-			nextCircleSwitch = Time.time + Random.Range(minCircleSwitchTime, maxCircleSwitchTime);
-			return;
-		}
+		// TODO: implement working AI-directly-facing-player avoidance
+		// ? make use of vector from player to camera-ray-hit to determine forward-aim of player
+		// Vector3 playerToAI = (controller.transform.position - player.transform.position).normalized;
+		// float dotResult = Vector3.Dot(playerRotationController.LookDirection, playerToAI);
+		// float angle = Vector3.Angle(playerRotationController.LookDirection, playerToAI);
+		// if (dotResult < 0.0f && angle < playerFaceAIMinAngle)
+		// {
+		// 	lastCross *= -1;
+		// 	nextCircleSwitch = Time.time + Random.Range(minCircleSwitchTime, maxCircleSwitchTime);
+		// 	return;
+		// }
 
 		if (Time.time > nextCircleSwitch)
 		{
@@ -93,7 +97,7 @@ public class AIAttackBehavior : AIAttackingBase
 			}
 		}
 
-		weaponHandler.OnShoot();
+		weaponHandler?.OnShoot();
 
 		controller.Look(aiToPlayer2D);
 
