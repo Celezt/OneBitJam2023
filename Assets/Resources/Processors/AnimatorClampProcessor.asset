@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b2992b5bd9258b4faa9e29242b13d24, type: 3}
-  m_Name: AnimatorLerpProcessor
+  m_Name: AnimatorClampProcessor
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -23,10 +23,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _value
       Entry: 7
-      Data: 0|LerpProcessorVector, Assembly-CSharp
-    - Name: _lerpSpeed
+      Data: 0|ClampProcessorVector, Assembly-CSharp
+    - Name: _minValue
       Entry: 4
-      Data: 4
+      Data: -0.5
+    - Name: _maxValue
+      Entry: 4
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 

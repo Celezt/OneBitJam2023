@@ -313,6 +313,9 @@ MonoBehaviour:
   _groundTrigger: {fileID: 623063492829522824}
   _rotationSpeed: 8
   _moveForce: 40
+  _isRotateWhenMove: 1
+  _moveBackwardsMultiplier: 0.65
+  _moveStrifeMultiplier: 0.8
   _dragCoefficientHorizontal: 4
   _dashCoefficientCurve:
     serializedVersion: 2
@@ -373,5 +376,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _onSpeedChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMoveChangeEvent:
     m_PersistentCalls:
       m_Calls: []

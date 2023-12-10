@@ -25,6 +25,27 @@ public class MoveBehaviour : MonoBehaviour
         set => _lookRotation = value;
     }
     public bool IsMoving => _isMoving;
+    /// <summary>
+    /// Current move force affected by direction multipliers.
+    /// </summary>
+    public float CurrentMoveForce
+    {
+        get
+        {
+            float moveForce = _moveForce;
+
+            Vector3 velocity = _rigidbody.velocity.x_z();
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float angle = Vector2.SignedAngle(localVelocity.xz().normalized, Vector2.up);
+
+            if (_strifeMinMax.Outside(angle))
+                moveForce *= _moveBackwardsMultiplier;
+            else if (_forwardMinMax.Outside(angle))
+                moveForce *= _moveStrifeMultiplier;
+
+            return moveForce;
+        }
+    }
     public float MoveForce
     {
         get => _moveForce;
@@ -36,11 +57,19 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField]
     private TriggerHandler _groundTrigger;
     [SerializeField]
-    private bool _isRotateWhenMove = true;
-    [SerializeField]
     private float _rotationSpeed = 8f;
     [SerializeField]
     private float _moveForce = 40f;
+    [SerializeField, LabelText("Rotate When Moving")]
+    private bool _isRotateWhenMove = true;
+    [SerializeField, Indent]
+    private float _moveBackwardsMultiplier = 0.65f;
+    [SerializeField, Indent]
+    private float _moveStrifeMultiplier = 0.8f;
+    [SerializeField, Indent, MinMaxSlider(-180, 180)]
+    private Vector2Int _forwardMinMax = new Vector2Int(-45, 45);
+    [SerializeField, Indent, MinMaxSlider(-180, 180)]
+    private Vector2Int _strifeMinMax = new Vector2Int(-110, 110);
     [SerializeField]
     private float _dragCoefficientHorizontal = 4f;
     [SerializeField]
@@ -110,10 +139,9 @@ public class MoveBehaviour : MonoBehaviour
         float deltaTime = Time.deltaTime;
         Vector3 velocity = _rigidbody.velocity.x_z();
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        Vector3 dragForce = _direction != Vector3.zero ? -_dragCoefficientHorizontal * velocity : Vector3.zero;
 
-        Vector3 dragForce = _direction != Vector3.zero ? 
-            -_dragCoefficientHorizontal * velocity : Vector3.zero;
-        Vector3 totalMoveForce = (_direction * _moveForce) + dragForce;
+        Vector3 totalMoveForce = (_direction * CurrentMoveForce) + dragForce;
 
         Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
 
@@ -142,6 +170,7 @@ public class MoveBehaviour : MonoBehaviour
         float maxDuration = _dashCoefficientCurve[_dashCoefficientCurve.length - 1].time;
         float startTime = Time.time;
         Vector3 startDirection = _direction;
+        float moveForce = CurrentMoveForce;
 
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -154,7 +183,7 @@ public class MoveBehaviour : MonoBehaviour
             if (_direction == Vector3.zero)
                 startDirection = Vector3.zero;
 
-            float force = _dashCoefficientCurve.Evaluate(duration) * _moveForce;
+            float force = _dashCoefficientCurve.Evaluate(duration) * moveForce;
             _rigidbody.AddForce(startDirection * force);
 
             await UniTask.WaitForFixedUpdate(cancellationToken);
@@ -169,6 +198,7 @@ public class MoveBehaviour : MonoBehaviour
         float maxDuration = _stopCoefficientCurve[_stopCoefficientCurve.length - 1].time;
         float startTime = Time.time;
         Vector3 startDirection = _rigidbody.velocity.x_z().normalized;
+        float moveForce = CurrentMoveForce;
 
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -181,7 +211,7 @@ public class MoveBehaviour : MonoBehaviour
             if (_direction != Vector3.zero)
                 break;
 
-            float force = _stopCoefficientCurve.Evaluate(duration) * _moveForce;
+            float force = _stopCoefficientCurve.Evaluate(duration) * moveForce;
             _rigidbody.AddForce(-startDirection * force);
 
             await UniTask.WaitForFixedUpdate(cancellationToken);
