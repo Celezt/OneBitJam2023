@@ -52,7 +52,7 @@ public class MoveBehaviour : MonoBehaviour
 
     [SerializeField, Space(8)]
     private UnityEvent<float> _onSpeedChangeEvent;
-    [SerializeField, Space(8)]
+    [SerializeField]
     private UnityEvent<Vector2> _onMoveChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
@@ -123,7 +123,7 @@ public class MoveBehaviour : MonoBehaviour
         _rigidbody.AddForce(totalMoveForce);
         _rigidbody.MoveRotation(rotation);
 
-        _onMoveChangeEvent.Invoke(new Vector2(0, localVelocity.z));
+        _onMoveChangeEvent.Invoke(new Vector2(localVelocity.x, localVelocity.z));
         _onSpeedChangeEvent.Invoke(speed);
         
     }

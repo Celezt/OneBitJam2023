@@ -538,6 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _isRotateWhenMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -609,7 +614,7 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimatorSetVector, Assembly-CSharp
+      value: AnimatorSetBase`1[[UnityEngine.Vector2, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -619,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimatorSetFloat, Assembly-CSharp
+      value: AnimatorSetBase`1[[System.Single, mscorlib
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -1125,6 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
+  _processors: []
   _id: Speed
 --- !u!114 &3366308912340179453
 MonoBehaviour:
@@ -1139,6 +1145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
+  _processors:
+  - {fileID: 11400000, guid: b4e91d31f1905a941906d2a0c85473bf, type: 2}
   _IdX: MoveX
   _IdY: MoveZ
 --- !u!114 &8945012955507417344
@@ -1307,7 +1315,7 @@ MonoBehaviour:
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 3d857e2c37b753a4f81a5d20ed396033,
+  lastSelectAnimationClip: {fileID: 7400000, guid: e5154f1dbac685d4a8714bc7fa78421a,
     type: 2}
   handPoseList: []
   blendShapeList: []
