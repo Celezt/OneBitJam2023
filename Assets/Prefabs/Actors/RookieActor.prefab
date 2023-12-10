@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
   _processors:
-  - {fileID: 11400000, guid: 4f6192fb3ada1e94b8c8198c38f569c4, type: 2}
+  - {fileID: 11400000, guid: 73be0bdaa4addba44b456b2f838f54e9, type: 2}
   - {fileID: 11400000, guid: b4e91d31f1905a941906d2a0c85473bf, type: 2}
   _IdX: MoveX
   _IdY: MoveZ
