@@ -83,6 +83,8 @@ public class MoveBehaviour : MonoBehaviour
     private UnityEvent<float> _onSpeedChangeEvent;
     [SerializeField]
     private UnityEvent<Vector2> _onMoveChangeEvent;
+    [SerializeField]
+    private UnityEvent<bool> _onRotateChangeEvent;
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
     private CancellationTokenSource _stopForceCancellationTokenSource;
@@ -137,20 +139,22 @@ public class MoveBehaviour : MonoBehaviour
             _direction = Vector3.zero;
 
         float deltaTime = Time.deltaTime;
+        Quaternion rotation = _rigidbody.rotation;
         Vector3 velocity = _rigidbody.velocity.x_z();
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
         Vector3 dragForce = _direction != Vector3.zero ? -_dragCoefficientHorizontal * velocity : Vector3.zero;
 
         Vector3 totalMoveForce = (_direction * CurrentMoveForce) + dragForce;
 
-        Quaternion rotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
+        Quaternion newRotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
 
         float minSpeed = (totalMoveForce.magnitude / _rigidbody.mass) * deltaTime * 10.0f;
         float speed = (float)Math.Round(_direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed), 2, MidpointRounding.AwayFromZero);
 
         _rigidbody.AddForce(totalMoveForce);
-        _rigidbody.MoveRotation(rotation);
+        _rigidbody.MoveRotation(newRotation);
 
+        _onRotateChangeEvent.Invoke(Quaternion.Angle(rotation, newRotation) > 8f);
         _onMoveChangeEvent.Invoke(new Vector2(localVelocity.x, localVelocity.z));
         _onSpeedChangeEvent.Invoke(speed);
         

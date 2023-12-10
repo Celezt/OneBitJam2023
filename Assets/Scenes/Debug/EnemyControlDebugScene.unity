@@ -244,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.012558329
+      value: 0.012558333
       objectReference: {fileID: 0}
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -254,7 +254,7 @@ PrefabInstance:
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.009669568
+      value: -0.009669572
       objectReference: {fileID: 0}
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -761,7 +761,7 @@ PrefabInstance:
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.012558329
+      value: 0.012558333
       objectReference: {fileID: 0}
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -771,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.009669568
+      value: 0.009669572
       objectReference: {fileID: 0}
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   - TargetTracking/HeadTracking
   - TargetTracking/RightHandIK
   showBones: 00000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000120000001300000014000000150000001700000018000000190000001a0000001b0000001c000000
-  foldoutBones: 1d0000001b0000001a0000001800000017000000150000001400000013000000120000000e0000000d0000000c0000000b0000000a00000008000000070000000600000005000000040000000300000000000000
+  foldoutBones: 1a00000007000000180000000c0000000800000013000000000000000d0000001b0000000300000005000000170000000b000000150000000e000000060000000a0000000400000014000000120000001d000000
   mirrorBones: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1200000013000000140000001500000016000000ffffffffffffffffffffffff0a0000000b0000000c0000000d0000000e0000001a0000001b0000001c000000170000001800000019000000ffffffffffffffffffffffffffffffffffffffff
   mirrorBlendShape: []
   animatorIkData:
@@ -1234,11 +1234,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.66802067, y: 0.1959453, z: -1.3057564}
-    rotation: {x: -0.019365571, y: 0.91608095, z: -0.3992464, w: -0.0319844}
+    position: {x: 0.74457043, y: 0.044410076, z: -1.5037807}
+    rotation: {x: 0.0018035464, y: 0.78382164, z: -0.0026167769, w: 0.6209779}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -10.186279
+    swivelRotation: 72.053925
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -1246,16 +1246,16 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.29318482, y: 0.03473269, z: -2.120811}
-    rotation: {x: 0.013205781, y: 0.99912494, z: -0.0050246525, w: 0.039366756}
+    position: {x: 0.18083294, y: 0.23433378, z: -2.1076937}
+    rotation: {x: -0.05380836, y: 0.9731573, z: 0.1092167, w: -0.19529809}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 3.407898
+    swivelRotation: -16.380005
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: e5154f1dbac685d4a8714bc7fa78421a,
+  lastSelectAnimationClip: {fileID: 7400000, guid: 2ee4281548c7fab40b6766f1087fb0d0,
     type: 2}
   handPoseList: []
   blendShapeList: []
