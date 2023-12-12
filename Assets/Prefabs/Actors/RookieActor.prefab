@@ -538,6 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _exceedMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _angleToRotate
       value: 64
       objectReference: {fileID: 0}

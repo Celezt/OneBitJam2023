@@ -22,7 +22,36 @@ public class MoveBehaviour : MonoBehaviour
     public Quaternion LookRotation
     {
         get => _lookRotation;
-        set => _lookRotation = value;
+        set
+        {
+            Quaternion quaternion = value;
+            float angle = Quaternion.Angle(transform.rotation, quaternion);
+
+            switch (_exceedMode)
+            {
+                case ExceedModes.Clamp:
+                    quaternion = quaternion.Clamp(new Vector3(360, _angleToRotate, 360));
+                    goto case ExceedModes.None;
+                case ExceedModes.Inverse when angle > _angleToRotate:
+                case ExceedModes.InverseOrCancel when angle > 180 - _angleToRotate:
+                    quaternion *= Quaternion.Euler(0, 180f, 0);
+                    goto case ExceedModes.None;
+                case ExceedModes.Cancel when angle <= _angleToRotate:
+                case ExceedModes.InverseOrCancel when angle <= _angleToRotate:
+                case ExceedModes.Inverse:
+                case ExceedModes.None:
+                    _lookRotation = quaternion;
+                    break;
+            }
+        }
+    }
+    /// <summary>
+    /// Exceed mode in use.
+    /// </summary>
+    public ExceedModes ExceedMode
+    {
+        get => _exceedMode;
+        set => _exceedMode = value;
     }
     /// <summary>
     /// If actor currently has a direction.
@@ -35,7 +64,7 @@ public class MoveBehaviour : MonoBehaviour
     /// <summary>
     /// Current move force affected by direction multipliers.
     /// </summary>
-    public float CurrentMoveForce
+    public float TrueMoveForce
     {
         get
         {
@@ -94,7 +123,7 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField, TitleGroup("Rotation Settings"), Range(0, 180)]
     private float _angleToRotate = 180;
     [SerializeField, TitleGroup("Rotation Settings"), Indent]
-    private bool _cancelRotateIfExceed = false;
+    private ExceedModes _exceedMode = ExceedModes.Cancel;
 
     [SerializeField, Space(8)]
     private UnityEvent<float> _onSpeedChangeEvent;
@@ -111,6 +140,15 @@ public class MoveBehaviour : MonoBehaviour
     private Quaternion _lookRotation;
     private bool _isMoving;
 
+    public enum ExceedModes
+    {
+        None,
+        Cancel,
+        Clamp,
+        Inverse,
+        InverseOrCancel,
+    }
+
     public void SetDirection(Vector2 direction)
         => SetDirection(direction.x_z());
     public void SetDirection(Vector3 direction)
@@ -125,11 +163,11 @@ public class MoveBehaviour : MonoBehaviour
     {
         _direction = direction.x_z().normalized;
 
-        Vector3 forward = _rigidbody.transform.forward;
-        float angle = Vector3.Angle(forward, _direction);
 
         if (_direction != Vector3.zero)
         {
+            float angle = Vector3.Angle(transform.forward, _direction);
+
             if ((angle > _angleDifferenceToDash || !_isMoving) && _stopForceAwaiter.IsCompleted)
             {
                 CTSUtility.Reset(ref _dashForceCancellationTokenSource);
@@ -145,19 +183,7 @@ public class MoveBehaviour : MonoBehaviour
         _isMoving = _direction != Vector3.zero;
 
         if (_isMoving && _isRotateWhenMove)  // Only update when a direction exist.
-        {
-            if (!_cancelRotateIfExceed || angle <= _angleToRotate)  // Skip if exceeding angle and is enabled.
-            {
-                Vector3 clampedDirection = _direction;
-                if (angle > _angleToRotate)
-                {
-                    Vector3 axis = Vector3.Cross(forward, _direction);
-                    clampedDirection = Quaternion.AngleAxis(_angleToRotate, axis) * forward;
-                }
-
-                _lookRotation = Quaternion.LookRotation(clampedDirection, Vector3.up);
-            }
-        }
+            LookRotation = Quaternion.LookRotation(_direction, Vector3.up);
     }
 
     private void OnEnable()
@@ -176,7 +202,7 @@ public class MoveBehaviour : MonoBehaviour
         _localVelocity = transform.InverseTransformDirection(velocity);
         Vector3 dragForce = _direction != Vector3.zero ? -_dragCoefficientHorizontal * velocity : Vector3.zero;
 
-        Vector3 totalMoveForce = (_direction * CurrentMoveForce) + dragForce;
+        Vector3 totalMoveForce = (_direction * TrueMoveForce) + dragForce;
 
         Quaternion newRotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
 
@@ -206,7 +232,7 @@ public class MoveBehaviour : MonoBehaviour
         float maxDuration = _dashCoefficientCurve[_dashCoefficientCurve.length - 1].time;
         float startTime = Time.time;
         Vector3 startDirection = _direction;
-        float moveForce = CurrentMoveForce;
+        float moveForce = TrueMoveForce;
 
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -234,7 +260,7 @@ public class MoveBehaviour : MonoBehaviour
         float maxDuration = _stopCoefficientCurve[_stopCoefficientCurve.length - 1].time;
         float startTime = Time.time;
         Vector3 startDirection = _rigidbody.velocity.x_z().normalized;
-        float moveForce = CurrentMoveForce;
+        float moveForce = TrueMoveForce;
 
         while (!cancellationToken.IsCancellationRequested)
         {
