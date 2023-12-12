@@ -30,16 +30,15 @@ public class MoveBehaviour : MonoBehaviour
             switch (_exceedMode)
             {
                 case ExceedModes.Clamp:
-                    quaternion = quaternion.Clamp(new Vector3(360, _angleToRotate, 360));
-                    goto case ExceedModes.None;
-                case ExceedModes.Inverse when angle > _angleToRotate:
-                case ExceedModes.InverseOrCancel when angle > 180 - _angleToRotate:
+                    quaternion = quaternion.Clamp(new Vector3(360, _angleRotateLimit, 360));
+                    goto case ExceedModes.Inverse;
+                case ExceedModes.Inverse when angle > _angleRotateLimit:
+                case ExceedModes.InverseOrCancel when angle > 180 - _angleRotateLimit:
                     quaternion *= Quaternion.Euler(0, 180f, 0);
-                    goto case ExceedModes.None;
-                case ExceedModes.Cancel when angle <= _angleToRotate:
-                case ExceedModes.InverseOrCancel when angle <= _angleToRotate:
+                    goto case ExceedModes.Inverse;
+                case ExceedModes.Cancel when angle <= _angleRotateLimit:
+                case ExceedModes.InverseOrCancel when angle <= _angleRotateLimit:
                 case ExceedModes.Inverse:
-                case ExceedModes.None:
                     _lookRotation = quaternion;
                     break;
             }
@@ -121,8 +120,8 @@ public class MoveBehaviour : MonoBehaviour
     [SerializeField, TitleGroup("Rotation Settings"), LabelText("Rotate When Moving")]
     private bool _isRotateWhenMove = true;
     [SerializeField, TitleGroup("Rotation Settings"), Range(0, 180)]
-    private float _angleToRotate = 180;
-    [SerializeField, TitleGroup("Rotation Settings"), Indent]
+    private float _angleRotateLimit = 180;
+    [SerializeField, TitleGroup("Rotation Settings"), HideIf("@Mathf.Approximately(_angleRotateLimit, 180f)"), Indent]
     private ExceedModes _exceedMode = ExceedModes.Cancel;
 
     [SerializeField, Space(8)]
@@ -142,7 +141,6 @@ public class MoveBehaviour : MonoBehaviour
 
     public enum ExceedModes
     {
-        None,
         Cancel,
         Clamp,
         Inverse,
