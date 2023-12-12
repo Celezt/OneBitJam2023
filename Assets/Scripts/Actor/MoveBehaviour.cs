@@ -33,11 +33,11 @@ public class MoveBehaviour : MonoBehaviour
                     quaternion = quaternion.Clamp(new Vector3(360, _angleRotateLimit, 360));
                     goto case ExceedModes.Inverse;
                 case ExceedModes.Inverse when angle > _angleRotateLimit:
-                case ExceedModes.InverseOrCancel when angle > 180 - _angleRotateLimit:
+                case ExceedModes.InverseMirrorOrCancel when angle > 180 - _angleRotateLimit:
                     quaternion *= Quaternion.Euler(0, 180f, 0);
                     goto case ExceedModes.Inverse;
                 case ExceedModes.Cancel when angle <= _angleRotateLimit:
-                case ExceedModes.InverseOrCancel when angle <= _angleRotateLimit:
+                case ExceedModes.InverseMirrorOrCancel when angle <= _angleRotateLimit:
                 case ExceedModes.Inverse:
                     _lookRotation = quaternion;
                     break;
@@ -141,10 +141,22 @@ public class MoveBehaviour : MonoBehaviour
 
     public enum ExceedModes
     {
+        /// <summary>
+        /// Ignore change if limit is exceeded.
+        /// </summary>
         Cancel,
+        /// <summary>
+        /// Clamp to max value if exceeded.
+        /// </summary>
         Clamp,
+        /// <summary>
+        /// Inverse value if exceeded.
+        /// </summary>
         Inverse,
-        InverseOrCancel,
+        /// <summary>
+        /// Only inverse when
+        /// </summary>
+        InverseMirrorOrCancel,
     }
 
     public void SetDirection(Vector2 direction)
