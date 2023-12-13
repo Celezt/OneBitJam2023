@@ -20,5 +20,10 @@ public abstract class AIBaseBehavior : MonoBehaviour
 	public abstract void OnTriggerExit(Collider other);
 	public abstract void OnCollisionEnter(Collision other);
 	public abstract void OnCollisionExit(Collision other);
+	public virtual void OnDrawGizmos()
+	{
+		if (Application.isEditor && !Application.isPlaying || !bInitialized)
+			return;
+	}
 	public abstract void OnExit();
 }

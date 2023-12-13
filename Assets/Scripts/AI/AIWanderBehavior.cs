@@ -9,6 +9,7 @@ using UDebug = UnityEngine.Debug;
 public class AIWanderBehavior : AIMovingBase
 {
 	[SerializeField] private float maxMoveTime = 2.5f;
+	[SerializeField] private float minMoveTime = 0.65f;
 
 	private float moveTime;
 
@@ -28,7 +29,11 @@ public class AIWanderBehavior : AIMovingBase
 
 	public override void OnInit() { base.OnInit(); }
 
-	public override void OnEnter() { }
+	public override void OnEnter()
+	{
+		moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
+		moveTime = minMoveTime;
+	}
 
 	public override void OnExit()
 	{
@@ -45,8 +50,8 @@ public class AIWanderBehavior : AIMovingBase
 
 		if (moveTime <= 0.0f)
 		{
-			moveDirection = URand.insideUnitSphere;
-			moveTime = maxMoveTime;
+			moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
+			moveTime = URand.Range(minMoveTime, maxMoveTime);
 		}
 		else
 		{

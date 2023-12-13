@@ -5,8 +5,10 @@ using URand = UnityEngine.Random;
 
 public class AIRangedAttackBehavior : AIAttackingBase
 {
-	[SerializeField] private float moveTime;
-	[SerializeField] private float maxMoveTime;
+	[SerializeField] private float maxMoveTime = 2.5f;
+	[SerializeField] private float minMoveTime = 0.65f;
+
+	private float moveTime;
 
 	private Vector3 moveDirection;
 
@@ -25,7 +27,11 @@ public class AIRangedAttackBehavior : AIAttackingBase
 
 	public override void OnInit() { base.OnInit(); }
 
-	public override void OnEnter() { }
+	public override void OnEnter()
+	{
+		moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
+		moveTime = minMoveTime;
+	}
 
 	public override void OnExit()
 	{
@@ -38,7 +44,7 @@ public class AIRangedAttackBehavior : AIAttackingBase
 
 		if (moveTime <= 0.0f)
 		{
-			moveDirection = URand.insideUnitSphere;
+			moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
 			moveTime = maxMoveTime;
 		}
 		else
