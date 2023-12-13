@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,8 +14,12 @@ public enum AIState
 public class AIController : MonoBehaviour
 {
 	[Header("Generic AI settings")]
+	[HideIf(nameof(lookTurretController), true), InfoBox("Supports both LookBehaviour and LookTurretBehaviour, use either one for rotating the AI actor"), Space(10)]
+	[SerializeField] LookBehaviour lookController;
+	[HideIf(nameof(lookController), true)]
+	[SerializeField] LookTurretBehaviour lookTurretController;
+	[Space(10)]
 	[SerializeField] MoveBehaviour moveController;
-	[SerializeField] LookTurretBehaviour lookController;
 	[SerializeField] AIMovingBase wanderingBehavior;
 	[SerializeField] AIAttackingBase attackingBehavior;
 
@@ -68,6 +73,11 @@ public class AIController : MonoBehaviour
 		activeBehavior?.OnUpdate();
 	}
 
+	void OnDrawGizmos()
+	{
+		activeBehavior?.OnDrawGizmos();
+	}
+
 	public void SwitchBehavior(AIState newState)
 	{
 		if (newState == activeState)
@@ -96,10 +106,26 @@ public class AIController : MonoBehaviour
 	public Quaternion GetMoveLookRotation() => moveController.LookRotation;
 	public float GetMoveForce() => moveController.MoveForce;
 
-	public void LookAt(Vector2 target) => lookController.LookAt(target);
-	public void Look(Vector2 direction) => lookController.Look(direction);
-	public Vector2 GetLookDirection() => lookController.LookDirection;
-	public Vector3 GetLookTargetPosition() => lookController.TargetPosition;
-	public void SetLookUseDirection(bool useDirection) => lookController.UseDirection = useDirection;
-	public bool GetLookUseDirection() => lookController.UseDirection;
+	public void LookAt(Vector2 target)
+	{
+		if (lookController)
+			lookController.LookAt(target);
+		else
+			lookTurretController.LookAt(target);
+	}
+	public void Look(Vector2 direction)
+	{
+		if (lookController)
+			lookController.Look(direction);
+		else
+			lookTurretController.Look(direction);
+	}
+	public Vector2 GetLookDirection() => lookTurretController ? lookTurretController.LookDirection : Vector2.zero;
+	public Vector3 GetLookTargetPosition() => lookTurretController ? lookTurretController.TargetPosition : Vector3.zero;
+	public void SetLookUseDirection(bool useDirection)
+	{
+		if (lookTurretController)
+			lookTurretController.UseDirection = useDirection;
+	}
+	public bool GetLookUseDirection() => lookTurretController ? lookTurretController.UseDirection : false;
 }

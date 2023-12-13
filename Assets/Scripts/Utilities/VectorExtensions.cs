@@ -42,4 +42,14 @@ public static class VectorExtensions
 
         return true;
     }
+
+    public static bool Outside(this Vector2Int minMax, float value)
+    => Outside((Vector2)minMax, value);
+    public static bool Outside(this Vector2 minMax, float value)
+    {
+        if (value >= minMax.x && value <= minMax.y)
+            return false;
+
+        return true;
+    }
 }

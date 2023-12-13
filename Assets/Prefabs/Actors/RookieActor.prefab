@@ -538,6 +538,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _exceedMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _angleToRotate
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _forwardMinMax.x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _forwardMinMax.y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _angleRotateLimit
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _cancelRotateIfExceed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -549,6 +579,11 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -573,9 +608,19 @@ PrefabInstance:
       objectReference: {fileID: 3366308912340179453}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2254864899014020054}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1710970373440774641}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -603,13 +648,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetParameter
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetParameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimatorSetVector, Assembly-CSharp
+      value: AnimatorSetBase`1[[UnityEngine.Vector2, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -619,7 +674,12 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimatorSetFloat, Assembly-CSharp
+      value: AnimatorSetBase`1[[System.Single, mscorlib
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AnimatorSetBase`1[[System.Single, mscorlib
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -634,6 +694,11 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _onRotateChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -700,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 224593133680069565}
-  _minMaxLimit: {x: -64, y: 110}
+  _minMaxLimit: {x: -64, y: 64}
   _deadZoneRadius: 1.5
   _isDirectionWorldSpace: 1
   _onExceedingAngleEvent:
@@ -976,6 +1041,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbd02be7d5c809c498d237239371a97a,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1710970373440774641}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbd02be7d5c809c498d237239371a97a,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8945012955507417344}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbd02be7d5c809c498d237239371a97a,
         type: 3}
@@ -1125,7 +1194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
+  _processors: []
   _id: Speed
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &3366308912340179453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,8 +1212,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
+  _processors:
+  - rid: 2403426003183206400
+  - rid: 2403426003183206401
   _IdX: MoveX
   _IdY: MoveZ
+  references:
+    version: 2
+    RefIds:
+    - rid: 2403426003183206400
+      type: {class: NormalizeProcessorVector, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2403426003183206401
+      type: {class: LerpProcessorVector, ns: , asm: Assembly-CSharp}
+      data:
+        _lerpSpeed: 4
+--- !u!114 &1710970373440774641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410078911212572450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce65c0a21a40da49b1b416dffdd6341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2962636615276154850}
+  _processors: []
+  _id: Rotate
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &8945012955507417344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,7 +1411,7 @@ MonoBehaviour:
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 3d857e2c37b753a4f81a5d20ed396033,
+  lastSelectAnimationClip: {fileID: 7400000, guid: e5154f1dbac685d4a8714bc7fa78421a,
     type: 2}
   handPoseList: []
   blendShapeList: []

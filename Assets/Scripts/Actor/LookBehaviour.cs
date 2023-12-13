@@ -19,13 +19,11 @@ public class LookBehaviour : MonoBehaviour
 
     [SerializeField, Space(8)]
     private Transform _target;
-    [SerializeField, MinMaxSlider(-180, 180)]
+    [SerializeField, MinMaxSlider(-180, 180, true)]
     private Vector2Int _minMaxLimit = new Vector2Int(-180, 180);
-    [FoldoutGroup("Target Settings")]
-    [SerializeField, Min(0)]
+    [SerializeField, TitleGroup("Target Settings"), Min(0)]
     private float _deadZoneRadius = 1.0f;
-    [FoldoutGroup("Direction Settings")]
-    [SerializeField]
+    [SerializeField, TitleGroup("Direction Settings")]
     private bool _isDirectionWorldSpace;
 
     [SerializeField, Space(8)]
