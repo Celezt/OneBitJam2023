@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
             Debug.Log("Hit " + other.name);
             if (bulletBehaviour.doT)
             {
-                other.gameObject.GetComponent<EnemyHealth>().DoDOTDamage(1, 2, 2, 1);
+                
             }
             else
             {

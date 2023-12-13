@@ -8,4 +8,8 @@ public class BulletBehaviour : MonoBehaviour
     public float damageMultiplier;
     public float doTTimer;
     public bool doT;
+
+    public List<BulletEffects> Effects = new List<BulletEffects>();
+
+    
 }
