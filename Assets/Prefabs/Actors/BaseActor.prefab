@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1561186453881238517}
   - component: {fileID: 5887052858668328933}
   - component: {fileID: 623063492829522824}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GroundTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3516680236620601936}
   - component: {fileID: 6419540320930992423}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SlideCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 6651697219118420470}
   - component: {fileID: 11692466830018619}
   - component: {fileID: 3677151395975013441}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseActor
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -311,11 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 6651697219118420470}
   _groundTrigger: {fileID: 623063492829522824}
-  _rotationSpeed: 8
   _moveForce: 40
-  _isRotateWhenMove: 1
-  _moveBackwardsMultiplier: 0.65
-  _moveStrifeMultiplier: 0.8
   _dragCoefficientHorizontal: 4
   _dashCoefficientCurve:
     serializedVersion: 2
@@ -375,9 +371,20 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _moveBackwardsMultiplier: 0.65
+  _moveStrafeMultiplier: 0.8
+  _forwardMinMax: {x: -45, y: 45}
+  _strafeMinMax: {x: -110, y: 110}
+  _rotationSpeed: 8
+  _isRotateWhenMove: 1
+  _angleRotateLimit: 180
+  _exceedMode: 0
   _onSpeedChangeEvent:
     m_PersistentCalls:
       m_Calls: []
   _onMoveChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onRotateChangeEvent:
     m_PersistentCalls:
       m_Calls: []

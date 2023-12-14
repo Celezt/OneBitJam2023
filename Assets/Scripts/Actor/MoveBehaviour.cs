@@ -142,19 +142,19 @@ public class MoveBehaviour : MonoBehaviour
     public enum ExceedModes
     {
         /// <summary>
-        /// Ignore change if limit is exceeded.
+        /// Ignore change if limit has exceeded.
         /// </summary>
         Cancel,
         /// <summary>
-        /// Clamp to max value if exceeded.
+        /// Clamp to max value if limit has exceeded.
         /// </summary>
         Clamp,
         /// <summary>
-        /// Inverse value if exceeded.
+        /// Inverse value if limit has exceeded.
         /// </summary>
         Inverse,
         /// <summary>
-        /// Only inverse when
+        /// Only inverse when the value is mirrored (180 - angle), otherwise ignore change if limit has exceeded.
         /// </summary>
         InverseMirrorOrCancel,
     }
