@@ -161,7 +161,7 @@ PrefabInstance:
     - target: {fileID: 1703730268968544180, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -252,6 +252,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7793938135599591685}
+    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5199693202747353932}
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -267,6 +271,24 @@ Transform:
 --- !u!4 &1750246650871838878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
+    type: 3}
+  m_PrefabInstance: {fileID: 4248966879684100058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3626185153956959314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 623063492829522824, guid: 964af80d2ebaa8448a8c787ec8465660,
+    type: 3}
+  m_PrefabInstance: {fileID: 4248966879684100058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597d729765eec32478afc345d1d9100b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &7401894400906341932 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6651697219118420470, guid: 964af80d2ebaa8448a8c787ec8465660,
     type: 3}
   m_PrefabInstance: {fileID: 4248966879684100058}
   m_PrefabAsset: {fileID: 0}
@@ -288,8 +310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19041ba9af058ef4f8aeb3e8e9dda51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveController: {fileID: 0}
-  lookController: {fileID: 8259194508537463445}
+  lookController: {fileID: 0}
+  lookTurretController: {fileID: 8259194508537463445}
+  moveController: {fileID: 7793938135599591685}
   wanderingBehavior: {fileID: 1526357477329925739}
   attackingBehavior: {fileID: 5199693202747353932}
 --- !u!114 &8259194508537463445
@@ -308,6 +331,92 @@ MonoBehaviour:
   _rotationSpeed: 10
   _fixedRotation: 1
   _initialRotation: {x: 0, y: -0.21643962, z: 0, w: 0.976296}
+--- !u!114 &7793938135599591685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028882115440476252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c089610de2a478dc7eb6cbb431b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 7401894400906341932}
+  _groundTrigger: {fileID: 3626185153956959314}
+  _rotationSpeed: 8
+  _moveForce: 40
+  _isRotateWhenMove: 1
+  _moveBackwardsMultiplier: 0.65
+  _moveStrifeMultiplier: 0.8
+  _forwardMinMax: {x: -45, y: 45}
+  _strifeMinMax: {x: -110, y: 110}
+  _dragCoefficientHorizontal: 4
+  _dashCoefficientCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _angleDifferenceToDash: 80
+  _stopCoefficientCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _onSpeedChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMoveChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5199693202747353932
 MonoBehaviour:
   m_ObjectHideFlags: 0

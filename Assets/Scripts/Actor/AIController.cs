@@ -73,6 +73,11 @@ public class AIController : MonoBehaviour
 		activeBehavior?.OnUpdate();
 	}
 
+	void OnDrawGizmos()
+	{
+		activeBehavior?.OnDrawGizmos();
+	}
+
 	public void SwitchBehavior(AIState newState)
 	{
 		if (newState == activeState)

@@ -1,5 +1,100 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1283919816063647599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4057250140019965399}
+  - component: {fileID: 770822270223151483}
+  m_Layer: 0
+  m_Name: Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4057250140019965399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283919816063647599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4027278204782246413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &770822270223151483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283919816063647599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 645ab3998e04ead4196b6e445ef420f5,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 42e833f4-0ad3-4575-89e5-5a906c8bae9f
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/l,/Keyboard/leftArrow,/Keyboard/a,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1686495615445268262}
+        m_TargetAssemblyTypeName: AIAttackingBase, Assembly-CSharp
+        m_MethodName: SetPlayerForward
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6916ad10-8fad-4450-8583-7bb5abbd73f4
+    m_ActionName: Player/LookPosition[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bdca9914-4d10-48ba-93a5-6886ed2fc6a2
+    m_ActionName: Player/LookDelta
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5abbc46b-b61a-4e98-a2ca-b0ec3991da7e
+    m_ActionName: Player/LeftAttack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a40f37a4-3b5e-4fdb-8551-5ae7fcaea63c
+    m_ActionName: Player/RightAttack[/Mouse/rightButton]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &249275112698015515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
@@ -63,6 +158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RookieAIActor
       objectReference: {fileID: 0}
+    - target: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7111474064906371805, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       propertyPath: m_Enabled
@@ -70,7 +170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 4057250140019965399}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
@@ -101,6 +205,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e4c089610de2a478dc7eb6cbb431b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4027278204782246413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5973158820057875151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
@@ -160,7 +270,7 @@ MonoBehaviour:
   maxPlayerDistance: 5.5
   minCircleSwitchTime: 2
   maxCircleSwitchTime: 4.5
-  playerFaceAIMinAngle: 5
+  playerFaceAIMinAngle: 15
 --- !u!114 &654982533680382591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +286,6 @@ MonoBehaviour:
   detectEdgeDistance: 7
   detectWallDistance: 5
   minPlayerDistance: 3.5
-  moveAnimSpeed: 2
   maxMoveTime: 2.5
 --- !u!114 &7044929024204746182 stripped
 MonoBehaviour:

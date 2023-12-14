@@ -18,6 +18,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf0e21b5b0b22854cb8b7dcb90d1e1bb, type: 2}
   bulletSpread: 0.3
   bulletAmount: 5
-  bulletSpeed: 0.1
+  bulletSpeed: 0.05
   fireDelay: 1
   isAutomatic: 1
