@@ -249,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.012558334
+      value: 0.012558345
       objectReference: {fileID: 0}
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -259,7 +259,7 @@ PrefabInstance:
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.009669573
+      value: -0.009669584
       objectReference: {fileID: 0}
     - target: {fileID: 1331319914322165188, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -346,7 +346,12 @@ PrefabInstance:
     - target: {fileID: 3288899934280676692, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Neck'\n\tTransform 'LowerArm.R'\n\tTransform
+        'Hand.R'\n\tTransform 'Head'\n\tTransform 'LowerArm.L'\n\tTransform 'Hips'\n\tTransform
+        'Hand.L'\n\tTransform 'UpperArm.R'\n\tTransform 'Spine'\n\tTransform 'Neck'\n\tand
+        more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 3472201692274044832, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -761,7 +766,7 @@ PrefabInstance:
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.012558334
+      value: 0.012558345
       objectReference: {fileID: 0}
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -771,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.009669573
+      value: 0.009669584
       objectReference: {fileID: 0}
     - target: {fileID: 8310420195340417148, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
@@ -1238,11 +1243,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.7499085, y: 0.03663361, z: -1.505515}
-    rotation: {x: -0.00000034015582, y: 0.7799533, z: -0.00000035263565, w: 0.6258377}
+    position: {x: 0.16681802, y: 0.1960097, z: -1.6605517}
+    rotation: {x: 0.06457872, y: 0.9317324, z: -0.23354657, w: 0.27048168}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: 72.71799
+    swivelRotation: 122.50653
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   - enable: 1
@@ -1250,11 +1255,11 @@ MonoBehaviour:
     autoRotation: 0
     spaceType: 0
     parent: {fileID: 0}
-    position: {x: 0.20149586, y: 0.036619466, z: -2.0144877}
-    rotation: {x: 0.00000054279593, y: 0.9870421, z: -0.00000034790807, w: -0.1604612}
+    position: {x: 0.5983249, y: 0.05545479, z: -1.8818526}
+    rotation: {x: 0.010438104, y: 0.9294361, z: 0.023227874, w: 0.3681036}
     headWeight: 1
     eyesWeight: 0
-    swivelRotation: -16.064453
+    swivelRotation: 28.28157
     swivelPosition: {x: 0, y: 0, z: 0}
     parentPath: 
   originalIkData: []

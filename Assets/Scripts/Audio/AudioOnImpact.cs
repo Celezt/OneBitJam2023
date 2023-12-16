@@ -100,7 +100,7 @@ public class AudioOnImpact : MonoBehaviour
         Color oldColor = Gizmos.color;
         Gizmos.color = Color.yellow;
         Vector3 position = _target.position;
-        Gizmos.DrawLine(position, position + _rotation * Vector3.down * _distance);
+        Gizmos.DrawRay(position, _rotation * Vector3.down * _distance);
         Gizmos.color = oldColor;
     }
 
