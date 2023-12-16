@@ -53,9 +53,13 @@ public class MoveBehaviour : MonoBehaviour
         set => _exceedMode = value;
     }
     /// <summary>
-    /// If actor currently has a direction.
+    /// If the actor currently has a direction.
     /// </summary>
     public bool IsMoving => _isMoving;
+    /// <summary>
+    /// If the actor currently is rotating.
+    /// </summary>
+    public bool IsRotating => _isRotating;
     /// <summary>
     /// The angle of velocity relative to actors forward direction in local space.
     /// </summary>
@@ -119,6 +123,9 @@ public class MoveBehaviour : MonoBehaviour
     private float _rotationSpeed = 8f;
     [SerializeField, TitleGroup("Rotation Settings"), LabelText("Rotate When Moving")]
     private bool _isRotateWhenMove = true;
+    [SerializeField, TitleGroup("Rotation Settings"), LabelText("Update When Not Rotating"), Indent]
+    [ShowIf(nameof(_isRotateWhenMove))]
+    private bool _isUpdateRotate = true;
     [SerializeField, TitleGroup("Rotation Settings"), Range(0, 180)]
     private float _angleRotateLimit = 180;
     [SerializeField, TitleGroup("Rotation Settings"), HideIf("@Mathf.Approximately(_angleRotateLimit, 180f)"), Indent]
@@ -138,6 +145,7 @@ public class MoveBehaviour : MonoBehaviour
     private Vector3 _localVelocity;
     private Quaternion _lookRotation;
     private bool _isMoving;
+    private bool _isRotating;
 
     public enum ExceedModes
     {
@@ -215,6 +223,13 @@ public class MoveBehaviour : MonoBehaviour
         Vector3 totalMoveForce = (_direction * TrueMoveForce) + dragForce;
 
         Quaternion newRotation = Quaternion.Slerp(_rigidbody.rotation, _lookRotation, deltaTime * _rotationSpeed);
+
+        bool previousIsRotating = _isRotating;
+        _isRotating = Quaternion.Angle(_lookRotation, newRotation) > 2.0f;
+
+        // Set look to direction if it just stopped rotating.
+        if (_isUpdateRotate && _isRotateWhenMove && previousIsRotating && !_isRotating && _direction != Vector3.zero)
+            LookRotation = Quaternion.LookRotation(_direction, Vector3.up);
 
         float minSpeed = (totalMoveForce.magnitude / _rigidbody.mass) * deltaTime * 10.0f;
         float speed = (float)Math.Round(_direction.IsZero() ? velocity.magnitude : Mathf.Max(velocity.magnitude, minSpeed), 2, MidpointRounding.AwayFromZero);
