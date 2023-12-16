@@ -46,7 +46,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -146,10 +146,14 @@ MonoBehaviour:
   _target: {fileID: 5283080353220373835}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
   _audio:
-    Clips:
+    _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
-    Picker:
-      rid: 2403426100871692290
+    - {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
+    - {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
+    _picker:
+      rid: 2403426128738386156
+    _resetter:
+      rid: 2403426128738386099
   _scaleOfSpeed: 1
   _maxSpeed: 8
   _cooldown: 0.2
@@ -160,9 +164,37 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2403426100871692290
-      type: {class: AudioSequence, ns: , asm: Assembly-CSharp}
+    - rid: 2403426128738386099
+      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
+    - rid: 2403426128738386156
+      type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
+      data:
+        Distribution: 0
+        WeightDistribution:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &1057723536257416489
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +595,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -663,10 +695,14 @@ MonoBehaviour:
   _target: {fileID: 6491570161600514345}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
   _audio:
-    Clips:
+    _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
-    Picker:
-      rid: 2403426100871692330
+    - {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
+    - {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
+    _picker:
+      rid: 2403426128738386157
+    _resetter:
+      rid: 2403426128738386103
   _scaleOfSpeed: 1
   _maxSpeed: 8
   _cooldown: 0.2
@@ -677,13 +713,34 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2403426100871692330
-      type: {class: AudioShuffle, ns: , asm: Assembly-CSharp}
+    - rid: 2403426128738386103
+      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2403426128738386157
+      type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
       data:
         Distribution: 0
         WeightDistribution:
           serializedVersion: 2
-          m_Curve: []
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
