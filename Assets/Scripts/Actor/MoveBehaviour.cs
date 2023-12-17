@@ -179,6 +179,7 @@ public class MoveBehaviour : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
+        Vector3 previousDirection = _direction;
         _direction = direction.x_z().normalized;
 
 
@@ -200,7 +201,8 @@ public class MoveBehaviour : MonoBehaviour
 
         _isMoving = _direction != Vector3.zero;
 
-        if (_isMoving && _isRotateWhenMove)  // Only update when a direction exist.
+        // Only update when a new direction exist.
+        if (_isMoving && _isRotateWhenMove && previousDirection != _direction)
             LookRotation = Quaternion.LookRotation(_direction, Vector3.up);
     }
 

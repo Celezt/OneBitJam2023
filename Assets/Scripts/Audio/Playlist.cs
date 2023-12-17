@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable, InlineProperty, HideLabel]
-public class Audio : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<AudioClip>
+public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<AudioClip>
 {
     public static IEnumerable<Type> PickerFilter 
         => _cachedPickers ??= ReflectionUtility.GetDerivedTypes<IAudioPicker>(AppDomain.CurrentDomain);
@@ -30,11 +30,12 @@ public class Audio : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<AudioCli
         set => _resetter = value ?? new AudioResetterDefault();
     }
 
-    [SerializeField]
+    [Title("Playlist", horizontalLine: false, bold: false)]
+    [SerializeField, PropertySpace(SpaceBefore = 8)]
     private List<AudioClip> _clips = new();
     [SerializeReference, TypeFilter(nameof(PickerFilter)), Indent]
     private IAudioPicker _picker = new AudioPickerSequence();
-    [SerializeReference, TypeFilter(nameof(ResetterFilter)), Indent]
+    [SerializeReference, TypeFilter(nameof(ResetterFilter)), Indent, PropertySpace(spaceAfter: 8, spaceBefore: 0)]
     private IAudioResetter _resetter = new AudioResetterDefault();
 
     public AudioClip Get()

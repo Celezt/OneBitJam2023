@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3685177831782302601}
+  m_Father: {fileID: 6938302151778498597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &81094479931125123
 AudioSource:
@@ -145,15 +145,15 @@ MonoBehaviour:
   _audioSource: {fileID: 81094479931125123}
   _target: {fileID: 5283080353220373835}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
-  _audio:
+  _playlist:
     _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
     - {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
     - {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
     _picker:
-      rid: 2403426128738386156
+      rid: 2403426165908045876
     _resetter:
-      rid: 2403426128738386099
+      rid: 2403426165908045851
   _scaleOfSpeed: 1
   _maxSpeed: 8
   _cooldown: 0.2
@@ -164,10 +164,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2403426128738386099
+    - rid: 2403426165908045851
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 2403426128738386156
+    - rid: 2403426165908045876
       type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
       data:
         Distribution: 0
@@ -255,7 +255,8 @@ Transform:
   m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3685177831782302601}
+  - {fileID: 5526227040874335826}
+  - {fileID: 8734065714562953026}
   m_Father: {fileID: 3789319853362517270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3638729392449490971
@@ -446,53 +447,6 @@ MonoBehaviour:
   _useTransformScale: 0
   _rotation: {x: 0, y: 0, z: 0, w: 1}
   _length: 1
---- !u!1 &5806785182282378259
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3685177831782302601}
-  - component: {fileID: 5688311405505617423}
-  m_Layer: 0
-  m_Name: FootGroup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3685177831782302601
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806785182282378259}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5526227040874335826}
-  - {fileID: 8734065714562953026}
-  m_Father: {fileID: 6938302151778498597}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5688311405505617423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806785182282378259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d836bdef2efd44aa824f5acb2b485e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _volume: 1
 --- !u!1 &5954278346004326518
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +534,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3685177831782302601}
+  m_Father: {fileID: 6938302151778498597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3678723198574939073
 AudioSource:
@@ -694,15 +648,15 @@ MonoBehaviour:
   _audioSource: {fileID: 3678723198574939073}
   _target: {fileID: 6491570161600514345}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
-  _audio:
+  _playlist:
     _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
     - {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
     - {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
     _picker:
-      rid: 2403426128738386157
+      rid: 2403426165908045877
     _resetter:
-      rid: 2403426128738386103
+      rid: 2403426165908045849
   _scaleOfSpeed: 1
   _maxSpeed: 8
   _cooldown: 0.2
@@ -713,10 +667,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2403426128738386103
+    - rid: 2403426165908045849
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 2403426128738386157
+    - rid: 2403426165908045877
       type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
       data:
         Distribution: 0

@@ -52,9 +52,9 @@ public class AudioOnImpact : MonoBehaviour
     private Transform _target;
     [SerializeField, Indent]
     private Quaternion _rotation;
-    [SerializeField, Space(8)]
-    private Audio _audio; 
-    [SerializeField, Space(8)]
+    [SerializeField]
+    private Playlist _playlist; 
+    [SerializeField]
 #if UNITY_EDITOR
     [OnValueChanged(nameof(ScaleOfSpeedChange))]
 #endif
@@ -121,7 +121,7 @@ public class AudioOnImpact : MonoBehaviour
                         _audioSource.volume = interval * _startVolume;
                     }
 
-                    _audioSource.Play(_audio);
+                    _audioSource.Play(_playlist);
                     _isColliding = true;
 
                     await UniTask.WaitForSeconds(_cooldown, cancellationToken: ct);
