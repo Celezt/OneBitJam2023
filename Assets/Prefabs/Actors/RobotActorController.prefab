@@ -76,8 +76,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/l,/Keyboard/leftArrow,/Keyboard/a,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1509453137558965934}
-        m_TargetAssemblyTypeName: LookTurretBehaviour, Assembly-CSharp
+      - m_Target: {fileID: 1581897862940694702}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
         m_MethodName: LookAt
         m_Mode: 0
         m_Arguments:
@@ -92,8 +92,8 @@ MonoBehaviour:
     m_ActionName: Player/LookPosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1509453137558965934}
-        m_TargetAssemblyTypeName: LookTurretBehaviour, Assembly-CSharp
+      - m_Target: {fileID: 1581897862940694702}
+        m_TargetAssemblyTypeName: LookBehaviour, Assembly-CSharp
         m_MethodName: Look
         m_Mode: 0
         m_Arguments:
@@ -209,15 +209,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2207689793130521869}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1509453137558965934 stripped
+--- !u!114 &1581897862940694702 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 743636590731062179, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+  m_CorrespondingSourceObject: {fileID: 817207147292753315, guid: bd45b73470d7bd34db85f6b5e03c35b6,
     type: 3}
   m_PrefabInstance: {fileID: 2207689793130521869}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29d87a0b8a71f84f9ce3a2211f47fd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 74f17f134c84b9e4f8bb3d3ee0ca1327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

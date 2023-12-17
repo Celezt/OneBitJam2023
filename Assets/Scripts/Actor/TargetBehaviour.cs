@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [HideMonoScript]
-public class LookBehaviour : MonoBehaviour
+public class TargetBehaviour : MonoBehaviour
 {
     private const int DIRECTION_DISTANCE = 4;
 
@@ -24,7 +24,7 @@ public class LookBehaviour : MonoBehaviour
     [SerializeField, TitleGroup("Target Settings"), Min(0)]
     private float _deadZoneRadius = 1.0f;
     [SerializeField, TitleGroup("Direction Settings")]
-    private bool _isDirectionWorldSpace;
+    private bool _isDirectionWorldSpace = true;
 
     [SerializeField, Space(8)]
     private UnityEvent<Vector3> _onExceedingAngleEvent;

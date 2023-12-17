@@ -14,10 +14,8 @@ public enum AIState
 public class AIController : MonoBehaviour
 {
 	[Header("Generic AI settings")]
-	[HideIf(nameof(lookTurretController), true), InfoBox("Supports both LookBehaviour and LookTurretBehaviour, use either one for rotating the AI actor"), Space(10)]
-	[SerializeField] LookBehaviour lookController;
-	[HideIf(nameof(lookController), true)]
-	[SerializeField] LookTurretBehaviour lookTurretController;
+	[InfoBox("Supports both LookBehaviour and LookTurretBehaviour, use either one for rotating the AI actor"), Space(10)]
+	[SerializeField] TargetBehaviour lookController;
 	[Space(10)]
 	[SerializeField] MoveBehaviour moveController;
 	[SerializeField] AIMovingBase wanderingBehavior;
@@ -110,22 +108,10 @@ public class AIController : MonoBehaviour
 	{
 		if (lookController)
 			lookController.LookAt(target);
-		else
-			lookTurretController.LookAt(target);
 	}
 	public void Look(Vector2 direction)
 	{
 		if (lookController)
 			lookController.Look(direction);
-		else
-			lookTurretController.Look(direction);
 	}
-	public Vector2 GetLookDirection() => lookTurretController ? lookTurretController.LookDirection : Vector2.zero;
-	public Vector3 GetLookTargetPosition() => lookTurretController ? lookTurretController.TargetPosition : Vector3.zero;
-	public void SetLookUseDirection(bool useDirection)
-	{
-		if (lookTurretController)
-			lookTurretController.UseDirection = useDirection;
-	}
-	public bool GetLookUseDirection() => lookTurretController ? lookTurretController.UseDirection : false;
 }
