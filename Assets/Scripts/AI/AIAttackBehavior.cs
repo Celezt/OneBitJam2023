@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UDebug = UnityEngine.Debug;
 
 public class AIAttackBehavior : AIAttackingBase
 {
@@ -133,6 +132,7 @@ public class AIAttackBehavior : AIAttackingBase
 
 	public override void OnTriggerExit(Collider other) { }
 
+#if UNITY_EDITOR
 	public override void OnDrawGizmos()
 	{
 		base.OnDrawGizmos();
@@ -146,4 +146,5 @@ public class AIAttackBehavior : AIAttackingBase
 		Handles.color = angle < playerFaceAIMinAngle ? Color.red : Color.green;
 		Handles.Label(transform.position + Vector3.up * 3, $"Angle: {angle}");
 	}
+#endif
 }
