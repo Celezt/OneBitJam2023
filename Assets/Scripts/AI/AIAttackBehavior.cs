@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UDebug = UnityEngine.Debug;
 
 public class AIAttackBehavior : AIAttackingBase
 {
@@ -41,10 +44,13 @@ public class AIAttackBehavior : AIAttackingBase
 		lastCross = Vector3.up;
 		nextCircleSwitch = Time.time + Random.Range(minCircleSwitchTime, maxCircleSwitchTime);
 		lastCircleSwitchTime = minCircleSwitchDelay;
+		CTSUtility.Reset(ref performDevianceLookAsyncTokenSource);
+		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token);
 	}
 
 	public override void OnExit()
 	{
+		CTSUtility.Clear(ref performDevianceLookAsyncTokenSource);
 		controller.Move(Vector2.zero);
 	}
 
@@ -106,7 +112,8 @@ public class AIAttackBehavior : AIAttackingBase
 
 		weaponHandler?.OnShoot();
 
-		controller.Look(aiToPlayer2D);
+		if (!useDirectionDeviance)
+			controller.Look(aiToPlayer2D);
 
 		if (playerDistance > maxPlayerDistance)
 		{
@@ -147,4 +154,37 @@ public class AIAttackBehavior : AIAttackingBase
 		Handles.Label(transform.position + Vector3.up * 3, $"Angle: {angle}");
 	}
 #endif
+
+	protected override async UniTask PerformDevianceLookAsync(CancellationToken token)
+	{
+		await base.PerformDevianceLookAsync(token);
+
+		while (!token.IsCancellationRequested)
+		{
+			Vector3 aiToPlayer = (player.transform.position - controller.transform.position).normalized;
+
+			Vector2 lastAIToPlayerDirection = aiToPlayer.xz();
+
+			lookingDeviation = GetDevianceDirectionVector(devianceDirectionMaxHalfAngle, aiToPlayer.xz());
+			lookingDeviationDuration = Random.Range(devianceMinDuration, devianceMaxDuration);
+
+			while (lookingDeviationDuration > 0.0f)
+			{
+				lookingDeviationDuration -= Time.deltaTime;
+				if (aiToPlayer.xz() != lastAIToPlayerDirection)
+					lookingDeviation = GetDevianceDirectionVector(devianceDirectionMaxHalfAngle, aiToPlayer.xz());
+				controller.Look(lookingDeviation);
+				await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+			}
+
+			lookingDeviationDelay = Random.Range(devianceMinStartDelay, devianceMaxStartDelay);
+
+			while (lookingDeviationDelay > 0.0f)
+			{
+				lookingDeviationDelay -= Time.deltaTime;
+				controller.Look(aiToPlayer.xz());
+				await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+			}
+		}
+	}
 }

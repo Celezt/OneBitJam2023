@@ -14,6 +14,7 @@ public class Weapon : ScriptableObject
     public float bulletSpeed;
     public float fireDelay;
     public bool isAutomatic;
+    public bool doDoT;
 
     public void Shoot(Vector3 position, Vector3 direction)
     {
@@ -22,6 +23,7 @@ public class Weapon : ScriptableObject
             Vector3 pDirection = direction + new Vector3(Random.Range(-bulletSpread, bulletSpread), 0, Random.Range(-bulletSpread, bulletSpread));
             GameObject bullet = Instantiate(bulletPrefab, position, Quaternion.LookRotation(pDirection, Vector3.up));
             bullet.GetComponent<Bullet>().weapon = this;
+            bullet.GetComponent<Bullet>().doT = doDoT;
         }
     }
 }

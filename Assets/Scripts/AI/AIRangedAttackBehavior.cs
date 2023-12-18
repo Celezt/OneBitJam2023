@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using URand = UnityEngine.Random;
 
@@ -31,10 +33,13 @@ public class AIRangedAttackBehavior : AIAttackingBase
 	{
 		moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
 		moveTime = minMoveTime;
+		CTSUtility.Reset(ref performDevianceLookAsyncTokenSource);
+		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token);
 	}
 
 	public override void OnExit()
 	{
+		CTSUtility.Clear(ref performDevianceLookAsyncTokenSource);
 		controller.Move(Vector2.zero);
 	}
 
@@ -82,7 +87,9 @@ public class AIRangedAttackBehavior : AIAttackingBase
 		}
 
 		controller.Move(new Vector2(moveDirection.x, moveDirection.z));
-		controller.Look(aiToPlayer2D);
+
+		if (!useDirectionDeviance)
+			controller.Look(aiToPlayer2D);
 	}
 
 	public override void OnFixedUpdate() { }
@@ -94,4 +101,37 @@ public class AIRangedAttackBehavior : AIAttackingBase
 	public override void OnTriggerEnter(Collider other) { }
 
 	public override void OnTriggerExit(Collider other) { }
+
+	protected override async UniTask PerformDevianceLookAsync(CancellationToken token)
+	{
+		await base.PerformDevianceLookAsync(token);
+
+		while (!token.IsCancellationRequested)
+		{
+			Vector3 aiToPlayer = (player.transform.position - controller.transform.position).normalized;
+
+			Vector2 lastAIToPlayerDirection = aiToPlayer.xz();
+
+			lookingDeviation = GetDevianceDirectionVector(devianceDirectionMaxHalfAngle, aiToPlayer.xz());
+			lookingDeviationDuration = URand.Range(devianceMinDuration, devianceMaxDuration);
+
+			while (lookingDeviationDuration > 0.0f)
+			{
+				lookingDeviationDuration -= Time.deltaTime;
+				if (aiToPlayer.xz() != lastAIToPlayerDirection)
+					lookingDeviation = GetDevianceDirectionVector(devianceDirectionMaxHalfAngle, aiToPlayer.xz());
+				controller.Look(lookingDeviation);
+				await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+			}
+
+			lookingDeviationDelay = URand.Range(devianceMinStartDelay, devianceMaxStartDelay);
+
+			while (lookingDeviationDelay > 0.0f)
+			{
+				lookingDeviationDelay -= Time.deltaTime;
+				controller.Look(aiToPlayer.xz());
+				await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+			}
+		}
+	}
 }

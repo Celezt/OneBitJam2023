@@ -14,9 +14,7 @@ public enum AIState
 public class AIController : MonoBehaviour
 {
 	[Header("Generic AI settings")]
-	[InfoBox("Supports both LookBehaviour and LookTurretBehaviour, use either one for rotating the AI actor"), Space(10)]
 	[SerializeField] TargetBehaviour lookController;
-	[Space(10)]
 	[SerializeField] MoveBehaviour moveController;
 	[SerializeField] AIMovingBase wanderingBehavior;
 	[SerializeField] AIAttackingBase attackingBehavior;
@@ -71,9 +69,21 @@ public class AIController : MonoBehaviour
 		activeBehavior?.OnUpdate();
 	}
 
+#if UNITY_EDITOR
 	void OnDrawGizmos()
 	{
 		activeBehavior?.OnDrawGizmos();
+	}
+#endif
+
+	void OnDestroy()
+	{
+		activeBehavior?.OnExit();
+	}
+
+	void OnDisable()
+	{
+		activeBehavior?.OnExit();
 	}
 
 	public void SwitchBehavior(AIState newState)
@@ -104,14 +114,6 @@ public class AIController : MonoBehaviour
 	public Quaternion GetMoveLookRotation() => moveController.LookRotation;
 	public float GetMoveForce() => moveController.MoveForce;
 
-	public void LookAt(Vector2 target)
-	{
-		if (lookController)
-			lookController.LookAt(target);
-	}
-	public void Look(Vector2 direction)
-	{
-		if (lookController)
-			lookController.Look(direction);
-	}
+	public void LookAt(Vector2 target) => lookController.LookAt(target);
+	public void Look(Vector2 direction) => lookController.Look(direction);
 }
