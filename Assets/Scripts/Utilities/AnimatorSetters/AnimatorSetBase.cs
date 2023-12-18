@@ -25,15 +25,7 @@ public abstract class AnimatorSetBase<T> : MonoBehaviour where T : new()
     private bool _containsAnimator;
 
     public void SetParameter(T value)
-    {
-        foreach (var processor in _processors)
-        {
-            if (processor is IProcessor<T> p)
-                value = p.Process(value);
-        }
-
-        Set(value);
-    }
+        => Set(IProcessor.Process(_processors, value));
 
     protected abstract void Set(T value);
 

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Pool;
 
 [HideMonoScript]
 public class AudioOnImpact : MonoBehaviour
@@ -19,52 +19,36 @@ public class AudioOnImpact : MonoBehaviour
         get => _maxSpeed;
         set => _maxSpeed = value;
     }
-    public float Cooldown
+    public float ExitTime
     {
-        get => _cooldown;
-        set => _cooldown = value;
+        get => _exitTime;
+        set => _exitTime = value;
     }
     public float Distance
     {
         get => _distance;
         set => _distance = value;
     }
-    public bool ScaleOfSpeed
-    {
-        get => _scaleOfSpeed;
-        set
-        {
-            if (_scaleOfSpeed && _scaleOfSpeed != value)
-                CurrentSource.volume = _startVolume;
-
-            _scaleOfSpeed = value;
-        }
-    }
     public LayerMask LayerMask
     {
         get => _layerMask;
         set => _layerMask = value;
     }
+    public AudioSource CurrentSource => _audioSources.Count > _audioSourceIndex ? _audioSources[_audioSourceIndex] : null;
+    public Playlist Playlist => _playlist;
 
-    public AudioSource CurrentSource
-    {
-        get
-        {
-            if (_secondAudioSource == null || _isFirstClip)
-                return _audioSource;
-            else 
-                return _secondAudioSource;
-        }
-    }
-
-    [SerializeField]
-    private AudioSource _audioSource;
-    [SerializeField, Indent, ShowIf(nameof(_audioSource))]
-    private AudioSource _secondAudioSource;
     [SerializeField]
     private Transform _target;
     [SerializeField, Indent]
     private Quaternion _rotation;
+    [SerializeField]
+    private float _distance = 0.1f;
+    [SerializeField]
+    private LayerMask _layerMask;
+
+    [SerializeField]
+    private List<AudioSource> _audioSources;
+
     [SerializeField]
     private Playlist _playlist; 
     [SerializeField]
@@ -75,26 +59,16 @@ public class AudioOnImpact : MonoBehaviour
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
     private float _maxSpeed = 8.0f;
     [SerializeField]
-    private float _cooldown = 0.2f;
-    [SerializeField]
-    private float _distance = 0.1f;
-    [SerializeField]
-    private LayerMask _layerMask;
+    private bool _hasExitTime = false;
+    [SerializeField, ShowIf(nameof(_hasExitTime)), Indent]
+    private float _exitTime = 0.2f;
 
-    private Vector3 _previousPosition;
     private bool _isColliding;
-    private bool _isFirstClip = true;
-    private float _startVolume;
-    private float _secondStartVolume;
-    private CancellationTokenSource _cancellationTokenSource;
+    private int _audioSourceIndex;
+    private Vector3 _previousPosition;
 
-    public void SwitchSource()
-    {
-        if (_secondAudioSource)
-            _isFirstClip = !_isFirstClip;
-        else
-            _isFirstClip = true;
-    }
+    private Dictionary<AudioSource, float> _startVolumes;
+    private CancellationTokenSource _cancellationTokenSource;
 
     private void Start()
     {
@@ -103,10 +77,10 @@ public class AudioOnImpact : MonoBehaviour
 
     private void OnEnable()
     {
-        _startVolume = _audioSource.volume;
+        _startVolumes = DictionaryPool<AudioSource, float>.Get();
 
-        if (_secondAudioSource)
-            _secondStartVolume = _secondAudioSource.volume;
+        foreach (var source in _audioSources)
+            _startVolumes[source] = source.volume;
 
         CTSUtility.Reset(ref _cancellationTokenSource);
         CheckOnImpactAsync(_cancellationTokenSource.Token).Forget();
@@ -114,10 +88,13 @@ public class AudioOnImpact : MonoBehaviour
 
     private void OnDisable()
     {
-        _audioSource.volume = _startVolume;
+        foreach (var source in _audioSources)
+        {
+            if (_startVolumes.TryGetValue(source, out var volume))
+                source.volume = volume;
+        }
 
-        if (_secondAudioSource)
-            _secondAudioSource.volume = _secondStartVolume;
+        DictionaryPool<AudioSource, float>.Release(_startVolumes);
 
         CTSUtility.Clear(ref _cancellationTokenSource);
     }
@@ -142,21 +119,27 @@ public class AudioOnImpact : MonoBehaviour
 
             if (Physics.Raycast(position, _rotation * Vector3.down, out RaycastHit hit, _distance, _layerMask))
             {
-                if (!_isColliding)
+                var source = CurrentSource;
+
+                if (!_isColliding && source)
                 {
-                    if (ScaleOfSpeed)
+                    if (_scaleOfSpeed && _startVolumes.TryGetValue(source, out float volume))
                     {
                         float speed = Vector3.Distance(position, _previousPosition) / Time.deltaTime;
                         float interval = Mathf.Clamp01(speed / _maxSpeed);
-                        CurrentSource.volume = interval * _startVolume;
+                        source.volume = interval * volume;
                     }
 
-                    CurrentSource.Play(_playlist);
+                    source.Play(_playlist);
                     _isColliding = true;
 
-                    SwitchSource();
+                    _audioSourceIndex++;
+                    _audioSourceIndex %= _audioSources.Count;
 
-                    await UniTask.WaitForSeconds(_cooldown, cancellationToken: ct);
+                    if (!_hasExitTime)
+                        await UniTask.WaitWhile(() => source.isPlaying);
+                    else
+                        await UniTask.WaitForSeconds(_exitTime, cancellationToken: ct);
                 }
             }
             else
@@ -173,10 +156,11 @@ public class AudioOnImpact : MonoBehaviour
     {
         if (!_scaleOfSpeed && Application.isPlaying)
         {
-            _audioSource.volume = _startVolume;
-
-            if (_secondAudioSource)
-                _secondAudioSource.volume = _secondStartVolume;
+            foreach (var source in _audioSources)
+            {
+                if (_startVolumes.TryGetValue(source, out var volume))
+                    source.volume = volume;
+            }
         }
     }
 #endif

@@ -46,10 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9423178b00296e04eb263463003d12af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 2646725618112387594}
-  _secondAudioSource: {fileID: 6633162903893996403}
   _target: {fileID: 5283080353220373835}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
+  _distance: 0.06
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _audioSources:
+  - {fileID: 2646725618112387594}
+  - {fileID: 6633162903893996403}
   _playlist:
     _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
@@ -61,11 +66,8 @@ MonoBehaviour:
       rid: 2403426165908045851
   _scaleOfSpeed: 1
   _maxSpeed: 8
-  _cooldown: 0.2
-  _distance: 0.06
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  _hasExitTime: 1
+  _exitTime: 0.2
   references:
     version: 2
     RefIds:
@@ -712,10 +714,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9423178b00296e04eb263463003d12af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 2101490927727560487}
-  _secondAudioSource: {fileID: 559642569412358885}
   _target: {fileID: 6491570161600514345}
   _rotation: {x: 0, y: 0, z: 0, w: 0}
+  _distance: 0.06
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _audioSources:
+  - {fileID: 2101490927727560487}
+  - {fileID: 559642569412358885}
   _playlist:
     _clips:
     - {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
@@ -727,11 +734,8 @@ MonoBehaviour:
       rid: 2403426165908045849
   _scaleOfSpeed: 1
   _maxSpeed: 8
-  _cooldown: 0.2
-  _distance: 0.06
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  _hasExitTime: 1
+  _exitTime: 0.2
   references:
     version: 2
     RefIds:
