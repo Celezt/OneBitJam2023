@@ -4,9 +4,9 @@ using UnityEngine;
 
 public static class AudioSourceExtensions
 {
-    public static void Play(this AudioSource source, Playlist audio)
+    public static void Play(this AudioSource source, Playlist playlist)
     {
-        source.clip = audio.Get();
+        source.clip = playlist.Get();
         source.Play();
     }
 }

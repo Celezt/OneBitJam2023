@@ -35,7 +35,7 @@ public class AudioOnImpact : MonoBehaviour
         set
         {
             if (_scaleOfSpeed && _scaleOfSpeed != value)
-                _audioSource.volume = _startVolume;
+                CurrentSource.volume = _startVolume;
 
             _scaleOfSpeed = value;
         }
@@ -46,8 +46,21 @@ public class AudioOnImpact : MonoBehaviour
         set => _layerMask = value;
     }
 
+    public AudioSource CurrentSource
+    {
+        get
+        {
+            if (_secondAudioSource == null || _isFirstClip)
+                return _audioSource;
+            else 
+                return _secondAudioSource;
+        }
+    }
+
     [SerializeField]
     private AudioSource _audioSource;
+    [SerializeField, Indent, ShowIf(nameof(_audioSource))]
+    private AudioSource _secondAudioSource;
     [SerializeField]
     private Transform _target;
     [SerializeField, Indent]
@@ -68,10 +81,20 @@ public class AudioOnImpact : MonoBehaviour
     [SerializeField]
     private LayerMask _layerMask;
 
-    private bool _isColliding;
     private Vector3 _previousPosition;
+    private bool _isColliding;
+    private bool _isFirstClip = true;
     private float _startVolume;
+    private float _secondStartVolume;
     private CancellationTokenSource _cancellationTokenSource;
+
+    public void SwitchSource()
+    {
+        if (_secondAudioSource)
+            _isFirstClip = !_isFirstClip;
+        else
+            _isFirstClip = true;
+    }
 
     private void Start()
     {
@@ -82,6 +105,9 @@ public class AudioOnImpact : MonoBehaviour
     {
         _startVolume = _audioSource.volume;
 
+        if (_secondAudioSource)
+            _secondStartVolume = _secondAudioSource.volume;
+
         CTSUtility.Reset(ref _cancellationTokenSource);
         CheckOnImpactAsync(_cancellationTokenSource.Token).Forget();
     }
@@ -89,6 +115,10 @@ public class AudioOnImpact : MonoBehaviour
     private void OnDisable()
     {
         _audioSource.volume = _startVolume;
+
+        if (_secondAudioSource)
+            _secondAudioSource.volume = _secondStartVolume;
+
         CTSUtility.Clear(ref _cancellationTokenSource);
     }
 
@@ -118,11 +148,13 @@ public class AudioOnImpact : MonoBehaviour
                     {
                         float speed = Vector3.Distance(position, _previousPosition) / Time.deltaTime;
                         float interval = Mathf.Clamp01(speed / _maxSpeed);
-                        _audioSource.volume = interval * _startVolume;
+                        CurrentSource.volume = interval * _startVolume;
                     }
 
-                    _audioSource.Play(_playlist);
+                    CurrentSource.Play(_playlist);
                     _isColliding = true;
+
+                    SwitchSource();
 
                     await UniTask.WaitForSeconds(_cooldown, cancellationToken: ct);
                 }
@@ -140,7 +172,12 @@ public class AudioOnImpact : MonoBehaviour
     private void ScaleOfSpeedChange()
     {
         if (!_scaleOfSpeed && Application.isPlaying)
+        {
             _audioSource.volume = _startVolume;
+
+            if (_secondAudioSource)
+                _secondAudioSource.volume = _secondStartVolume;
+        }
     }
 #endif
 }

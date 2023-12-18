@@ -30,8 +30,8 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         set => _resetter = value ?? new AudioResetterDefault();
     }
 
-    [Title("Playlist", horizontalLine: false, bold: false)]
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
+    [Title("Playlist", horizontalLine: false, bold: false), PropertySpace(SpaceBefore = 8)]
+    [SerializeField]
     private List<AudioClip> _clips = new();
     [SerializeReference, TypeFilter(nameof(PickerFilter)), Indent]
     private IAudioPicker _picker = new AudioPickerSequence();
