@@ -1,13 +1,14 @@
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(BulletBehaviour))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    private BulletBehaviour bulletBehaviour;
     public string enemyTag;
     [SerializeField]
     public Weapon weapon;
@@ -15,6 +16,11 @@ public class Bullet : MonoBehaviour
     private float lifespan;
     [SerializeField]
     private float bulletDamage;
+
+    public float damageMultiplier = 1;
+    public float doTTimer = 10;
+    [HideInInspector]
+    public bool doT = false;
 
     private void Update()
     {
@@ -32,13 +38,10 @@ public class Bullet : MonoBehaviour
         if(other.gameObject.CompareTag(enemyTag) && other.gameObject.GetComponent<EnemyHealth>() != null)
         {
             Debug.Log("Hit " + other.name);
-            if (bulletBehaviour.doT)
+            other.gameObject.GetComponent<EnemyHealth>().DoDamage(bulletDamage * damageMultiplier);
+            if (doT)
             {
-                
-            }
-            else
-            {
-                other.gameObject.GetComponent<EnemyHealth>().DoDamage(bulletDamage * bulletBehaviour.damageMultiplier); 
+               other.gameObject.GetComponent<EnemyHealth>().DamageOverTime(3, doTTimer, bulletDamage);
             }
             Destroy(this.gameObject);
         }
