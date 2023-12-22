@@ -37,7 +37,13 @@ public class Billboard : MonoBehaviour
             _initialRotation = transform.rotation;
     }
 
-    private void Update()
+    private void OnDisable()
+    {
+        if (!_fixedRotation)
+            transform.rotation = _initialRotation;
+    }
+
+    private void LateUpdate()
     {
         if (ActiveFacedObject == null) 
             return;
