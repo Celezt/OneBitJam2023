@@ -26,5 +26,5 @@ MonoBehaviour:
     - rid: 2403426258561007680
       type: {class: FrameRateSettings, ns: , asm: Assembly-CSharp}
       data:
-        _fixedFrameRate: 0
+        _fixedFrameRate: 1
         _frameRate: 60
