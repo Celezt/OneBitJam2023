@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 551470736945353489}
   - component: {fileID: 2407563226440500555}
   m_Layer: 0
-  m_Name: Jiggle
+  m_Name: JiggleStem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,8 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    Root: {fileID: 0}
-    Tip: {fileID: 0}
+    Root: {fileID: 5014160462646274636}
+    Tip: {fileID: 6267233006204691746}
     Mass: 1
     Stiffness: 0.2
     DynamicOffset: 0.4
@@ -444,6 +444,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &3269419878427751701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3281371838983250697}
+  - component: {fileID: 79330819987532318}
+  m_Layer: 0
+  m_Name: LeftJiggleLeave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3281371838983250697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269419878427751701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8660852827910636555}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79330819987532318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269419878427751701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939d75b42d71de144b1b0cdd3eea3044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    Root: {fileID: 957809428621150851}
+    Tip: {fileID: 4978153427399261732}
+    Mass: 1
+    Stiffness: 0.2
+    DynamicOffset: 0.5
+    LocalAimVector: {x: 1, y: 0, z: 0}
+    LocalUpVector: {x: 0, y: 1, z: 0}
+    RollEnabled: 1
+    Gravity: {x: 0, y: 0, z: 0}
+    Damping: 0.6
+    MotionDecay: 0.1
 --- !u!1 &3462357999300230579
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +780,63 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+--- !u!1 &4317137860802376116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6328539655207954183}
+  - component: {fileID: 4092269507639566739}
+  m_Layer: 0
+  m_Name: RightJiggleLeave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6328539655207954183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317137860802376116}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8660852827910636555}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4092269507639566739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317137860802376116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939d75b42d71de144b1b0cdd3eea3044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    Root: {fileID: 1040183365233080946}
+    Tip: {fileID: 3075099061995336065}
+    Mass: 1
+    Stiffness: 0.2
+    DynamicOffset: 0.5
+    LocalAimVector: {x: -1, y: 0, z: 0}
+    LocalUpVector: {x: 0, y: 1, z: 0}
+    RollEnabled: 1
+    Gravity: {x: 0, y: 0, z: 0}
+    Damping: 0.6
+    MotionDecay: 0.1
 --- !u!1 &4987643862347376450
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +1004,8 @@ Transform:
   m_Children:
   - {fileID: 8916131985202202438}
   - {fileID: 551470736945353489}
+  - {fileID: 3281371838983250697}
+  - {fileID: 6328539655207954183}
   m_Father: {fileID: 5427122244620581338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5883762271149728831
