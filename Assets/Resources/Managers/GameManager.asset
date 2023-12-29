@@ -28,3 +28,4 @@ MonoBehaviour:
       data:
         _fixedFrameRate: 1
         _frameRate: 60
+        _vSync: 1
