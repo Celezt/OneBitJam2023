@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClampProcessorVector : IProcessor<Vector2>
+public class ClampVector2Processor : IProcessor<Vector2>
 {
     [SerializeField]
     private float _minValue;

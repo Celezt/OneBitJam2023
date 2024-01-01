@@ -1986,22 +1986,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 2962636615276154850}
   _processors:
-  - rid: 2403426142958911544
-  - rid: 2403426003183206401
+  - rid: 4988305074643271755
+  - rid: 4988305074643271772
   _IdX: MoveX
   _IdY: MoveZ
   references:
     version: 2
     RefIds:
-    - rid: 2403426003183206401
-      type: {class: LerpProcessorVector, ns: , asm: Assembly-CSharp}
-      data:
-        _lerpSpeed: 4
-    - rid: 2403426142958911544
-      type: {class: NormalizeProcessorVector, ns: , asm: Assembly-CSharp}
+    - rid: 4988305074643271755
+      type: {class: NormalizeVector2Processor, ns: , asm: Assembly-CSharp}
       data:
         _mode: 2
         _precision: 0.5
+    - rid: 4988305074643271772
+      type: {class: LerpVector2Processor, ns: , asm: Assembly-CSharp}
+      data:
+        _lerpSpeed: 4
 --- !u!114 &1710970373440774641
 MonoBehaviour:
   m_ObjectHideFlags: 0

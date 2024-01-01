@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LerpProcessorVector : IProcessor<Vector2>
+public class LerpVector2Processor : IProcessor<Vector2>
 {
     [SerializeField]
     private float _lerpSpeed = 1.0f;

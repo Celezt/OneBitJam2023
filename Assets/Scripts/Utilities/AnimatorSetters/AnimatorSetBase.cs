@@ -11,6 +11,7 @@ using UnityEngine;
 public abstract class AnimatorSetBase<T> : MonoBehaviour where T : new()
 {
     public Animator Animator => _animator;
+    public IReadOnlyList<IProcessor> Processors => _processors;
 
     private static IEnumerable<Type> ProcessorFilter => _cachedFilter ??= ReflectionUtility.GetDerivedTypes<IProcessor<T>>(AppDomain.CurrentDomain);
 

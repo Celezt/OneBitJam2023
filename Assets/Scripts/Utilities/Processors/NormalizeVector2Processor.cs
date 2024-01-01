@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalizeProcessorVector : IProcessor<Vector2>
+public class NormalizeVector2Processor : IProcessor<Vector2>
 {
     [SerializeField]
     private Mode _mode = Mode.Analog;
