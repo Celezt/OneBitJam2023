@@ -19,7 +19,7 @@
                     "type": "Value",
                     "id": "6916ad10-8fad-4450-8583-7bb5abbd73f4",
                     "expectedControlType": "Vector2",
-                    "processors": "WorldPositionVector2",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
