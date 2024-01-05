@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2962636615276154850, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -261,10 +266,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5360605064865235876, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       propertyPath: m_Name
       value: RookieActorController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5943946551477578341, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5943946551477578341, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8212462224046378271, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}

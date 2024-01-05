@@ -24,7 +24,7 @@ public class Ragdoll : MonoBehaviour
     [SerializeField]
     private Rigidbody _actorRigidbody;
 
-    [SerializeField, Space(8), DrawWithUnity]
+    [SerializeField, Space(8), DrawWithUnity, DisableInPlayMode]
     private Rigidbody[] _ragdollRigidbodies;
 
     [SerializeField, Space(8)]
