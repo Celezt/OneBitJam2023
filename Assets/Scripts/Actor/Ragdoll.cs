@@ -15,6 +15,8 @@ public class Ragdoll : MonoBehaviour
     private bool _activateOnStart = false;
 
     [SerializeField]
+    private bool _resetTransformOnDeactivate = true;
+    [SerializeField]
     private bool _teleportOnDeactivate = false;
     [SerializeField, ShowIf(nameof(_teleportOnDeactivate)), Indent]
     private Transform _copyTransformOnTeleport;
@@ -30,6 +32,8 @@ public class Ragdoll : MonoBehaviour
     [SerializeField]
     private UnityEvent _onRagdollDeactivateEvent;
 
+    private Vector3[] _initialPositions;
+    private Quaternion[] _initialRotation;
     private List<Joint> _joints = new();
     private bool _isRagdoll;
     private bool _isInitialized;
@@ -67,11 +71,18 @@ public class Ragdoll : MonoBehaviour
             _actorRigidbody.rotation.SetLookRotation(_copyTransformOnTeleport.forward._y_().normalized);
         }
 
-        foreach (var rigidbody in _ragdollRigidbodies)
+        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
         {
+            var rigidbody = _ragdollRigidbodies[i];
             rigidbody.detectCollisions = false;
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
+
+            if (_resetTransformOnDeactivate)
+            {
+                rigidbody.position = _initialPositions[i];
+                rigidbody.rotation = _initialRotation[i];
+            }
         }
 
         foreach (var joint in _joints)
@@ -91,11 +102,19 @@ public class Ragdoll : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var rigidbody in _ragdollRigidbodies)
+        int length = _ragdollRigidbodies.Length;
+        _initialPositions = new Vector3[length];
+        _initialRotation = new Quaternion[length];
+
+        for (int i = 0; i < length; i++)
         {
+            var rigidbody = _ragdollRigidbodies[i];
             var joint = rigidbody.GetComponent<Joint>();
             if (joint != null)
                 _joints.Add(joint);
+
+            _initialPositions[i] = rigidbody.position;
+            _initialRotation[i] = rigidbody.rotation;
         }
     }
 
