@@ -423,6 +423,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3288899934280676692, guid: 9197bf997495af745b5c992c91c0b981,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288899934280676692, guid: 9197bf997495af745b5c992c91c0b981,
+        type: 3}
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
@@ -1378,7 +1383,7 @@ MonoBehaviour:
     parentPath: 
   originalIkData: []
   selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 2adfae806f726ee4cb652d519d7222be,
+  lastSelectAnimationClip: {fileID: 7400000, guid: e5154f1dbac685d4a8714bc7fa78421a,
     type: 2}
   handPoseList: []
   blendShapeList: []
