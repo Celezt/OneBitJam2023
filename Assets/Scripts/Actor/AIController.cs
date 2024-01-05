@@ -13,46 +13,23 @@ public enum AIState
 
 public class AIController : MonoBehaviour
 {
+	[Header("AI Update Method"), Tooltip("Set to false to use Unity's update method. Set to true to update AI via the AIManager's update event.")]
+	[SerializeField] bool useManagerUpdate = false;
 	[Header("Generic AI settings")]
 	[SerializeField] TargetBehaviour lookController;
 	[SerializeField] MoveBehaviour moveController;
 	[SerializeField] AIMovingBase wanderingBehavior;
 	[SerializeField] AIAttackingBase attackingBehavior;
 
-	#region OLD-SYSTEM
-	// [SerializeField] float minPlayerDistance = 3.5f;
-	// [SerializeField] float minEdgeDistance = 7;
-
-	// [Header("Wander behavior settings")]
-	// [SerializeField] float maxMoveTime = 2.5f;
-	// [SerializeField] float minWallDistance = 5;
-
-	// [Header("Attack behavior settings")]
-	// [SerializeField] float maxPlayerDistance = 5.5f;
-	// [SerializeField] float minCirclingDirectionSwitchTime = 2;
-	// [SerializeField] float maxCirclingDirectionSwitchTime = 4.5f;
-	// [SerializeField] float maxLookHalfAngle = 60f;
-	// [SerializeField] float playerFaceAIMinHalfAngle = 5f;
-	// [SerializeField] WeaponHandler weaponHandler;
-	#endregion
-
 	public AIState activeState { get; private set; } = AIState.undefined;
 
 	private AIBaseBehavior activeBehavior;
 
-	#region OLD-SYSTEM
-	// private AIBaseBehavior wanderBehavior;
-	// private AIBaseBehavior attackBehavior;
-	#endregion
-
 	// Start is called before the first frame update
 	void Start()
 	{
-		#region OLD-SYSTEM
-		// Transform player = GameObject.FindWithTag("Player").transform;
-		// wanderBehavior = new AIWanderBehavior(this, maxMoveTime, minPlayerDistance, minEdgeDistance, minWallDistance, player);
-		// attackBehavior = new AIAttackBehavior(this, minPlayerDistance, maxPlayerDistance, minEdgeDistance, minCirclingDirectionSwitchTime, maxCirclingDirectionSwitchTime, minWallDistance, playerFaceAIMinHalfAngle, player, weaponHandler);
-		#endregion
+		if (useManagerUpdate)
+			AIManager.INSTANCE.OnAIUpdate += UpdateAI;
 
 		if (!wanderingBehavior)
 			wanderingBehavior = GetComponent<AIMovingBase>();
@@ -66,8 +43,11 @@ public class AIController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		activeBehavior?.OnUpdate();
+		if (!useManagerUpdate)
+			activeBehavior?.OnUpdate();
 	}
+
+	void UpdateAI() => activeBehavior?.OnUpdate();
 
 #if UNITY_EDITOR
 	void OnDrawGizmos()
@@ -79,11 +59,15 @@ public class AIController : MonoBehaviour
 	void OnDestroy()
 	{
 		activeBehavior?.OnExit();
+		if (useManagerUpdate)
+			AIManager.INSTANCE.OnAIUpdate -= UpdateAI;
 	}
 
 	void OnDisable()
 	{
 		activeBehavior?.OnExit();
+		if (useManagerUpdate)
+			AIManager.INSTANCE.OnAIUpdate -= UpdateAI;
 	}
 
 	public void SwitchBehavior(AIState newState)
@@ -95,10 +79,10 @@ public class AIController : MonoBehaviour
 		switch (newState)
 		{
 		case AIState.wandering:
-			activeBehavior = wanderingBehavior; //wanderBehavior;
+			activeBehavior = wanderingBehavior;
 			break;
 		case AIState.attacking:
-			activeBehavior = attackingBehavior; //attackBehavior;
+			activeBehavior = attackingBehavior;
 			break;
 		default:
 			break;
