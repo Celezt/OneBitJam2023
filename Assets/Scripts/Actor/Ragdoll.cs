@@ -10,14 +10,20 @@ public class Ragdoll : MonoBehaviour
     public bool IsRagdoll => _isRagdoll;
 
     [SerializeField]
-    private bool _activateOnStart = false;
-    [SerializeField]
     private Animator _animator;
+    [SerializeField]
+    private bool _activateOnStart = false;
+
+    [SerializeField]
+    private bool _teleportOnDeactivate = false;
+    [SerializeField, ShowIf(nameof(_teleportOnDeactivate)), Indent]
+    private Transform _copyTransformOnTeleport;
+
+    [SerializeField]
+    private Rigidbody _actorRigidbody;
 
     [SerializeField, Space(8), DrawWithUnity]
     private Rigidbody[] _ragdollRigidbodies;
-    [SerializeField, DrawWithUnity]
-    private Rigidbody[] _actorRigidbodies;
 
     [SerializeField, Space(8)]
     private UnityEvent _onRagdollActivateEvent;
@@ -26,6 +32,7 @@ public class Ragdoll : MonoBehaviour
 
     private List<Joint> _joints = new();
     private bool _isRagdoll;
+    private bool _isInitialized;
 
     public void OnEnableRagdoll()
     {
@@ -33,6 +40,7 @@ public class Ragdoll : MonoBehaviour
         {
             rigidbody.detectCollisions = true;
             rigidbody.useGravity = true;
+            rigidbody.isKinematic = false;
             rigidbody.velocity = Vector3.zero;
         }
 
@@ -41,10 +49,7 @@ public class Ragdoll : MonoBehaviour
             joint.enableCollision = true;
         }
 
-        foreach (var rigidbody in _actorRigidbodies)
-        {
-            rigidbody.isKinematic = true;
-        }
+        _actorRigidbody.isKinematic = true;
 
         if (_animator)
             _animator.enabled = false;
@@ -56,11 +61,17 @@ public class Ragdoll : MonoBehaviour
 
     public void OnDisableRagdoll()
     {
+        if (_isInitialized && _teleportOnDeactivate && _copyTransformOnTeleport)
+        {
+            _actorRigidbody.position = _copyTransformOnTeleport.position;
+            _actorRigidbody.rotation.SetLookRotation(_copyTransformOnTeleport.forward._y_().normalized);
+        }
+
         foreach (var rigidbody in _ragdollRigidbodies)
         {
             rigidbody.detectCollisions = false;
             rigidbody.useGravity = false;
-            rigidbody.velocity = Vector3.zero;
+            rigidbody.isKinematic = true;
         }
 
         foreach (var joint in _joints)
@@ -68,10 +79,7 @@ public class Ragdoll : MonoBehaviour
             joint.enableCollision = false;
         }
 
-        foreach (var rigidbody in _actorRigidbodies)
-        {
-            rigidbody.isKinematic = false;
-        }
+        _actorRigidbody.isKinematic = false;
 
         if (_animator)
             _animator.enabled = true;
@@ -97,6 +105,8 @@ public class Ragdoll : MonoBehaviour
             OnEnableRagdoll();
         else
             OnDisableRagdoll();
+
+        _isInitialized = true;
     }
 
 #if UNITY_EDITOR
