@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[HideMonoScript]
+[HideMonoScript, AddComponentMenu("Miscellaneous/Gizmo Renderer")]
 public class GizmoRenderer : MonoBehaviour
 {
     [SerializeField]
