@@ -4,10 +4,11 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - bulletPrefab: {fileID: 6011764755124504338, guid: caaa2c4b206e35448aa8c0d21e19ec71, type: 3}
+  - bulletPrefab: {fileID: 6011764755124504338, guid: caaa2c4b206e35448aa8c0d21e19ec71,
+      type: 3}
   - bulletStartpoint: {instanceID: 0}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 2800000, guid: f1a380c2af7b05d47aec0c1aa2d20bd9, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
