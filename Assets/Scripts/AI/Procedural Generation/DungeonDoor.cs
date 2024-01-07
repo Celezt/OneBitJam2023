@@ -7,11 +7,9 @@ public class DungeonDoor : MonoBehaviour
 	[SerializeField] float playerSpawnDistance = 2;
 	[HideInInspector] public DungeonDoor destinationDoor;
 
-	public Vector2 Position => transform.position;
-
 	public DungeonDoorFacing facing { get; set; }
 
-	void OnTriggerEnter(Collider other)
+	public void TeleportPlayer(Collider other)
 	{
 		if (!other.transform.CompareTag("Player"))
 			return;
@@ -20,14 +18,21 @@ public class DungeonDoor : MonoBehaviour
 		Debug.Log($"Teleporting {other.name}");
 #endif
 
-		other.GetComponent<Rigidbody>().position = destinationDoor.Position.x_z() + destinationDoor.transform.forward * playerSpawnDistance;
+		other.GetComponent<Rigidbody>().position = destinationDoor.transform.position + destinationDoor.transform.forward * playerSpawnDistance;
 	}
 
 #if UNITY_EDITOR
 	void OnDrawGizmos()
 	{
+		Gizmos.color = Color.cyan;
 		Gizmos.DrawLine(transform.position, transform.position + transform.forward * playerSpawnDistance);
 		Gizmos.DrawWireSphere(transform.position + transform.forward * playerSpawnDistance, 1f);
+
+		if (!destinationDoor)
+			return;
+
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawLine(transform.position, destinationDoor.transform.position);
 	}
 #endif
 }

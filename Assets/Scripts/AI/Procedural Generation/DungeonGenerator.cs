@@ -1,72 +1,155 @@
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
+	[SerializeField] float roomSpawnOffset = 200f;
+	[SerializeField] int minimumNumRooms = 4;
 	[SerializeField] DungeonRoom[] rooms;
+
+	public int CurrentLevel { get => currentLevel; private set { } }
+
+	public static DungeonGenerator INSTANCE { get { return instance; } private set { } }
+
+	private static DungeonGenerator instance;
+
+	public delegate void OnDungeonDoneGeneratingEvent();
+	public event OnDungeonDoneGeneratingEvent OnDungeonDoneGenerating;
+
+	public float Progress { get; private set; } = 0;
 
 	private List<DungeonRoom> dungeonLayout = new List<DungeonRoom>();
 
-	private Vector2[] validSpawnDirections = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+	private Vector3[] validSpawnDirections = new Vector3[] { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
 
 	private DungeonRoom startRoom;
 
+	private int currentLevel = 1;
+
+	private CancellationTokenSource cancellationTokenSource;
+
 	void Awake()
 	{
+		if (instance != null && instance != this)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;
+		}
+
+		CTSUtility.Reset(ref cancellationTokenSource);
 		GenerateDungeon();
 	}
 
-	void GenerateDungeon()
+	public void Reset()
 	{
-		int roomAmount = 5;
+		currentLevel = 1;
+		CleanUpDungeon();
+		CTSUtility.Reset(ref cancellationTokenSource);
+		GenerateDungeon();
+	}
+
+	public void ProgressLevel()
+	{
+		currentLevel++;
+		CleanUpDungeon();
+		CTSUtility.Reset(ref cancellationTokenSource);
+		GenerateDungeon();
+	}
+
+	void CleanUpDungeon()
+	{
+		foreach (DungeonRoom room in dungeonLayout)
+		{
+			foreach (DungeonDoor door in room.Doors)
+			{
+				Destroy(door.gameObject);
+			}
+			Destroy(room.gameObject);
+		}
+		dungeonLayout.Clear();
+		startRoom = null;
+	}
+
+	async UniTask GenerateDungeon()
+	{
+		int roomAmount = Mathf.FloorToInt(minimumNumRooms + Random.Range(0, 3) + currentLevel * 1.8f);
 
 		// Pick and spawn center/starting room
 		DungeonRoom room = rooms.GetRandom();
 
 		startRoom = Instantiate(room, transform.position, Quaternion.identity);
+		dungeonLayout.Add(startRoom);
 
 		Queue<DungeonRoom> dungeonQueue = new Queue<DungeonRoom>();
 		dungeonQueue.Enqueue(startRoom);
 
-		while (dungeonQueue.Count > 0)
+		await UniTask.Create(async() =>
 		{
-			DungeonRoom currentCenterRoom = dungeonQueue.Dequeue();
-
-			if (dungeonLayout.Count >= roomAmount)
-				continue;
-
-			// Go randomly around the current room and try to spawn more rooms checking in the 4 cardinal directions around each room
-			List<Vector2> availableDirections = new List<Vector2>(validSpawnDirections);
-			while (availableDirections.Count > 0)
+			while (dungeonQueue.Count > 0 && !cancellationTokenSource.Token.IsCancellationRequested)
 			{
-				Vector2 direction = availableDirections.GetRandom();
+				DungeonRoom currentCenterRoom = dungeonQueue.Dequeue();
 
-				availableDirections.Remove(direction);
+				Progress = (dungeonLayout.Count / (float) roomAmount) * 100.0f;
+#if UNITY_EDITOR
+				Debug.Log($"Dungeon generation progress: {Progress}% complete");
+#endif
 
-				Vector2 neighbourPosition = currentCenterRoom.Position + direction;
-
-				if (!CanSpawnInDirection(currentCenterRoom.Position, direction))
+				if (dungeonLayout.Count >= roomAmount)
 					continue;
 
-				if (currentCenterRoom.NeighbourCount > 1)
-					continue;
+				bool spawnedRoom = false;
 
-				if (Random.value < 0.5f)
-					continue;
+				// Go randomly around the current room and try to spawn more rooms checking in the 4 cardinal directions around each room
+				List<Vector3> availableDirections = new List<Vector3>(validSpawnDirections);
+				while (availableDirections.Count > 0)
+				{
+					Vector3 direction = availableDirections.GetRandom();
 
-				SpawnRoom(neighbourPosition, dungeonQueue, currentCenterRoom);
+					availableDirections.Remove(direction);
+
+					Vector3 neighbourPosition = currentCenterRoom.transform.position + Vector3.Scale(direction, (currentCenterRoom.Size.x_z() / 2.0f) + new Vector3(roomSpawnOffset, 0, roomSpawnOffset));
+					Debug.DrawRay(neighbourPosition.x_z(), Vector3.up, Color.red, 25);
+
+					if (!CanSpawnInDirection(neighbourPosition, currentCenterRoom.Size))
+						continue;
+
+					if (currentCenterRoom.Neighbours.Count > 1)
+						continue;
+
+					if (Random.value < 0.5f)
+						continue;
+
+					spawnedRoom = true;
+					SpawnRoom(neighbourPosition, dungeonQueue, currentCenterRoom);
+					await UniTask.NextFrame();
+				}
+
+				if (!spawnedRoom)
+					dungeonQueue.Enqueue(startRoom);
 			}
-		}
+		});
 
 		foreach (DungeonRoom dungeonRoom in dungeonLayout)
 		{
 			dungeonRoom.GenerateDoors();
 		}
+
+		foreach (DungeonRoom dungeonRoom in dungeonLayout)
+		{
+			dungeonRoom.ConnectDoors();
+		}
+
+		OnDungeonDoneGenerating?.Invoke();
 	}
 
-	void SpawnRoom(Vector2 position, Queue<DungeonRoom> queue, DungeonRoom neighbour)
+	void SpawnRoom(Vector3 position, Queue<DungeonRoom> queue, DungeonRoom neighbour)
 	{
-		DungeonRoom room = Instantiate(rooms.GetRandom(), position, Quaternion.identity);
+		DungeonRoom room = Instantiate(rooms.GetRandom(), position.x_z(), Quaternion.identity);
 
 		room.AddNeighbour(neighbour);
 		neighbour.AddNeighbour(room);
@@ -76,9 +159,9 @@ public class DungeonGenerator : MonoBehaviour
 		dungeonLayout.Add(room);
 	}
 
-	Vector2 GetNextDirection() => validSpawnDirections.GetRandom();
+	Vector3 GetNextDirection() => validSpawnDirections.GetRandom();
 
-	bool CanSpawnInDirection(Vector2 position, Vector2 direction) => Physics.CheckBox(position + direction, Vector3.one * 0.5f);
+	bool CanSpawnInDirection(Vector3 position, Vector3 roomSize) => !Physics.CheckBox(position, (roomSize - new Vector3(0.1f, 0, 0.1f)) / 2.0f);
 }
 
 public static class DungeonHelper
@@ -98,6 +181,9 @@ public static class DungeonHelper
 		case DungeonDoorFacing.Right:
 			return Vector3.Dot(direction, Vector3.right) == 1;
 		default:
+#if UNITY_EDITOR
+			Debug.LogWarning($"DungeonGenerator encountered unexpected switch-case in the CompareDirection-method comparing {direction} and {facing}.");
+#endif
 			return false;
 		}
 	}
@@ -123,6 +209,9 @@ public static class DungeonHelper
 			return DungeonDoorFacing.Right;
 		}
 
+#if UNITY_EDITOR
+		Debug.LogWarning($"DungeonGenerator encountered unexpected if-case in the GetFacingFromDirection-method with direction input {direction}.");
+#endif
 		return DungeonDoorFacing.Forward;
 	}
 
@@ -139,6 +228,9 @@ public static class DungeonHelper
 		case DungeonDoorFacing.Right:
 			return DungeonDoorFacing.Left;
 		default:
+#if UNITY_EDITOR
+			Debug.LogWarning($"DungeonGenerator encountered unexpected switch-case in the GetOppositeFacing-method with facing input {facing}.");
+#endif
 			return DungeonDoorFacing.Forward;
 		}
 	}

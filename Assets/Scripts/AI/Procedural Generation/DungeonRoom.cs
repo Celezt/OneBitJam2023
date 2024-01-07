@@ -14,32 +14,37 @@ public class DungeonRoom : MonoBehaviour
 
 	[SerializeField] DungeonDoorPosition[] possibleDoorPositions;
 	[SerializeField] DungeonDoor doorPrefab;
-	[SerializeField] Vector2Int roomSize = new Vector2Int(1, 1);
+	[SerializeField] Vector2 roomSize = new Vector2(1, 1);
 
-	public List<DungeonDoor> Doors { get; private set; }
+	public List<DungeonDoor> Doors { get; private set; } = new List<DungeonDoor>();
 	public List<DungeonRoom> Neighbours { get; private set; } = new List<DungeonRoom>();
 
-	public Vector2 Position => transform.position;
-	public int NeighbourCount => Neighbours.Count;
-	public Vector2Int Size => roomSize;
+	public Vector2 Size => roomSize;
 
 	public void AddNeighbour(DungeonRoom room)
 	{
 		Neighbours.Add(room);
 	}
 
-	public DungeonDoor GetOppositeNeighbourDoor(DungeonDoorFacing facing)
+	public DungeonDoor GetOppositeNeighbourDoor(DungeonDoor door)
 	{
-		return Doors.Where(x => x.facing == DungeonHelper.GetOppositeFacing(facing)).FirstOrDefault();
+		return Doors.Where(x => x.facing == DungeonHelper.GetOppositeFacing(door.facing)).FirstOrDefault();
 	}
 
 	public void GenerateDoors()
 	{
 		for (int i = 0; i < Neighbours.Count; i++)
 		{
-			Vector3 doorToCenterDirection = (transform.position - Neighbours[i].Position.x_z()).normalized;
+			Vector3 doorToCenterDirection = (transform.position - Neighbours[i].transform.position).normalized;
+			if (doorToCenterDirection == Vector3.zero)
+				Debug.LogWarning("Zero-vector encountered!");
+
 			Transform doorPosition = possibleDoorPositions.Where(x => DungeonHelper.CompareDirection(doorToCenterDirection, x.facing)).FirstOrDefault().possiblePosition;
-			DungeonDoor door = Instantiate(doorPrefab, doorPosition.position, Quaternion.LookRotation(doorToCenterDirection));
+
+			if (!doorPosition)
+				continue;
+
+			DungeonDoor door = Instantiate(doorPrefab, doorPosition.position + Vector3.up * 0.5f, Quaternion.LookRotation(doorToCenterDirection), transform);
 
 			door.facing = DungeonHelper.GetFacingFromDirection(doorToCenterDirection);
 
@@ -55,17 +60,24 @@ public class DungeonRoom : MonoBehaviour
 			if (door.destinationDoor)
 				continue;
 
+			List<DungeonDoor> possibleDoors = new List<DungeonDoor>();
 			for (int j = 0; j < Neighbours.Count; j++)
 			{
-				DungeonRoom neighbour = Neighbours[i];
-				DungeonDoor destinationDoor = neighbour.GetOppositeNeighbourDoor(door.facing);
+				DungeonRoom neighbour = Neighbours[j];
+				DungeonDoor possibleDestinationDoor = neighbour.GetOppositeNeighbourDoor(door);
 
-				if (destinationDoor)
+				if (possibleDestinationDoor)
 				{
-					door.destinationDoor = destinationDoor;
-					destinationDoor.destinationDoor = door;
-					break;
+					possibleDoors.Add(possibleDestinationDoor);
 				}
+			}
+
+			DungeonDoor destinationDoor = possibleDoors.OrderBy(x => Vector3.Distance(x.transform.position, door.transform.position)).FirstOrDefault();
+
+			if (destinationDoor)
+			{
+				door.destinationDoor = destinationDoor;
+				destinationDoor.destinationDoor = door;
 			}
 		}
 	}
@@ -77,6 +89,14 @@ public class DungeonRoom : MonoBehaviour
 		foreach (DungeonDoorPosition t in possibleDoorPositions)
 		{
 			Gizmos.DrawWireCube(t.possiblePosition.position + Vector3.up * 1.5f, new Vector3(1, 3, 1));
+		}
+
+		if (Doors.Count == 0)
+			return;
+		Gizmos.color = Color.green;
+		foreach (DungeonDoor door in Doors)
+		{
+			Gizmos.DrawWireCube(door.transform.position + Vector3.up * 1.5f, new Vector3(1, 3, 1));
 		}
 	}
 #endif
