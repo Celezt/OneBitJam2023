@@ -126,6 +126,7 @@ public class Weapon : ScriptableObject
             GameObject gameObject = Instantiate(_bulletPrefab, position, spreadRotation);
             Bullet bullet = gameObject.GetComponent<Bullet>();
             bullet.IgnoreCollisions(ignoreColliders);
+            bullet.Shoot(position, spreadRotation);
         }
     }
 }
