@@ -81,8 +81,8 @@ public class Bullet : MonoBehaviour
         if (_teamTag != null && other.CompareTag(_teamTag)) // Ignore if target is in the same team.
             return;
 
-        if (other.TryGetComponent(out HealthBehaviour healthBehaviour)) // If HealthBehaviour exist on the object.
-            healthBehaviour.AddEffects(_effects);
+        if (other.TryGetComponent(out IEffector effector)) // If effector exist on the object.
+            effector.AddEffects(_effects);
 
         // Destroy or release itself when hitting something included in the physics layer.
         if (_pool == null)

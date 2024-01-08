@@ -8,6 +8,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 
+[HideMonoScript]
 public class HealthBehaviour : MonoBehaviour, IEffector
 {
     public float MaxHealth
