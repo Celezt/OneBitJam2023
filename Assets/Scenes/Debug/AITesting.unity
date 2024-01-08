@@ -880,7 +880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfbd9b1058992445b7187d42aa74235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
+  enemies:
+  - {fileID: 4027278204782246413, guid: db049d6ac92f3a249996e2ba084c6cac, type: 3}
   spawnPoints: []
   minSpawnRadius: 3
   maxSpawnRadius: 10

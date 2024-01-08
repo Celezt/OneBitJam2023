@@ -17,6 +17,7 @@ public abstract class AIBaseBehavior : MonoBehaviour
 
 	protected CancellationTokenSource performDevianceLookAsyncTokenSource;
 
+	[SerializeField] protected float raycastFrequency = 1 / 85;
 	[SerializeField] protected float detectEdgeDistance = 7;
 	[SerializeField] protected float detectWallDistance = 5;
 	[SerializeField] protected float minPlayerDistance = 3.5f;
