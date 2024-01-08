@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   _maxBulletCapacity: 300
   _defaultBulletSize: 100
-  _spread: 0.1
+  _spread: 8
   _amount: 1
   _cooldown: 0.05
   _isAutomatic: 1
