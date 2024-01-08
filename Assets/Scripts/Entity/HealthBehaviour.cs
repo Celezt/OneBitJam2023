@@ -52,6 +52,9 @@ public class HealthBehaviour : MonoBehaviour, IEffector
     public IEnumerable<IEffectAsync> Effects => _effects;
 
     [SerializeField, MinValue(0)]
+#if UNITY_EDITOR
+    [OnValueChanged(nameof(UpdateHealth))]
+#endif
     private float _maxHealth = 100;
     [SerializeField, Indent]
 #if UNITY_EDITOR
@@ -158,5 +161,11 @@ public class HealthBehaviour : MonoBehaviour, IEffector
     {
         return Color.Lerp(Color.red, Color.green, Mathf.Pow(value / MaxValue, 2));
     }
+
+    private void UpdateHealth()
+    {
+        Value = _health;
+    }
+
 #endif
 }

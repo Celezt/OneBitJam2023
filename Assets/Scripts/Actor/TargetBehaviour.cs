@@ -8,8 +8,6 @@ using UnityEngine.InputSystem;
 [HideMonoScript]
 public class TargetBehaviour : MonoBehaviour
 {
-    private const int DIRECTION_DISTANCE = 4;
-
     [ShowInInspector, HideInEditorMode, PropertyOrder(-1), LabelText("Look Type (Runtime Only)")]
     public LookTypes LookType
     {
@@ -21,7 +19,7 @@ public class TargetBehaviour : MonoBehaviour
     private Transform _target;
     [SerializeField, MinMaxSlider(-180, 180, true)]
     private Vector2Int _minMaxLimit = new Vector2Int(-180, 180);
-    [SerializeField, TitleGroup("Target Settings"), Min(0)]
+    [SerializeField, TitleGroup("Target Settings"), MinValue(0)]
     private float _deadZoneRadius = 1.0f;
     [SerializeField, TitleGroup("Direction Settings")]
     private bool _isDirectionWorldSpace = true;
@@ -32,7 +30,8 @@ public class TargetBehaviour : MonoBehaviour
     private Vector3 _initialPosition;
     private Vector3 _worldPosition;
     private Vector3 _direction;
-    private LookTypes _lookType;
+    private LookTypes _lookType = LookTypes.Direction;
+    private float _directionDistance;
 
     public enum LookTypes
     {
@@ -53,7 +52,7 @@ public class TargetBehaviour : MonoBehaviour
             return;
 
         _direction = direction.normalized;
-        _target.position = (transform.position + _direction * DIRECTION_DISTANCE).x_z(_initialPosition.y);
+        _target.position = (transform.position + _direction * _directionDistance).x_z(_initialPosition.y);
         _lookType = LookTypes.Direction;
     }
 
@@ -70,6 +69,8 @@ public class TargetBehaviour : MonoBehaviour
     private void Start()
     {
         _initialPosition = _target.position;
+        _direction = transform.forward;
+        _directionDistance = Vector3.Distance(_initialPosition.x_z(), transform.position.x_z());
     }
 
     private void Update()
@@ -89,7 +90,7 @@ public class TargetBehaviour : MonoBehaviour
                     _target.position = _worldPosition;
                 break;
             case LookTypes.Direction when _isDirectionWorldSpace:
-                _target.position = (transform.position + _direction * DIRECTION_DISTANCE).x_z(_initialPosition.y);
+                _target.position = (position + _direction * _directionDistance).x_z(_initialPosition.y);
                 break;
         }
 
