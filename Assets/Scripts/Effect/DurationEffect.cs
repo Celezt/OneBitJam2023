@@ -14,7 +14,7 @@ public class DurationEffect : IEffectAsync
     [Indent]
     public int Cycles = 5;
 
-    public async UniTask Effect(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken)
+    public async UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken)
     {
         float initialTime = Time.time;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IEffectAsync : IEffect
 {
-    public UniTask Effect(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken);
+    public UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken);
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects);
 }

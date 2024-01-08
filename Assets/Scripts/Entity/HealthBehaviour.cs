@@ -93,7 +93,7 @@ public class HealthBehaviour : MonoBehaviour, IEffector
             _cancellationTokenSources.Add(cancellationTokenSource);
             
 
-            effectAsync.Effect(this, _effects.Where(x => x != effect), cancellationTokenSource.Token).ContinueWith(() =>
+            effectAsync.EffectAsync(this, _effects.Where(x => x != effect), cancellationTokenSource.Token).ContinueWith(() =>
             {
                 int index = _effects.IndexOf(effectAsync);
 
