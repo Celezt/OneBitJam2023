@@ -178,20 +178,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
-      insertIndex: -1
+      insertIndex: 7
       addedObject: {fileID: -6842876788545417434}
     - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
-      insertIndex: -1
+      insertIndex: 8
       addedObject: {fileID: 1686495615445268262}
     - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
-      insertIndex: -1
+      insertIndex: 9
       addedObject: {fileID: 654982533680382591}
-    - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2267813760604866263}
   m_SourcePrefab: {fileID: 100100000, guid: 67fb13db79a57f3479238b3f22d35108, type: 3}
 --- !u!114 &2763351266186483976 stripped
 MonoBehaviour:
@@ -229,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19041ba9af058ef4f8aeb3e8e9dda51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useManagerUpdate: 0
   lookController: {fileID: 7044929024204746182}
   moveController: {fileID: 2763351266186483976}
   wanderingBehavior: {fileID: 654982533680382591}
@@ -284,20 +281,6 @@ MonoBehaviour:
   devianceMaxDuration: 1.5
   maxMoveTime: 2.5
   minMoveTime: 0.65
---- !u!114 &2267813760604866263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5973158820057875151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d407fab30067944ba5a5cde6709177, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 50
-  currentHealth: 50
 --- !u!114 &7044929024204746182 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7111474064906371805, guid: 67fb13db79a57f3479238b3f22d35108,

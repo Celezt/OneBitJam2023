@@ -177,7 +177,7 @@ MonoBehaviour:
     m_ActionName: Player/LookDelta
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9090245263645875743}
+      - m_Target: {fileID: 5506697886883362759}
         m_TargetAssemblyTypeName: WeaponHandler, Assembly-CSharp
         m_MethodName: OnShoot
         m_Mode: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_ActionName: Player/LeftAttack[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7758065115836103834}
+      - m_Target: {fileID: 1387668992853705078}
         m_TargetAssemblyTypeName: WeaponHandler, Assembly-CSharp
         m_MethodName: OnShoot
         m_Mode: 0
@@ -362,6 +362,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2207689793130521869}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1387668992853705078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1000564047949751419, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 2207689793130521869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4574e18e38149408d465e7c1836b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1581897862940694702 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 817207147292753315, guid: bd45b73470d7bd34db85f6b5e03c35b6,
@@ -374,21 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f17f134c84b9e4f8bb3d3ee0ca1327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7758065115836103834 stripped
+--- !u!114 &5506697886883362759 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8433383059428891031, guid: bd45b73470d7bd34db85f6b5e03c35b6,
-    type: 3}
-  m_PrefabInstance: {fileID: 2207689793130521869}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4574e18e38149408d465e7c1836b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9090245263645875743 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6954758268841818898, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+  m_CorrespondingSourceObject: {fileID: 5965284505204773578, guid: bd45b73470d7bd34db85f6b5e03c35b6,
     type: 3}
   m_PrefabInstance: {fileID: 2207689793130521869}
   m_PrefabAsset: {fileID: 0}

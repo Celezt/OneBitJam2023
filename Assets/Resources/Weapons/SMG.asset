@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1857ac0813b20e478123b000ea39c0c, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3848885918236208464, guid: e99e2ff5cfe635d46b3911465bffcbcb,
+  _bulletPrefab: {fileID: 1661048253651800018, guid: ccf65636aaa3de744a2bfffe7f911cde,
     type: 3}
-  powerUp: []
-  bulletSpread: 0.1
-  bulletAmount: 1
-  bulletSpeed: 0.1
-  fireDelay: 0.1
-  isAutomatic: 1
+  _maxBulletCapacity: 300
+  _defaultBulletSize: 100
+  _spread: 0.1
+  _amount: 1
+  _cooldown: 0.05
+  _isAutomatic: 1

@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1857ac0813b20e478123b000ea39c0c, type: 3}
   m_Name: Flamethrower
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3848885918236208464, guid: e99e2ff5cfe635d46b3911465bffcbcb,
+  _bulletPrefab: {fileID: 783140276592839182, guid: a49fc8fbba569f74499b3d41c2434699,
     type: 3}
-  powerUp: []
-  bulletSpread: 0.2
-  bulletAmount: 2
-  bulletSpeed: 0.03
-  fireDelay: 0.01
-  isAutomatic: 1
-  doDoT: 1
+  _maxBulletCapacity: 100
+  _defaultBulletSize: 20
+  _spread: 2
+  _amount: 1
+  _cooldown: 0.2
+  _isAutomatic: 1

@@ -1459,6 +1459,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RookieActor
       objectReference: {fileID: 0}
+    - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1703730268968544180, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
@@ -1488,6 +1493,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8497431939448387661}
+    - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2021411434967951820}
   m_SourcePrefab: {fileID: 100100000, guid: 964af80d2ebaa8448a8c787ec8465660, type: 3}
 --- !u!114 &2678796464785602067 stripped
 MonoBehaviour:
@@ -1682,6 +1691,32 @@ MonoBehaviour:
   _useTransformScale: 0
   _rotation: {x: 0, y: 0, z: 0, w: 1}
   _length: 2
+--- !u!114 &2021411434967951820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5877608904329752020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d407fab30067944ba5a5cde6709177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _health: 100
+  _onHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onMaxHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthFullEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthEmptyEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6001110835510058930 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4999866421923089888, guid: 964af80d2ebaa8448a8c787ec8465660,

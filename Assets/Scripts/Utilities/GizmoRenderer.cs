@@ -54,7 +54,7 @@ public class GizmoRenderer : MonoBehaviour
                 Gizmos.DrawWireCube(position + _offset, _useTransformScale ? Vector3.Scale(transform.localScale, _scale) : _scale);
                 break;
             case GizmoTypes.Line:
-                Vector3 worldOffset = transform.TransformDirection(_offset );
+                Vector3 worldOffset = transform.TransformDirection(_offset);
                 Gizmos.DrawLine(position + worldOffset, position + worldOffset + (transform.rotation * _rotation) * Vector3.forward * _length);
                 break;
         }
