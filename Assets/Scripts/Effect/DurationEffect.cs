@@ -22,7 +22,7 @@ public class DurationEffect : IEffectAsync
         {
             await UniTask.WaitForSeconds(Duration / Cycles, cancellationToken: cancellationToken);
 
-            effector.Health += ValueChange;
+            effector.Value += ValueChange;
         }
     }
 

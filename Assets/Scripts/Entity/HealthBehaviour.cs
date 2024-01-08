@@ -11,7 +11,7 @@ using UnityEngine.Events;
 [HideMonoScript]
 public class HealthBehaviour : MonoBehaviour, IEffector
 {
-    public float MaxHealth
+    public float MaxValue
     {
         get => _maxHealth;
         set
@@ -23,16 +23,16 @@ public class HealthBehaviour : MonoBehaviour, IEffector
 
             _maxHealth = newMaxHealth;
 
-            Health = _health;   // Update if the new max health is less than the current health.
+            Value = _health;   // Update if the new max health is less than the current health.
         }
     } 
 
-    public float Health
+    public float Value
     {
         get => _health;
         set
         {
-            float newHealth = Mathf.Clamp(value, 0, MaxHealth);
+            float newHealth = Mathf.Clamp(value, 0, MaxValue);
 
             if (newHealth != _health)   // If any change has been made.
             {
@@ -71,9 +71,9 @@ public class HealthBehaviour : MonoBehaviour, IEffector
     private readonly List<IEffectAsync> _effects = new();
     private readonly List<CancellationTokenSource> _cancellationTokenSources = new();
 
-    public void SetHealth(int value) => Health = value;
+    public void SetHealth(int value) => Value = value;
 
-    public void SetMaxHealth(int value) => MaxHealth = value;
+    public void SetMaxHealth(int value) => MaxValue = value;
 
     public bool AddEffect(IEffect effect)
     {
@@ -156,7 +156,7 @@ public class HealthBehaviour : MonoBehaviour, IEffector
 #if UNITY_EDITOR
     private Color GetHealthBarColor(float value)
     {
-        return Color.Lerp(Color.red, Color.green, Mathf.Pow(value / MaxHealth, 2));
+        return Color.Lerp(Color.red, Color.green, Mathf.Pow(value / MaxValue, 2));
     }
 #endif
 }

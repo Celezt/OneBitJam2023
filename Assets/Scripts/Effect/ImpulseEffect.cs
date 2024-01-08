@@ -8,6 +8,6 @@ public class ImpulseEffect : IEffectSingle
 
     public void Effect(IEffector effector, IEnumerable<IEffectAsync> effects)
     {
-        effector.Health += ValueChange;
+        effector.Value += ValueChange;
     }
 }

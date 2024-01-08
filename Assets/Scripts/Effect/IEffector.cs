@@ -6,8 +6,8 @@ using UnityEngine;
 
 public interface IEffector
 {
-    public float MaxHealth { get; set; }
-    public float Health { get; set; }
+    public float MaxValue { get; set; }
+    public float Value { get; set; }
 
     public IEnumerable<IEffectAsync> Effects { get; }
 
