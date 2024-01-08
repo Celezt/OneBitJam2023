@@ -20,7 +20,7 @@ public class DurationEffect : IEffectAsync
 
         while (Time.time - initialTime < Duration && !cancellationToken.IsCancellationRequested)
         {
-            await UniTask.WaitForSeconds(Duration / Cycles);
+            await UniTask.WaitForSeconds(Duration / Cycles, cancellationToken: cancellationToken);
 
             effector.Health += ValueChange;
         }
