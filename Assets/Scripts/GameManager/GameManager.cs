@@ -10,7 +10,10 @@ using UnityEngine.Events;
 using UnityEngine.Pool;
 
 [CreateAssetMenu(fileName = "GameManager", menuName = "Game Manager")]
-public class GameManager : ScriptableManager, ISerializationCallbackReceiver
+public class GameManager : ScriptableManager
+#if UNITY_EDITOR
+    , ISerializationCallbackReceiver
+#endif
 {
     public IEnumerable<ISettings> Settings => _settings;
 
