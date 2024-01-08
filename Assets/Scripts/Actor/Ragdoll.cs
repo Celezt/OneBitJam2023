@@ -53,6 +53,7 @@ public class Ragdoll : MonoBehaviour
             joint.enableCollision = true;
         }
 
+        _actorRigidbody.detectCollisions = false;
         _actorRigidbody.isKinematic = true;
 
         if (_animator)
@@ -90,6 +91,7 @@ public class Ragdoll : MonoBehaviour
             joint.enableCollision = false;
         }
 
+        _actorRigidbody.detectCollisions = true;
         _actorRigidbody.isKinematic = false;
 
         if (_animator)

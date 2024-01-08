@@ -166,6 +166,5 @@ public class HealthBehaviour : MonoBehaviour, IEffector
     {
         Value = _health;
     }
-
 #endif
 }

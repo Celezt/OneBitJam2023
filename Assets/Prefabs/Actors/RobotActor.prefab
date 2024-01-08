@@ -1974,6 +1974,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _moveForce
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _coordinate
       value: 1
       objectReference: {fileID: 0}
@@ -2192,6 +2197,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: RobotActor
       objectReference: {fileID: 0}
+    - target: {fileID: 5970944232636321413, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_Height
+      value: 2.6739283
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970944232636321413, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970944232636321413, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970944232636321413, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.170109
+      objectReference: {fileID: 0}
     - target: {fileID: 6419540320930992423, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_Height
@@ -2206,6 +2231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 1.2802707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651697219118420470, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: m_Mass
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2528,6 +2558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _teamTag: Player
   _weapon: {fileID: 11400000, guid: dd1d68e2266876b4f89332cc1aa27101, type: 2}
+  _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0, w: 1}
   _ignoreColliders:
   - {fileID: 3398953139039776987}
@@ -2748,6 +2779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _teamTag: Player
   _weapon: {fileID: 11400000, guid: 6d9b778c213b2a7408bd25e7ef4944aa, type: 2}
+  _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0, w: 1}
   _ignoreColliders:
   - {fileID: 3398953139039776987}
