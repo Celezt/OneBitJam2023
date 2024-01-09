@@ -67,7 +67,9 @@ public class Weapon : ScriptableObject
         if (BulletPrefab == null)
             return null;
 
-        Bullet bullet = Instantiate(_bulletPrefab).GetComponent<Bullet>();
+        GameObject bulletObject = Instantiate(_bulletPrefab);
+        bulletObject.transform.position = Vector3.down;
+        Bullet bullet = bulletObject.GetComponent<Bullet>();
         bullet.IgnoreCollisions(ignoreColliders);
         bullet.TeamTag = teamTag;
 
