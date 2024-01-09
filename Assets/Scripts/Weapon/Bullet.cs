@@ -23,8 +23,8 @@ public class Bullet : MonoBehaviour
     private float _lifeTime = 3;
     [SerializeField]
     private float _speed = 10;
-    [SerializeReference]
-    private List<IEffect> _effects;
+    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    private List<IEffectBase> _effects;
 
     private float _spawnTime;
     private string _teamTag;
@@ -81,13 +81,8 @@ public class Bullet : MonoBehaviour
         if (_teamTag != null && other.CompareTag(_teamTag)) // Ignore if target is in the same team.
             return;
 
-        if (other.TryGetComponent(out HealthBehaviour healthBehaviour)) // If effector exist on the object.
-        {
-            if (!healthBehaviour.isActiveAndEnabled)
-                return;
-
-            healthBehaviour.AddEffects(_effects);
-        }
+        if (other.TryGetComponent(out IEffector effector)) // If effector exist on the object.
+            effector.AddEffects(_effects, gameObject);
 
         // Destroy or release itself when hitting something included in the physics layer.
         if (_pool == null)

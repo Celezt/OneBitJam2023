@@ -21,13 +21,13 @@ public class Ragdoll : MonoBehaviour
     [SerializeField, ShowIf(nameof(_teleportOnDeactivate)), Indent]
     private Transform _copyTransformOnTeleport;
 
-    [SerializeField]
+    [SerializeField, PropertySpace(SpaceBefore = 4)]
     private Rigidbody _actorRigidbody;
 
-    [SerializeField, Space(8), DrawWithUnity, DisableInPlayMode]
+    [SerializeField, PropertySpace(SpaceBefore = 8), DrawWithUnity, DisableInPlayMode]
     private Rigidbody[] _ragdollRigidbodies;
 
-    [SerializeField, Space(8)]
+    [SerializeField, PropertySpace(SpaceBefore = 8)]
     private UnityEvent _onRagdollActivateEvent;
     [SerializeField]
     private UnityEvent _onRagdollDeactivateEvent;
@@ -37,6 +37,39 @@ public class Ragdoll : MonoBehaviour
     private List<Joint> _joints = new();
     private bool _isRagdoll;
     private bool _isInitialized;
+    private CachedPush? _cachedPush;
+
+    private struct CachedPush
+    {
+        public float Force;
+        public Vector3 Position;
+        public float Radius;
+        public float UpwardModifier;
+        public float TimeSnapshot;
+    }
+
+    public void Push(float force, Vector3 position, float radius, float upwardsModifier = 1.0f)
+    {
+        if (!_isRagdoll)    // Cash push if currently not in ragdoll form.
+        {
+            _cachedPush = new CachedPush
+            {
+                Force = force,
+                Position = position,
+                Radius = radius,
+                UpwardModifier = upwardsModifier,
+                TimeSnapshot = Time.time
+            };
+        }
+        else
+        {
+            for (int i = 0; i < _ragdollRigidbodies.Length; i++)
+            {
+                var rigidbody = _ragdollRigidbodies[i];
+                rigidbody.AddExplosionForce(force, position, radius, upwardsModifier, ForceMode.Impulse);
+            }
+        }
+    }
 
     public void OnEnableRagdoll()
     {
@@ -60,6 +93,14 @@ public class Ragdoll : MonoBehaviour
             _animator.enabled = false;
 
         _isRagdoll = true;
+
+        if (_cachedPush is { } cached)
+        {
+            if (Time.time - cached.TimeSnapshot > 1f)   // Remove cached if it is older than 1 sec.
+                _cachedPush = null;
+            else
+                Push(cached.Force, cached.Position, cached.Radius, cached.UpwardModifier);
+        }
 
         _onRagdollActivateEvent.Invoke();
     }

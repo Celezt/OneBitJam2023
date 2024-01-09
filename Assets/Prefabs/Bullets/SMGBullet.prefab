@@ -94,27 +94,67 @@ PrefabInstance:
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _speed
-      value: 16
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _effects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _effects.Array.data[0]
-      value: 4988305211546665345
+      value: 4988305238195961917
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665345]
-      value: Assembly-CSharp ImpulseEffect
+      propertyPath: _effects.Array.data[1]
+      value: 4988305238195961918
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665345].ValueChange
-      value: -1
+      propertyPath: managedReferences[4988305238195961917]
+      value: Assembly-CSharp HealthChangeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918]
+      value: Assembly-CSharp PushEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].Force
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].Radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].Distance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961917].ValueChange
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].RagdollModifier
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961918].UpwardsModifier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5301150165696432626, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}

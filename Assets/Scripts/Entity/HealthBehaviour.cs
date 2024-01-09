@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [HideMonoScript]
-public class HealthBehaviour : MonoBehaviour, IEffector
+public class HealthBehaviour : MonoBehaviour, IHealth
 {
     public float MaxValue
     {
@@ -25,8 +25,7 @@ public class HealthBehaviour : MonoBehaviour, IEffector
 
             Value = _health;   // Update if the new max health is less than the current health.
         }
-    } 
-
+    }
     public float Value
     {
         get => _health;
@@ -49,8 +48,6 @@ public class HealthBehaviour : MonoBehaviour, IEffector
         }
     }
 
-    public IEnumerable<IEffectAsync> Effects => _effects;
-
     [SerializeField, MinValue(0)]
 #if UNITY_EDITOR
     [OnValueChanged(nameof(UpdateHealth))]
@@ -71,90 +68,9 @@ public class HealthBehaviour : MonoBehaviour, IEffector
     [SerializeField]
     private UnityEvent _onHealthEmptyEvent;
 
-    private readonly List<IEffectAsync> _effects = new();
-    private readonly List<CancellationTokenSource> _cancellationTokenSources = new();
-
     public void SetHealth(int value) => Value = value;
 
     public void SetMaxHealth(int value) => MaxValue = value;
-
-    public bool AddEffect(IEffect effect)
-    {
-        if (effect is IEffectSingle effectSingle)
-        {
-            effectSingle.Effect(this, _effects);
-        }
-        else if (effect is IEffectAsync effectAsync)
-        {
-            // Don't add if it is not valid.
-            if (!effectAsync.IsValid(this, _effects))
-                return false;
-
-            CancellationTokenSource cancellationTokenSource = new();
-
-            _effects.Add(effectAsync);
-            _cancellationTokenSources.Add(cancellationTokenSource);
-            
-
-            effectAsync.EffectAsync(this, _effects.Where(x => x != effect), cancellationTokenSource.Token).ContinueWith(() =>
-            {
-                int index = _effects.IndexOf(effectAsync);
-
-                if (index > -1)
-                {
-                    _effects.RemoveAt(index);
-                    _cancellationTokenSources.RemoveAt(index);
-
-                    CTSUtility.Clear(ref cancellationTokenSource);
-                }
-            });
-        }
-
-        return true;
-    }
-
-    public bool AddEffects(IEnumerable<IEffect> effects)
-    {
-        bool isAllValid = true;
-
-        foreach (var effect in effects)
-        {
-            if (!AddEffect(effect))
-                isAllValid = false;
-        }
-
-        return isAllValid;
-    }
-
-    public bool RemoveEffect(IEffectAsync effect)
-    {
-        int index = _effects.IndexOf(effect);
-
-        if (index < 0)
-            return false;
-
-        var cancellationTokenSource = _cancellationTokenSources[index];
-        cancellationTokenSource.Cancel();
-        cancellationTokenSource.Dispose();
-
-        _effects.RemoveAt(index);
-        _cancellationTokenSources.RemoveAt(index);
-
-        return true;
-    }
-
-    private void OnDisable()
-    {
-        for (int i = 0; i < _cancellationTokenSources.Count; i++)
-        {
-            var cancellationTokenSource = _cancellationTokenSources[i];
-            cancellationTokenSource.Cancel();
-            cancellationTokenSource.Dispose();
-        }
-
-        _effects.Clear();
-        _cancellationTokenSources.Clear();
-    }
 
 #if UNITY_EDITOR
     private Color GetHealthBarColor(float value)

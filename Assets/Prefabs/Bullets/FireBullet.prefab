@@ -99,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _speed
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
@@ -109,92 +109,87 @@ PrefabInstance:
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _effects.Array.data[0]
-      value: 4988305211546664963
+      value: 4988305238195961919
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _effects.Array.data[1]
-      value: 4988305211546665109
+      value: 4988305238195961920
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: _effects.Array.data[2]
-      value: 4988305211546665110
+      value: 4988305238195961921
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546664963]
-      value: Assembly-CSharp ImpulseEffect
+      propertyPath: managedReferences[4988305238195961919]
+      value: Assembly-CSharp HealthChangeEffect
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665108]
-      value: Assembly-CSharp ImpulseEffect
+      propertyPath: managedReferences[4988305238195961920]
+      value: Assembly-CSharp HealthDurationChangeEffect
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665109]
-      value: Assembly-CSharp DurationEffect
+      propertyPath: managedReferences[4988305238195961921]
+      value: Assembly-CSharp PushEffect
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665110]
-      value: Assembly-CSharp DurationEffect
+      propertyPath: managedReferences[4988305238195961920].Tag
+      value: fire
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665109].Tag
-      value: Fire
+      propertyPath: managedReferences[4988305238195961921].Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665110].Tag
-      value: 
+      propertyPath: managedReferences[4988305238195961921].Force
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665109].Cycles
-      value: 15
+      propertyPath: managedReferences[4988305238195961920].Cycles
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665110].Cycles
+      propertyPath: managedReferences[4988305238195961921].Radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305238195961920].Duration
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665109].Duration
-      value: 5
+      propertyPath: managedReferences[4988305238195961921].Distance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665110].Duration
-      value: 5
+      propertyPath: managedReferences[4988305238195961919].ValueChange
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546664963].ValueChange
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
-        type: 3}
-      propertyPath: managedReferences[4988305211546665108].ValueChange
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
-        type: 3}
-      propertyPath: managedReferences[4988305211546665109].ValueChange
+      propertyPath: managedReferences[4988305238195961920].ValueChange
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665110].ValueChange
-      value: -1
+      propertyPath: managedReferences[4988305238195961921].RagdollModifier
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
-      propertyPath: managedReferences[4988305211546665109].AccumulatedValue
-      value: -1
+      propertyPath: managedReferences[4988305238195961921].UpwardsModifier
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5301150165696432626, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}

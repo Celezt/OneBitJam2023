@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-public class DurationEffect : IEffectAsync
+public class HealthDurationChangeEffect : IEffectAsync
 {
     public string Tag;
     public float ValueChange = -1;
@@ -14,18 +14,21 @@ public class DurationEffect : IEffectAsync
     [Indent]
     public int Cycles = 5;
 
-    public async UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken)
+    public async UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
     {
         float initialTime = Time.time;
+
+        if (!effector.GameObject.TryGetComponentInChildren(out IHealth health))
+            return;
 
         while (Time.time - initialTime < Duration && !cancellationToken.IsCancellationRequested)
         {
             await UniTask.WaitForSeconds(Duration / Cycles, cancellationToken: cancellationToken);
 
-            effector.Value += ValueChange;
+            health.Value += ValueChange;
         }
     }
 
-    public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects)
-        => !effects.Any(x => x is DurationEffect effect && effect.Tag == Tag);
+    public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
+        => !effects.Any(x => x is HealthDurationChangeEffect effect && effect.Tag == Tag);
 }
