@@ -24,7 +24,7 @@ public class DungeonGenerator : MonoBehaviour
 
 	private Vector3[] validSpawnDirections = new Vector3[] { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
 
-	private DungeonRoom startRoom;
+	public DungeonRoom StartRoom { get; private set; }
 
 	private int currentLevel = 1;
 
@@ -39,6 +39,7 @@ public class DungeonGenerator : MonoBehaviour
 		else
 		{
 			instance = this;
+			DontDestroyOnLoad(this);
 		}
 
 		CTSUtility.Reset(ref cancellationTokenSource);
@@ -72,7 +73,7 @@ public class DungeonGenerator : MonoBehaviour
 			Destroy(room.gameObject);
 		}
 		dungeonLayout.Clear();
-		startRoom = null;
+		StartRoom = null;
 	}
 
 	async UniTask GenerateDungeon()
@@ -82,11 +83,12 @@ public class DungeonGenerator : MonoBehaviour
 		// Pick and spawn center/starting room
 		DungeonRoom room = rooms.GetRandom();
 
-		startRoom = Instantiate(room, transform.position, Quaternion.identity);
-		dungeonLayout.Add(startRoom);
+		StartRoom = Instantiate(room, transform.position, Quaternion.identity);
+		StartRoom.tag = "StartRoom";
+		dungeonLayout.Add(StartRoom);
 
 		Queue<DungeonRoom> dungeonQueue = new Queue<DungeonRoom>();
-		dungeonQueue.Enqueue(startRoom);
+		dungeonQueue.Enqueue(StartRoom);
 
 		await UniTask.Create(async() =>
 		{
@@ -130,7 +132,7 @@ public class DungeonGenerator : MonoBehaviour
 				}
 
 				if (!spawnedRoom)
-					dungeonQueue.Enqueue(startRoom);
+					dungeonQueue.Enqueue(StartRoom);
 			}
 		});
 
@@ -158,8 +160,6 @@ public class DungeonGenerator : MonoBehaviour
 
 		dungeonLayout.Add(room);
 	}
-
-	Vector3 GetNextDirection() => validSpawnDirections.GetRandom();
 
 	bool CanSpawnInDirection(Vector3 position, Vector3 roomSize) => !Physics.CheckBox(position, (roomSize - new Vector3(0.1f, 0, 0.1f)) / 2.0f);
 }

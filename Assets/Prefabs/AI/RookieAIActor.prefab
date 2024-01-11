@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5687411397727928116}
   m_Father: {fileID: 4027278204782246413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &770822270223151483
@@ -64,9 +65,9 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/l,/Keyboard/leftArrow,/Keyboard/a,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1686495615445268262}
-        m_TargetAssemblyTypeName: AIAttackingBase, Assembly-CSharp
-        m_MethodName: SetPlayerForward
+      - m_Target: {fileID: 3697903853388412331}
+        m_TargetAssemblyTypeName: ProcessorReceiverBase`1[[UnityEngine.Vector2, UnityEngine
+        m_MethodName: SetValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -95,6 +96,74 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &3093284400297709432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5687411397727928116}
+  - component: {fileID: 3697903853388412331}
+  m_Layer: 0
+  m_Name: LookPositionProcessor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5687411397727928116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093284400297709432}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4057250140019965399}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3697903853388412331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093284400297709432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094f1cfd171cbe646955be8769140295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _invokeTypes: 1
+  _processors:
+  - rid: 4988305074643271886
+  _onInvokeCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1686495615445268262}
+        m_TargetAssemblyTypeName: AIAttackingBase, Assembly-CSharp
+        m_MethodName: SetPlayerForward
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 4988305074643271886
+      type: {class: WorldPositionVector2Processor, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1001 &249275112698015515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -168,7 +237,28 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8568535845531803893, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: _onRagdollActivateEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 770822270223151483}
+    - target: {fileID: 8568535845531803893, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: _onRagdollDeactivateEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 770822270223151483}
+    - target: {fileID: 8568535845531803893, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: _onRagdollActivateEvent.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568535845531803893, guid: 67fb13db79a57f3479238b3f22d35108,
+        type: 3}
+      propertyPath: _onRagdollDeactivateEvent.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2021411434967951820, guid: 67fb13db79a57f3479238b3f22d35108, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
@@ -191,12 +281,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5877608904329752020, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2267813760604866263}
+      addedObject: {fileID: 3082029108163401263}
     - targetCorrespondingSourceObject: {fileID: 3080936142108532728, guid: 67fb13db79a57f3479238b3f22d35108,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7290562288928886759}
   m_SourcePrefab: {fileID: 100100000, guid: 67fb13db79a57f3479238b3f22d35108, type: 3}
+--- !u!136 &1546760931310335346 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 1586015543532558953, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2763351266186483976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2678796464785602067, guid: 67fb13db79a57f3479238b3f22d35108,
@@ -227,10 +323,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4574e18e38149408d465e7c1836b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: dd1d68e2266876b4f89332cc1aa27101, type: 2}
+  _teamTag: Enemy
+  _weapon: {fileID: 11400000, guid: 2ea2f625779d76a499f439a2c2de3fbf, type: 2}
+  _offset: {x: 0, y: 0, z: 0}
+  _rotation: {x: 0, y: 0, z: 0, w: 1}
+  _ignoreColliders:
+  - {fileID: 4966832130712165036}
+  - {fileID: 1546760931310335346}
+  - {fileID: 5496767638449450094}
+  - {fileID: 3761325800867411076}
+--- !u!64 &3761325800867411076 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 3983279422756314015, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4027278204782246413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3789319853362517270, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &4966832130712165036 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 5158910640679400887, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &5496767638449450094 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 5709978767386051445, guid: 67fb13db79a57f3479238b3f22d35108,
     type: 3}
   m_PrefabInstance: {fileID: 249275112698015515}
   m_PrefabAsset: {fileID: 0}
@@ -310,7 +432,7 @@ MonoBehaviour:
   devianceMaxDuration: 1.5
   maxMoveTime: 2.5
   minMoveTime: 0.65
---- !u!114 &2267813760604866263
+--- !u!114 &3082029108163401263
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -319,11 +441,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 5973158820057875151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d407fab30067944ba5a5cde6709177, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fdfcef591f20fc4e80fd4144f9203bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  currentHealth: 50
+  _maxHealth: 100
+  _health: 100
+  _onHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6842876788545417434}
+        m_TargetAssemblyTypeName: AIController, Assembly-CSharp
+        m_MethodName: NotifyAIWasAttacked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onMaxHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthFullEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthEmptyEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6842876788545417434}
+        m_TargetAssemblyTypeName: AIController, Assembly-CSharp
+        m_MethodName: NotifyAIKilled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8474674510235832302}
+        m_TargetAssemblyTypeName: Ragdoll, Assembly-CSharp
+        m_MethodName: OnEnableRagdoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7044929024204746182 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7111474064906371805, guid: 67fb13db79a57f3479238b3f22d35108,
@@ -334,5 +504,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74f17f134c84b9e4f8bb3d3ee0ca1327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8474674510235832302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8568535845531803893, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 249275112698015515}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973158820057875151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254732b5d677c5643b27c200608ae13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

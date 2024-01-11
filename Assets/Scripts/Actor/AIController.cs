@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 public enum AIState
@@ -23,13 +24,20 @@ public class AIController : MonoBehaviour
 
 	public AIState activeState { get; private set; } = AIState.undefined;
 
+	public delegate void OnAIDestroyedEvent(AIController controller);
+	public event OnAIDestroyedEvent OnAIDestroyed;
+
 	private AIBaseBehavior activeBehavior;
+
+	public DungeonRoom room { get; set; }
+
+	private bool bWasDestroyed = false;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		if (useManagerUpdate)
-			AIManager.INSTANCE.OnAIUpdate += UpdateAI;
+		if (useManagerUpdate && AIManager.INSTANCE)
+			AIManager.INSTANCE.Subscribe(this);
 
 		if (!wanderingBehavior)
 			wanderingBehavior = GetComponent<AIMovingBase>();
@@ -43,11 +51,29 @@ public class AIController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!useManagerUpdate)
-			activeBehavior?.OnUpdate();
+		if (AIManager.INSTANCE && useManagerUpdate || bWasDestroyed)
+			return;
+		activeBehavior?.OnUpdate();
 	}
 
-	void UpdateAI() => activeBehavior?.OnUpdate();
+	public void UpdateAI()
+	{
+		activeBehavior?.OnUpdate();
+	}
+
+	public void NotifyAIKilled()
+	{
+		OnAIDestroyed?.Invoke(this);
+		activeBehavior?.OnExit();
+		if (!AIManager.INSTANCE || !useManagerUpdate)
+		{
+			bWasDestroyed = true;
+			return;
+		}
+		AIManager.INSTANCE.UnSubscribe(this);
+	}
+
+	public void NotifyAIWasAttacked() => SwitchBehavior(AIState.attacking);
 
 #if UNITY_EDITOR
 	void OnDrawGizmos()
@@ -58,16 +84,12 @@ public class AIController : MonoBehaviour
 
 	void OnDestroy()
 	{
-		activeBehavior?.OnExit();
-		if (useManagerUpdate)
-			AIManager.INSTANCE.OnAIUpdate -= UpdateAI;
+		NotifyAIKilled();
 	}
 
 	void OnDisable()
 	{
-		activeBehavior?.OnExit();
-		if (useManagerUpdate)
-			AIManager.INSTANCE.OnAIUpdate -= UpdateAI;
+		NotifyAIKilled();
 	}
 
 	public void SwitchBehavior(AIState newState)

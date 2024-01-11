@@ -47,6 +47,7 @@ public class DungeonRoom : MonoBehaviour
 			DungeonDoor door = Instantiate(doorPrefab, doorPosition.position + Vector3.up * 0.5f, Quaternion.LookRotation(doorToCenterDirection), transform);
 
 			door.facing = DungeonHelper.GetFacingFromDirection(doorToCenterDirection);
+			door.room = this;
 
 			Doors.Add(door);
 		}
