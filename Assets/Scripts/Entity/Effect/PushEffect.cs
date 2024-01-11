@@ -8,7 +8,7 @@ public class PushEffect : IEffect
     public float Force = 100.0f;
     public float Radius = 3f;
     public float UpwardsModifier = 0f;
-    public LocationMode Mode = LocationMode.Position;
+    public LocationMode Mode = LocationMode.Velocity;
     [ShowIf(nameof(Mode), LocationMode.Velocity), Indent]
     public float Distance = 2;
 

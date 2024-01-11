@@ -98,6 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
+      propertyPath: _trajectory
+      value: 4988305304911609856
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
       propertyPath: _effects.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -123,6 +128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
+      propertyPath: managedReferences[4988305304911609856]
+      value: Assembly-CSharp LinearTrajectory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
       propertyPath: managedReferences[4988305238195961918].Mode
       value: 1
       objectReference: {fileID: 0}
@@ -130,6 +140,11 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4988305238195961918].Force
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
+        type: 3}
+      propertyPath: managedReferences[4988305304911609856].Speed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}

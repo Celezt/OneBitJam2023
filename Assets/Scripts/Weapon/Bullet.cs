@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -19,10 +21,10 @@ public class Bullet : MonoBehaviour
         set => _pool = value;
     }
 
-    [SerializeField]
+    [SerializeField, MinValue(0), SuffixLabel("sec", overlay: true)]
     private float _lifeTime = 3;
-    [SerializeField]
-    private float _speed = 10;
+    [SerializeReference]
+    private ITrajectoryBase _trajectory = new LinearTrajectory();
     [SerializeReference, PropertySpace(SpaceBefore = 8)]
     private List<IEffectBase> _effects;
 
@@ -31,6 +33,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody _rigidbody;
     private Collider _collider;
     private ObjectPool<Bullet> _pool;
+    private CancellationTokenSource _cancellationTokenSource;
  
     public void IgnoreCollision(Collider ignoreCollider)
     {
@@ -60,7 +63,14 @@ public class Bullet : MonoBehaviour
         _rigidbody.rotation = rotation;
         _rigidbody.velocity = Vector3.zero;
 
-        _rigidbody.AddRelativeForce(new Vector3(_speed, 0, 0), ForceMode.VelocityChange);
+        if (_trajectory is ITrajectory trajectory)
+            trajectory.Initialize(_rigidbody);
+
+        if (_trajectory is ITrajectoryAsync trajectoryAsync)
+        {
+            CTSUtility.Reset(ref _cancellationTokenSource);
+            trajectoryAsync.UpdateAsync(_rigidbody, _cancellationTokenSource.Token).Forget();
+        }
     }
 
     private void Update()
@@ -74,6 +84,11 @@ public class Bullet : MonoBehaviour
             else
                 _pool.Release(this);
         }
+    }
+
+    private void OnDisable()
+    {
+        CTSUtility.Clear(ref _cancellationTokenSource);
     }
 
     private void OnTriggerEnter(Collider other)

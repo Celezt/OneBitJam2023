@@ -68,7 +68,6 @@ public class Weapon : ScriptableObject
             return null;
 
         GameObject bulletObject = Instantiate(_bulletPrefab);
-        bulletObject.transform.position = Vector3.down;
         Bullet bullet = bulletObject.GetComponent<Bullet>();
         bullet.IgnoreCollisions(ignoreColliders);
         bullet.TeamTag = teamTag;
@@ -111,6 +110,7 @@ public class Weapon : ScriptableObject
             Quaternion spreadRotation = rotation * Quaternion.Euler(UnityEngine.Random.Range(-_spread, _spread), UnityEngine.Random.Range(-_spread, _spread), 0);
 
             Bullet bullet = pool.Get();
+            bullet.transform.position = position;
             bullet.Pool = pool;
             bullet.Shoot(position, spreadRotation);
         }

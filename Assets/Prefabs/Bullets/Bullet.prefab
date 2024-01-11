@@ -95,8 +95,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeTime: 3
-  _speed: 4
+  _trajectory:
+    rid: 4988305304911609859
   _effects: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4988305304911609859
+      type: {class: LinearTrajectory, ns: , asm: Assembly-CSharp}
+      data:
+        Speed: 20
