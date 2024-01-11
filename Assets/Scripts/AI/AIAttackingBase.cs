@@ -24,11 +24,20 @@ public abstract class AIAttackingBase : AIBaseBehavior
 		player = GameObject.FindWithTag("Player").transform;
 	}
 
-	public void SetPlayerForward(InputAction.CallbackContext ctx)
+	public void SetPlayerForward(Vector2 lookAtPosition)
 	{
 		if (!player)
 			return;
-		playerForward = (new Vector3(ctx.ReadValue<Vector2>().x, 0, ctx.ReadValue<Vector2>().y) - player.transform.position).normalized;
+
+		playerForward = (new Vector3(lookAtPosition.x, 0, lookAtPosition.y) - player.transform.position).normalized;
 		playerRight = Vector3.Cross(Vector3.up, playerForward);
 	}
+
+	// public void SetPlayerForward(InputAction.CallbackContext ctx)
+	// {
+	// 	if (!player)
+	// 		return;
+	// 	playerForward = (new Vector3(ctx.ReadValue<Vector2>().x, 0, ctx.ReadValue<Vector2>().y) - player.transform.position).normalized;
+	// 	playerRight = Vector3.Cross(Vector3.up, playerForward);
+	// }
 }

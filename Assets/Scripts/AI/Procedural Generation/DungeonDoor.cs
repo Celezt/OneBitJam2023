@@ -8,6 +8,10 @@ public class DungeonDoor : MonoBehaviour
 	[HideInInspector] public DungeonDoor destinationDoor;
 
 	public DungeonDoorFacing facing { get; set; }
+	public DungeonRoom room { get; set; }
+
+	public delegate void OnPlayerTeleportEvent(DungeonRoom room);
+	public event OnPlayerTeleportEvent OnPlayerTeleport;
 
 	public void TeleportPlayer(Collider other)
 	{
@@ -18,6 +22,7 @@ public class DungeonDoor : MonoBehaviour
 		Debug.Log($"Teleporting {other.name}");
 #endif
 
+		OnPlayerTeleport?.Invoke(destinationDoor.room);
 		other.GetComponent<Rigidbody>().position = destinationDoor.transform.position + destinationDoor.transform.forward * playerSpawnDistance;
 	}
 
