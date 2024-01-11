@@ -20,22 +20,26 @@ public class PushEffect : IEffect
 
     public void Effect(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-        if (!effector.GameObject.TryGetComponentInChildren(out IPushable pushable))
+        if (!effector.GameObject.TryGetComponent(out Rigidbody effectorRigidbody))
             return;
 
-        Vector3 location;
-        if (Mode == LocationMode.Velocity && sender.TryGetComponentInChildren(out Rigidbody rigidbody))
+        Vector3 position;
+        switch (Mode)
         {
-            Vector3 direction = rigidbody.velocity.normalized;
-            location = sender.transform.position - direction * Distance;
+            case LocationMode.Velocity when sender.TryGetComponent(out Rigidbody senderRigidbody):
+                Vector3 direction = senderRigidbody.velocity.normalized;
+                position = sender.transform.position - direction * Distance;
+                break;
+            default:
+                position = sender.transform.position;
+                break;
         }
-        else
-            location = sender.transform.position;
 
-        pushable.Push(Force, location, Radius, UpwardsModifier);
+        if (effectorRigidbody != null)
+            effectorRigidbody.AddExplosionForce(Force, position, Radius, UpwardsModifier, ForceMode.Impulse);
 
         // Add force to the ragdoll if it exist.
         if (effector.GameObject.TryGetComponentInChildren(out Ragdoll ragdoll))
-            ragdoll.Push(Force, location, Radius, UpwardsModifier);
+            ragdoll.Push(Force, position, Radius, UpwardsModifier);
     }
 }

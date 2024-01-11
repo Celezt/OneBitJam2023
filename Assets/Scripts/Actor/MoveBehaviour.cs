@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [HideMonoScript]
-public class MoveBehaviour : MonoBehaviour, IPushable
+public class MoveBehaviour : MonoBehaviour
 {
     /// <summary>
     /// Direction in world space.
@@ -165,11 +165,6 @@ public class MoveBehaviour : MonoBehaviour, IPushable
         /// Only inverse when the value is mirrored (180 - angle), otherwise ignore change if limit has exceeded.
         /// </summary>
         InverseMirrorOrCancel,
-    }
-
-    public void Push(float force, Vector3 position, float radius, float upwardsModifier = 0)
-    {
-        _rigidbody.AddExplosionForce(force, position, radius, upwardsModifier, ForceMode.Impulse);
     }
 
     public void SetDirection(Vector2 direction)
