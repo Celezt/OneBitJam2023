@@ -1,14 +1,15 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
 
 [HideMonoScript]
-[CreateAssetMenu(fileName = "Weapon", menuName = "Data/Weapon", order = 1)]
-public class Weapon : ScriptableObject
+public class Weapon : MonoBehaviour, IDetonator
 {
     public GameObject BulletPrefab
     {
@@ -22,21 +23,31 @@ public class Weapon : ScriptableObject
                 OnBulletChangeCallback(_bulletPrefab);
         }
     }
+    public WeaponHandler Handler
+    {
+        get => _handler;
+        set
+        {
+            var newHandler = value;
+
+            if (newHandler != _handler)
+            {
+                if (_bulletPool != null)
+                    _bulletPool.Dispose();
+
+                if (newHandler != null)
+                    _bulletPool = CreateBulletPool(newHandler.IgnoreColliders, newHandler.TeamTag);
+            }
+
+            _handler = newHandler;
+        }
+    }
     public float Spread
     {
         get => _spread;
         set => _spread = value;
     }
-    public int Amount
-    {
-        get => _amount;
-        set => _amount = Mathf.Max(value, 0);
-    }
-    public float Cooldown
-    {
-        get => _cooldown;
-        set => _cooldown = Mathf.Max(value, 0);
-    }
+    public float Cooldown => _detonation.Cooldown;
     public bool IsAutomatic
     {
         get => _isAutomatic;
@@ -52,17 +63,72 @@ public class Weapon : ScriptableObject
     [SerializeField, Indent(2), MinValue(0), MaxValue("@_maxBulletCapacity")]
     private int _defaultBulletSize = 10;
 
+    [SerializeField, Indent]
+    private Vector3 _offset;
+    [SerializeField, Indent]
+    private Quaternion _rotation = Quaternion.identity;
+
+    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    private IDetonationBase _detonation = new InstantDetonation();
+
     [SerializeField, PropertySpace(SpaceBefore = 8)]
     private float _spread = 0;
-    [SerializeField, MinValue(0)]
-    private int _amount = 1;
-    [SerializeField, MinValue(0)]
-    private float _cooldown = 0.2f;
 
     [SerializeField, PropertySpace(SpaceBefore = 8)]
     private bool _isAutomatic;
 
-    public Bullet CreateBullet(Collider[] ignoreColliders = null, string teamTag = null)
+    private WeaponHandler _handler;
+    private ObjectPool<Bullet> _bulletPool;
+    private CancellationTokenSource _detonationCancellationTokenSource;
+
+    public void Trigger()
+    {
+        if (_bulletPrefab == null)
+            return;
+
+        Vector3 position = transform.TransformDirection(_offset) + transform.position;
+        Quaternion rotation = transform.rotation * _rotation;
+        Quaternion spreadRotation = 
+            rotation * Quaternion.Euler(UnityEngine.Random.Range(-_spread, _spread), 0, UnityEngine.Random.Range(-_spread, _spread));
+
+        Bullet bullet = _bulletPool.Get();
+        bullet.transform.position = position;
+        bullet.Pool = _bulletPool;
+        bullet.Shoot(position, spreadRotation);
+    }
+
+    public void Shoot()
+    {
+        if (_detonation is IDetonation detonation)
+            detonation.Initialize(this);
+
+        if (_detonation is IDetonationAsync detonationAsync)
+        {
+            CTSUtility.Reset(ref _detonationCancellationTokenSource);
+            detonationAsync.UpdateAsync(this, _detonationCancellationTokenSource.Token).Forget();
+        }
+    }
+
+    private void Start()
+    {
+        if (_handler == null)
+        {
+            _handler = GetComponentInParent<WeaponHandler>();
+
+            if (_handler != null)
+                _bulletPool = CreateBulletPool(_handler.IgnoreColliders, _handler.TeamTag);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_bulletPool != null)
+            _bulletPool.Dispose();
+
+        CTSUtility.Clear(ref _detonationCancellationTokenSource);
+    }
+
+    private Bullet CreateBullet(IReadOnlyList<Collider> ignoreColliders = null, string teamTag = null)
     {
         if (BulletPrefab == null)
             return null;
@@ -75,7 +141,7 @@ public class Weapon : ScriptableObject
         return bullet;
     }
 
-    public ObjectPool<Bullet> CreateBulletPool(Collider[] ignoreColliders = null, string teamTag = null)
+    private ObjectPool<Bullet> CreateBulletPool(IReadOnlyList<Collider> ignoreColliders = null, string teamTag = null)
     {
         var pool = new ObjectPool<Bullet>(
             createFunc: () => CreateBullet(ignoreColliders, teamTag),
@@ -98,37 +164,5 @@ public class Weapon : ScriptableObject
         );
 
         return pool;
-    }
-
-    public void Shoot(Vector3 position, Quaternion rotation, ObjectPool<Bullet> pool)
-    {
-        if (_bulletPrefab == null)
-            return;
-
-        for (int i = 0; i < _amount; i++)
-        {
-            Quaternion spreadRotation = rotation * Quaternion.Euler(UnityEngine.Random.Range(-_spread, _spread), UnityEngine.Random.Range(-_spread, _spread), 0);
-
-            Bullet bullet = pool.Get();
-            bullet.transform.position = position;
-            bullet.Pool = pool;
-            bullet.Shoot(position, spreadRotation);
-        }
-    }
-
-    public void Shoot(Vector3 position, Quaternion rotation, Collider[] ignoreColliders = null)
-    {
-        if (_bulletPrefab == null) 
-            return;
-
-        for (int i = 0; i < _amount; i++)
-        {
-            Quaternion spreadRotation = rotation * Quaternion.Euler(UnityEngine.Random.Range(-_spread, _spread), 0, UnityEngine.Random.Range(-_spread, _spread));
-
-            GameObject gameObject = Instantiate(_bulletPrefab, position, spreadRotation);
-            Bullet bullet = gameObject.GetComponent<Bullet>();
-            bullet.IgnoreCollisions(ignoreColliders);
-            bullet.Shoot(position, spreadRotation);
-        }
     }
 }

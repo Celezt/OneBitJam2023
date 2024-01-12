@@ -31,5 +31,4 @@ public static class QuaternionExtensions
 
         return quaternion.normalized;
     }
-
 }
