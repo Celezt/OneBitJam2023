@@ -14,7 +14,12 @@ public class HealthDurationChangeEffect : IEffectAsync
     [Indent]
     public int Cycles = 5;
 
-    public async UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
+    public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
+    {
+
+    }
+
+    public async UniTask UpdateAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
     {
         float initialTime = Time.time;
 

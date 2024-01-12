@@ -159,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: managedReferences[4988305238195961917].ValueChange
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 3741412094360929512, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
@@ -224,7 +224,7 @@ PrefabInstance:
     - target: {fileID: 7921466896235029530, guid: e1330319a64d6024b8722f8affdeaad3,
         type: 3}
       propertyPath: m_Name
-      value: SMGBullet
+      value: HeavyBullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

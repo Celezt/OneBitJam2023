@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public interface IEffectAsync : IEffectBase
+public interface IEffectAsync : IEffect
 {
-    public UniTask EffectAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender);
+    public UniTask UpdateAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender);
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender);
 }

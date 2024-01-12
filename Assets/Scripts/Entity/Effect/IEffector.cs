@@ -9,7 +9,7 @@ public interface IEffector
     public GameObject GameObject { get; }
     public IEnumerable<IEffectAsync> Effects { get; }
 
-    public bool AddEffect(IEffectBase effect, GameObject sender);
-    public bool AddEffects(IEnumerable<IEffectBase> effects, GameObject sender);
+    public bool AddEffect(IEffect effect, GameObject sender);
+    public bool AddEffects(IEnumerable<IEffect> effects, GameObject sender);
     public bool RemoveEffect(IEffectAsync effect);
 }

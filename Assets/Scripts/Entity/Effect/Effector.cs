@@ -15,13 +15,11 @@ public class Effector : MonoBehaviour, IEffector
     private readonly List<IEffectAsync> _effects = new();
     private readonly List<CancellationTokenSource> _cancellationTokenSources = new();
 
-    public bool AddEffect(IEffectBase effect, GameObject sender)
+    public bool AddEffect(IEffect effect, GameObject sender)
     {
-        if (effect is IEffect effectSingle)
-        {
-            effectSingle.Effect(this, _effects, sender);
-        }
-        else if (effect is IEffectAsync effectAsync)
+        effect.Initialize(this, _effects, sender);
+
+        if (effect is IEffectAsync effectAsync)
         {
             // Don't add if it is not valid.
             if (!effectAsync.IsValid(this, _effects, sender))
@@ -33,7 +31,7 @@ public class Effector : MonoBehaviour, IEffector
             _cancellationTokenSources.Add(cancellationTokenSource);
 
 
-            effectAsync.EffectAsync(this, _effects.Where(x => x != effect), cancellationTokenSource.Token, sender)
+            effectAsync.UpdateAsync(this, _effects.Where(x => x != effect), cancellationTokenSource.Token, sender)
                 .ContinueWith(() =>
                     {
                         int index = _effects.IndexOf(effectAsync);
@@ -51,7 +49,7 @@ public class Effector : MonoBehaviour, IEffector
         return true;
     }
 
-    public bool AddEffects(IEnumerable<IEffectBase> effects, GameObject sender)
+    public bool AddEffects(IEnumerable<IEffect> effects, GameObject sender)
     {
         bool isAllValid = true;
 

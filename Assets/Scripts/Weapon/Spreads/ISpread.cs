@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEffectBase
+public interface ISpread
 {
-
+    public Quaternion Rotation(Quaternion rotation);
 }

@@ -92,17 +92,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 1661048253651800018, guid: ccf65636aaa3de744a2bfffe7f911cde,
     type: 3}
-  _maxBulletCapacity: 200
-  _defaultBulletSize: 40
+  _maxBulletCapacity: 100
+  _defaultBulletSize: 10
   _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
   _detonation:
     rid: 4988305304911610554
-  _spread: 2
+  _spread:
+    rid: 1000
   _isAutomatic: 1
   references:
     version: 2
     RefIds:
+    - rid: 1000
+      type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
+      data:
+        Spread: 4
     - rid: 4988305304911610554
       type: {class: BurstDetonation, ns: , asm: Assembly-CSharp}
       data:

@@ -42,11 +42,6 @@ public class Weapon : MonoBehaviour, IDetonator
             _handler = newHandler;
         }
     }
-    public float Spread
-    {
-        get => _spread;
-        set => _spread = value;
-    }
     public float Cooldown => _detonation.Cooldown;
     public bool IsAutomatic
     {
@@ -69,10 +64,10 @@ public class Weapon : MonoBehaviour, IDetonator
     private Quaternion _rotation = Quaternion.identity;
 
     [SerializeReference, PropertySpace(SpaceBefore = 8)]
-    private IDetonationBase _detonation = new InstantDetonation();
+    private IDetonation _detonation = new InstantDetonation();
 
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
-    private float _spread = 0;
+    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    private ISpread _spread = new RandomSpread();
 
     [SerializeField, PropertySpace(SpaceBefore = 8)]
     private bool _isAutomatic;
@@ -87,20 +82,17 @@ public class Weapon : MonoBehaviour, IDetonator
             return;
 
         Vector3 position = transform.TransformDirection(_offset) + transform.position;
-        Quaternion rotation = transform.rotation * _rotation;
-        Quaternion spreadRotation = 
-            rotation * Quaternion.Euler(UnityEngine.Random.Range(-_spread, _spread), 0, UnityEngine.Random.Range(-_spread, _spread));
+        Quaternion rotation = _spread.Rotation(transform.rotation * _rotation);
 
         Bullet bullet = _bulletPool.Get();
         bullet.transform.position = position;
         bullet.Pool = _bulletPool;
-        bullet.Shoot(position, spreadRotation);
+        bullet.Shoot(position, rotation);
     }
 
     public void Shoot()
     {
-        if (_detonation is IDetonation detonation)
-            detonation.Initialize(this);
+        _detonation.Initialize(this);
 
         if (_detonation is IDetonationAsync detonationAsync)
         {

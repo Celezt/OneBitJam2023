@@ -7,7 +7,7 @@ public class InstantDetonation : IDetonation
 {
     public float Cooldown => _cooldown;
 
-    [MinValue(0)]
+    [MinValue(0), SuffixLabel("instant", overlay: true)]
     public int Amount = 1;
 
     [SerializeField, MinValue(0)]

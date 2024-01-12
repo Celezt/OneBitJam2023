@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITrajectory : ITrajectoryBase
+public interface ITrajectory
 {
     public void Initialize(Rigidbody rigidbody);
 }

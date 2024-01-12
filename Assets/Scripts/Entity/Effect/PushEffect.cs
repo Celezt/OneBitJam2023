@@ -18,7 +18,7 @@ public class PushEffect : IEffect
         Velocity,
     }
 
-    public void Effect(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
+    public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
         if (!effector.GameObject.TryGetComponent(out Rigidbody effectorRigidbody))
             return;

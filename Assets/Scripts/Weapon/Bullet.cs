@@ -24,9 +24,9 @@ public class Bullet : MonoBehaviour
     [SerializeField, MinValue(0), SuffixLabel("sec", overlay: true)]
     private float _lifeTime = 3;
     [SerializeReference]
-    private ITrajectoryBase _trajectory = new LinearTrajectory();
+    private ITrajectory _trajectory = new LinearTrajectory();
     [SerializeReference, PropertySpace(SpaceBefore = 8)]
-    private List<IEffectBase> _effects;
+    private List<IEffect> _effects;
 
     private float _spawnTime;
     private string _teamTag;
@@ -63,8 +63,7 @@ public class Bullet : MonoBehaviour
         _rigidbody.rotation = rotation;
         _rigidbody.velocity = Vector3.zero;
 
-        if (_trajectory is ITrajectory trajectory)
-            trajectory.Initialize(_rigidbody);
+        _trajectory.Initialize(_rigidbody);
 
         if (_trajectory is ITrajectoryAsync trajectoryAsync)
         {

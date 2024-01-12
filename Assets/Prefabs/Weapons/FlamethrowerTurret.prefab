@@ -96,10 +96,20 @@ MonoBehaviour:
   _defaultBulletSize: 10
   _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
-  _isFixedX: 0
-  _isFixedY: 0
-  _isFixedZ: 0
-  _spread: 8
-  _amount: 1
-  _cooldown: 0.6
+  _detonation:
+    rid: 1000
+  _spread:
+    rid: 1001
   _isAutomatic: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: InstantDetonation, ns: , asm: Assembly-CSharp}
+      data:
+        Amount: 1
+        _cooldown: 0.2
+    - rid: 1001
+      type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
+      data:
+        Spread: 8

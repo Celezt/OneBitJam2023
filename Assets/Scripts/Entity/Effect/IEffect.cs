@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public interface IEffect : IEffectBase
+public interface IEffect
 {
-    public void Effect(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender);
+    public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender);
 }
