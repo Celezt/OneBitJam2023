@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAudioPicker : IReset
 {
-    public AudioClip Get(IList<AudioClip> clips);
+    public Playlist.Clip Get(IList<Playlist.Clip> clips);
 }

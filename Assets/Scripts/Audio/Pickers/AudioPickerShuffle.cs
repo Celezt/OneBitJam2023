@@ -23,7 +23,7 @@ public class AudioPickerShuffle : IAudioPicker
         Weighted,
     }
 
-    public AudioClip Get(IList<AudioClip> clips)
+    public Playlist.Clip Get(IList<Playlist.Clip> clips)
     {
         switch (Distribution)
         {

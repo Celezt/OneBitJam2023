@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable, InlineProperty, HideLabel]
+[Serializable, InlineProperty]
 public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<AudioClip>
 {
     public static IEnumerable<Type> PickerFilter 
@@ -16,9 +16,9 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
     private static IEnumerable<Type> _cachedResetters;
 
     public int Count => _clips.Count;
-    public AudioClip this[int index] => _clips[index];
+    public AudioClip this[int index] => _clips[index].AudioClip;
 
-    public List<AudioClip> Clips => _clips;
+    public List<Clip> Clips => _clips;
     public IAudioPicker Picker
     {
         get => _picker;
@@ -30,15 +30,26 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         set => _resetter = value ?? new AudioResetterDefault();
     }
 
-    [Title("Playlist", horizontalLine: false, bold: false), PropertySpace(SpaceBefore = 8)]
     [SerializeField]
-    private List<AudioClip> _clips = new();
+#if UNITY_EDITOR
+    [ListDrawerSettings(CustomAddFunction = nameof(AddClip))]
+#endif
+    private List<Clip> _clips = new();
     [SerializeReference, TypeFilter(nameof(PickerFilter)), Indent]
     private IAudioPicker _picker = new AudioPickerSequence();
     [SerializeReference, TypeFilter(nameof(ResetterFilter)), Indent, PropertySpace(spaceAfter: 8, spaceBefore: 0)]
     private IAudioResetter _resetter = new AudioResetterDefault();
 
-    public AudioClip Get()
+    [Serializable]
+    public struct Clip
+    {
+        [HorizontalGroup("Split", 0.8f), HideLabel]
+        public AudioClip AudioClip;
+        [HorizontalGroup("Split"), HideLabel]
+        public float VolumeScale;
+    }
+
+    public Playlist.Clip? Get()
     {
         if (_clips.Count == 0)
             return null;
@@ -53,9 +64,14 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
     public IEnumerator<AudioClip> GetEnumerator()
     {
         for (int i = 0; i < _clips.Count; i++)
-            yield return Get();
+            yield return Get()?.AudioClip;
     }
 
     public void ResetPicker()
         => Picker.Reset();
+
+#if UNITY_EDITOR
+    private Clip AddClip()
+        => new Clip { VolumeScale = 1 };
+#endif
 }

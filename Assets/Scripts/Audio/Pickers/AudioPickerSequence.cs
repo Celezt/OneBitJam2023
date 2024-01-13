@@ -6,7 +6,7 @@ public class AudioPickerSequence : IAudioPicker
 {
     private int _currentIndex;
 
-    public AudioClip Get(IList<AudioClip> clips)
+    public Playlist.Clip Get(IList<Playlist.Clip> clips)
         => clips[_currentIndex++ % clips.Count];
 
     public void Reset()

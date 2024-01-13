@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField, MinValue(0), SuffixLabel("sec", overlay: true)]
     private float _lifeTime = 3;
-    [SerializeReference]
+    [SerializeReference, PropertySpace(SpaceBefore = 8)]
     private ITrajectory _trajectory = new LinearTrajectory();
     [SerializeReference, PropertySpace(SpaceBefore = 8)]
     private List<IEffect> _effects;

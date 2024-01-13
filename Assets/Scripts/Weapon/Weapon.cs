@@ -51,7 +51,9 @@ public class Weapon : MonoBehaviour, IDetonator
 
     public event Action<GameObject> OnBulletChangeCallback = delegate { };
 
-    [SerializeField, AssetsOnly]
+    [SerializeField]
+    private AudioSource _audioSource;
+    [SerializeField, AssetsOnly, Space(8)]
     private GameObject _bulletPrefab;
     [SerializeField, Indent, MinValue(0)]
     private int _maxBulletCapacity = 100;
@@ -63,14 +65,17 @@ public class Weapon : MonoBehaviour, IDetonator
     [SerializeField, Indent]
     private Quaternion _rotation = Quaternion.identity;
 
-    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    [SerializeReference, Space(8)]
     private IDetonation _detonation = new InstantDetonation();
 
-    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    [SerializeReference, Space(8)]
     private ISpread _spread = new RandomSpread();
 
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
+    [SerializeField, Space(8)]
     private bool _isAutomatic;
+
+    [SerializeField, Space(8)]
+    private Playlist _shootingPlaylist;
 
     private WeaponHandler _handler;
     private ObjectPool<Bullet> _bulletPool;
@@ -88,6 +93,9 @@ public class Weapon : MonoBehaviour, IDetonator
         bullet.transform.position = position;
         bullet.Pool = _bulletPool;
         bullet.Shoot(position, rotation);
+
+        if (_audioSource != null)
+            _audioSource.PlayOneShot(_shootingPlaylist);
     }
 
     public void Shoot()

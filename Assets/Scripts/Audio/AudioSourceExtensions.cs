@@ -4,14 +4,24 @@ using UnityEngine;
 
 public static class AudioSourceExtensions
 {
-    public static void Play(this AudioSource source, Playlist playlist, bool ignoreNull = true)
+    public static void Play(this AudioSource source, Playlist playlist)
     {
         var clip = playlist.Get();
 
-        if (ignoreNull && clip == null)
+        if (clip == null)
             return;
 
-        source.clip = playlist.Get();
+        source.clip = clip.Value.AudioClip;
         source.Play();
+    }
+
+    public static void PlayOneShot(this AudioSource source, Playlist playlist, float volumeScale = 1)
+    {
+        var clip = playlist.Get();
+
+        if (clip == null)
+            return;
+
+        source.PlayOneShot(clip?.AudioClip, clip.Value.VolumeScale * volumeScale);
     }
 }

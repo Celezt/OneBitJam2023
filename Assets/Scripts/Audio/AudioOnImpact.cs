@@ -34,8 +34,10 @@ public class AudioOnImpact : MonoBehaviour
         get => _layerMask;
         set => _layerMask = value;
     }
-    public AudioSource CurrentSource => _audioSources.Count > _audioSourceIndex ? _audioSources[_audioSourceIndex] : null;
     public Playlist Playlist => _playlist;
+
+    [SerializeField]
+    private AudioSource _audioSource;
 
     [SerializeField]
     private Transform _target;
@@ -47,14 +49,8 @@ public class AudioOnImpact : MonoBehaviour
     private LayerMask _layerMask;
 
     [SerializeField]
-    private List<AudioSource> _audioSources;
-
-    [SerializeField]
     private Playlist _playlist; 
     [SerializeField]
-#if UNITY_EDITOR
-    [OnValueChanged(nameof(ScaleOfSpeedChange))]
-#endif
     private bool _scaleOfSpeed = true;
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
     private float _maxSpeed = 8.0f;
@@ -64,10 +60,8 @@ public class AudioOnImpact : MonoBehaviour
     private float _exitTime = 0.2f;
 
     private bool _isColliding;
-    private int _audioSourceIndex;
     private Vector3 _previousPosition;
 
-    private Dictionary<AudioSource, float> _startVolumes;
     private CancellationTokenSource _cancellationTokenSource;
 
     private void Start()
@@ -77,25 +71,12 @@ public class AudioOnImpact : MonoBehaviour
 
     private void OnEnable()
     {
-        _startVolumes = DictionaryPool<AudioSource, float>.Get();
-
-        foreach (var source in _audioSources)
-            _startVolumes[source] = source.volume;
-
         CTSUtility.Reset(ref _cancellationTokenSource);
         CheckOnImpactAsync(_cancellationTokenSource.Token).Forget();
     }
 
     private void OnDisable()
     {
-        foreach (var source in _audioSources)
-        {
-            if (_startVolumes.TryGetValue(source, out var volume))
-                source.volume = volume;
-        }
-
-        DictionaryPool<AudioSource, float>.Release(_startVolumes);
-
         CTSUtility.Clear(ref _cancellationTokenSource);
     }
 
@@ -119,25 +100,22 @@ public class AudioOnImpact : MonoBehaviour
 
             if (Physics.Raycast(position, _rotation * Vector3.down, out RaycastHit hit, _distance, _layerMask))
             {
-                var source = CurrentSource;
-
-                if (!_isColliding && source)
+                if (!_isColliding)
                 {
-                    if (_scaleOfSpeed && _startVolumes.TryGetValue(source, out float volume))
+                    if (_scaleOfSpeed)
                     {
                         float speed = Vector3.Distance(position, _previousPosition) / Time.deltaTime;
                         float interval = Mathf.Clamp01(speed / _maxSpeed);
-                        source.volume = interval * volume;
-                    }
 
-                    source.Play(_playlist);
+                        _audioSource.PlayOneShot(_playlist, interval);
+                    }
+                    else
+                        _audioSource.PlayOneShot(_playlist);
+
                     _isColliding = true;
 
-                    _audioSourceIndex++;
-                    _audioSourceIndex %= _audioSources.Count;
-
                     if (!_hasExitTime)
-                        await UniTask.WaitWhile(() => source.isPlaying);
+                        await UniTask.WaitWhile(() => _audioSource.isPlaying);
                     else
                         await UniTask.WaitForSeconds(_exitTime, cancellationToken: ct);
                 }
@@ -150,18 +128,4 @@ public class AudioOnImpact : MonoBehaviour
             await UniTask.WaitForFixedUpdate();
         }
     }
-
-#if UNITY_EDITOR
-    private void ScaleOfSpeedChange()
-    {
-        if (!_scaleOfSpeed && Application.isPlaying)
-        {
-            foreach (var source in _audioSources)
-            {
-                if (_startVolumes.TryGetValue(source, out var volume))
-                    source.volume = volume;
-            }
-        }
-    }
-#endif
 }
