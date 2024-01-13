@@ -92,10 +92,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_teamTag != null && other.CompareTag(_teamTag)) // Ignore if target is in the same team.
+        other.TryGetComponent(out IHitbox hitbox);
+
+        // Use hitbox parent if it exist.
+        GameObject target = hitbox == null ? other.gameObject : hitbox.Parent;
+
+        if (_teamTag != null && target.CompareTag(_teamTag)) // Ignore if target is in the same team.
             return;
 
-        if (other.TryGetComponent(out IEffector effector)) // If effector exist on the object.
+        if (target.TryGetComponent(out IEffector effector)) // If effector exist on the object.
             effector.AddEffects(_effects, gameObject);
 
         // Destroy or release itself when hitting something included in the physics layer.
