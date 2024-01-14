@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
 using Sirenix.OdinInspector;
 using System;
@@ -8,37 +9,28 @@ using System.Threading;
 using UnityEngine;
 
 [HideMonoScript]
-public class AudioOnCollision : MonoBehaviour
+public class AudioOnCollision : AudioOnEnterBase
 {
     [SerializeField]
-    private AudioSource _audioSource;
-    [SerializeField]
-    private GameObject _target;
-    [SerializeField]
-    private LayerMask _layerMask = ~0;
-    [SerializeField]
-    private Playlist _playList;
+    private bool _scaleOfSpeed = false;
+    [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
+    private float _maxSpeed = 6.0f;
 
-    private void Start()
+    protected override async UniTaskVoid OnEnterAsync(CancellationToken cancellationToken)
     {
-        if (_target == null)
-            return;
-
-        OnCollisionEnterAsync(destroyCancellationToken).Forget();
-    }
-
-    private async UniTaskVoid OnCollisionEnterAsync(CancellationToken cancellationToken)
-    {
-        var handler = _target.GetAsyncCollisionEnterTrigger().GetOnCollisionEnterAsyncHandler(cancellationToken);
-        while (!cancellationToken.IsCancellationRequested)
+        await _target.GetAsyncCollisionEnterTrigger().ForEachAsync(collision =>
         {
-            Collision collision = await handler.OnCollisionEnterAsync();
-
             if (((1 << collision.collider.gameObject.layer) & _layerMask) != 0)
             {
-                if (_audioSource != null)
-                    _audioSource.PlayOneShot(_playList);
+                if (_scaleOfSpeed)
+                {
+                    float speed = collision.relativeVelocity.magnitude;
+                    float interval = Mathf.Clamp01(speed / _maxSpeed);
+                    _audioSource.PlayOneShot(_playlist, interval);
+                }
+                else
+                    _audioSource.PlayOneShot(_playlist);
             }
-        }
+        }, cancellationToken);
     }
 }

@@ -53,7 +53,7 @@ public class AudioOnImpact : MonoBehaviour
     [SerializeField]
     private bool _scaleOfSpeed = true;
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
-    private float _maxSpeed = 8.0f;
+    private float _maxSpeed = 6.0f;
     [SerializeField]
     private bool _hasExitTime = false;
     [SerializeField, ShowIf(nameof(_hasExitTime)), Indent]

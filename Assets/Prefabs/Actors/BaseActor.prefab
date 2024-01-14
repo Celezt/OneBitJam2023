@@ -736,19 +736,19 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 1023
-  _playList:
+  _playlist:
     _clips: []
     _picker:
-      rid: 4988305348580343897
+      rid: 4988305353705259648
     _resetter:
-      rid: 4988305348171399715
+      rid: 4988305353705259647
   references:
     version: 2
     RefIds:
-    - rid: 4988305348171399715
+    - rid: 4988305353705259647
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 4988305348580343897
+    - rid: 4988305353705259648
       type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
       data:
         Distribution: 0

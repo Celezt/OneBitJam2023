@@ -1592,12 +1592,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _playlist._clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _playList._clips.Array.data[0].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 7b86a75ccc83e1646ab73c68cfd07e6e, type: 3}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _playlist._clips.Array.data[0].AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b86a75ccc83e1646ab73c68cfd07e6e, type: 3}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _playList._clips.Array.data[0].VolumeScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _playlist._clips.Array.data[0].VolumeScale
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
