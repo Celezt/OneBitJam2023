@@ -34,7 +34,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _OutlineColor
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -117,7 +117,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NormalThreshold: 0.08
+    - _NormalThreshold: 0.12
     - _OVERLAY: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
