@@ -15,6 +15,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1161413718734585287, guid: 8380da97a7e545b419d09ebda4234db6,
         type: 3}
+      propertyPath: _maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161413718734585287, guid: 8380da97a7e545b419d09ebda4234db6,
+        type: 3}
       propertyPath: _playlist._clips.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -50,8 +55,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5672543972434144019, guid: 8380da97a7e545b419d09ebda4234db6,
         type: 3}
+      propertyPath: m_Pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5672543972434144019, guid: 8380da97a7e545b419d09ebda4234db6,
+        type: 3}
       propertyPath: m_Volume
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5868191090013239315, guid: 8380da97a7e545b419d09ebda4234db6,
         type: 3}
