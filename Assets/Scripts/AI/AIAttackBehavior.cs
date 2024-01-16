@@ -45,7 +45,7 @@ public class AIAttackBehavior : AIAttackingBase
 		nextCircleSwitch = Time.time + Random.Range(minCircleSwitchTime, maxCircleSwitchTime);
 		lastCircleSwitchTime = minCircleSwitchDelay;
 		CTSUtility.Reset(ref performDevianceLookAsyncTokenSource);
-		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token);
+		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token).Forget();
 	}
 
 	public override void OnExit()
