@@ -280,6 +280,11 @@ PrefabInstance:
       propertyPath: _minDelta
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2240547789958070214, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2829316018226395690, guid: bd45b73470d7bd34db85f6b5e03c35b6,
         type: 3}
       propertyPath: _rotation.w

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 
 [HideMonoScript, RequireComponent(typeof(Rigidbody), typeof(Collider))]
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IEntity
 {
     public string TeamTag
     {
@@ -20,21 +21,49 @@ public class Bullet : MonoBehaviour
         get => _pool;
         set => _pool = value;
     }
+    public Rigidbody Rigidbody
+    {
+        get
+        {
+            if (_rigidbody == null)
+                _rigidbody = GetComponent<Rigidbody>();
 
-    [SerializeField, MinValue(0), SuffixLabel("sec", overlay: true)]
-    private float _lifeTime = 3;
-    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+            return _rigidbody;
+        }
+    }
+
+    [SerializeReference]
+    private ILifeTime _lifeTime = new StaticLifeTime();
+    [SerializeReference, Space(8)]
+    private IHit _hit = new DestroyHit();
+    [SerializeReference, Space(8)]
     private ITrajectory _trajectory = new LinearTrajectory();
-    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    [SerializeReference, Space(8)]
     private List<IEffect> _effects;
 
-    private float _spawnTime;
+    [SerializeField, Space(8)]
+    private UnityEvent _onShootEvent;
+
     private string _teamTag;
     private Rigidbody _rigidbody;
     private Collider _collider;
     private ObjectPool<Bullet> _pool;
     private CancellationTokenSource _cancellationTokenSource;
- 
+
+    void IEntity.Destroy()
+    {
+        if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
+            return;
+
+        // Destroy or release itself when the lifetime has run out.
+        if (_pool == null)
+            Destroy(gameObject);
+        else
+            _pool.Release(this);
+
+        CTSUtility.Clear(ref _cancellationTokenSource);
+    }
+
     public void IgnoreCollision(Collider ignoreCollider)
     {
         if (_collider == null)
@@ -54,35 +83,21 @@ public class Bullet : MonoBehaviour
 
     public void Shoot(Vector3 position, Quaternion rotation)
     {
-        _spawnTime = Time.time;
+        Rigidbody.position = position;
+        Rigidbody.rotation = rotation;
+        Rigidbody.velocity = Vector3.zero;
 
-        if (_rigidbody == null)
-            _rigidbody = GetComponent<Rigidbody>();
+        _trajectory.Initialize(Rigidbody);
 
-        _rigidbody.position = position;
-        _rigidbody.rotation = rotation;
-        _rigidbody.velocity = Vector3.zero;
-
-        _trajectory.Initialize(_rigidbody);
+        CTSUtility.Reset(ref _cancellationTokenSource);
 
         if (_trajectory is ITrajectoryAsync trajectoryAsync)
-        {
-            CTSUtility.Reset(ref _cancellationTokenSource);
-            trajectoryAsync.UpdateAsync(_rigidbody, _cancellationTokenSource.Token).Forget();
-        }
-    }
+            trajectoryAsync.UpdateAsync(Rigidbody, _cancellationTokenSource.Token).Forget();
 
-    private void Update()
-    {
-        float currentTime = Time.time;
-        if (currentTime - _spawnTime > _lifeTime)
-        {
-            // Destroy or release itself when the lifetime has run out.
-            if (_pool == null)
-                Destroy(gameObject);
-            else
-                _pool.Release(this);
-        }
+        _lifeTime.DurationAsync(_cancellationTokenSource.Token, this)
+            .ContinueWith(() => ((IEntity)this).Destroy());
+
+        _onShootEvent.Invoke();
     }
 
     private void OnDisable()
@@ -103,10 +118,9 @@ public class Bullet : MonoBehaviour
         if (target.TryGetComponent(out IEffector effector)) // If effector exist on the object.
             effector.AddEffects(_effects, gameObject);
 
-        // Destroy or release itself when hitting something included in the physics layer.
-        if (_pool == null)
-            Destroy(gameObject);
-        else
-            _pool.Release(this); 
+        _hit.Initialize(this);
+
+        if (_hit is IHitAsync hitAsync)
+            hitAsync.UpdateAsync(_cancellationTokenSource.Token, this);
     }
 }

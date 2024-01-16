@@ -94,13 +94,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef88ebcd0c521e439438878201e081d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeTime: 3
+  _lifeTime:
+    rid: 1000
   _trajectory:
     rid: 4988305304911609859
   _effects: []
+  _onShootEvent:
+    m_PersistentCalls:
+      m_Calls: []
   references:
     version: 2
     RefIds:
+    - rid: 1000
+      type: {class: StaticLifeTime, ns: , asm: Assembly-CSharp}
+      data:
+        Duration: 2
     - rid: 4988305304911609859
       type: {class: LinearTrajectory, ns: , asm: Assembly-CSharp}
       data:

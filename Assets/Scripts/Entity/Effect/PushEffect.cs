@@ -6,6 +6,8 @@ using UnityEngine;
 public class PushEffect : IEffect
 {
     public float Force = 100.0f;
+    [Indent]
+    public float RagdollMultiplier = 1.0f;
     public float Radius = 3f;
     public float UpwardsModifier = 0f;
     public LocationMode Mode = LocationMode.Velocity;
@@ -40,6 +42,6 @@ public class PushEffect : IEffect
 
         // Add force to the ragdoll if it exist.
         if (effector.GameObject.TryGetComponentInChildren(out Ragdoll ragdoll))
-            ragdoll.Push(Force, position, Radius, UpwardsModifier);
+            ragdoll.Push(Force * RagdollMultiplier, position, Radius, UpwardsModifier);
     }
 }

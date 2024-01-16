@@ -237,7 +237,7 @@ MonoBehaviour:
     type: 3}
   _maxBulletCapacity: 100
   _defaultBulletSize: 10
-  _offset: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: -0.8, z: 0}
   _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
   _detonation:
     rid: 4988305304911610554
