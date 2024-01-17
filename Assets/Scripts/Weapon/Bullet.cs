@@ -107,6 +107,9 @@ public class Bullet : MonoBehaviour, IEntity
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_cancellationTokenSource == null)
+            return;
+
         other.TryGetComponent(out IHitbox hitbox);
 
         // Use hitbox parent if it exist.

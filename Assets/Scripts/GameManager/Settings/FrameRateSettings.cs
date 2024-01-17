@@ -13,11 +13,14 @@ public class FrameRateSettings : ISettings
     private int _frameRate = 60;
     [SerializeField, OnValueChanged(nameof(OnSetVSync)), LabelText("V-Sync")]
     private bool _vSync = false;
+    [SerializeField, OnValueChanged(nameof(OnSetTimeScale))]
+    private float _timeScale = 1;
     
     public void GameStart(IEnumerable<ISettings> settings)
     {
         OnSetFrameRate();
         OnSetVSync();
+        OnSetTimeScale();
     }
 
     public void GameExit(IEnumerable<ISettings> settings)
@@ -25,7 +28,7 @@ public class FrameRateSettings : ISettings
 
     }
 
-    private void OnSetFrameRate()
+    public void OnSetFrameRate()
     {
         if (_fixedFrameRate)
             Application.targetFrameRate = _frameRate;
@@ -33,7 +36,7 @@ public class FrameRateSettings : ISettings
             Application.targetFrameRate = -1;
     }
 
-    private void OnSetVSync()
+    public void OnSetVSync()
     {
         if (_vSync)
         {
@@ -42,5 +45,11 @@ public class FrameRateSettings : ISettings
         }
         else
             QualitySettings.vSyncCount = 0;
+    }
+
+    public void OnSetTimeScale()
+    {
+        _timeScale = Mathf.Max(_timeScale, 0);
+        Time.timeScale = _timeScale;
     }
 }
