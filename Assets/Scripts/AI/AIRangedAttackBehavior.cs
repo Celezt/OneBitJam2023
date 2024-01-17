@@ -34,7 +34,7 @@ public class AIRangedAttackBehavior : AIAttackingBase
 		moveDirection = Vector3.ProjectOnPlane(URand.insideUnitSphere, Vector3.up);
 		moveTime = minMoveTime;
 		CTSUtility.Reset(ref performDevianceLookAsyncTokenSource);
-		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token);
+		PerformDevianceLookAsync(performDevianceLookAsyncTokenSource.Token).Forget();
 	}
 
 	public override void OnExit()

@@ -43,7 +43,7 @@ public class DungeonGenerator : MonoBehaviour
 		}
 
 		CTSUtility.Reset(ref cancellationTokenSource);
-		GenerateDungeon();
+		GenerateDungeon().Forget();
 	}
 
 	public void Reset()
@@ -51,7 +51,7 @@ public class DungeonGenerator : MonoBehaviour
 		currentLevel = 1;
 		CleanUpDungeon();
 		CTSUtility.Reset(ref cancellationTokenSource);
-		GenerateDungeon();
+		GenerateDungeon().Forget();
 	}
 
 	public void ProgressLevel()
@@ -59,7 +59,7 @@ public class DungeonGenerator : MonoBehaviour
 		currentLevel++;
 		CleanUpDungeon();
 		CTSUtility.Reset(ref cancellationTokenSource);
-		GenerateDungeon();
+		GenerateDungeon().Forget();
 	}
 
 	void CleanUpDungeon()
@@ -90,51 +90,48 @@ public class DungeonGenerator : MonoBehaviour
 		Queue<DungeonRoom> dungeonQueue = new Queue<DungeonRoom>();
 		dungeonQueue.Enqueue(StartRoom);
 
-		await UniTask.Create(async() =>
+		while (dungeonQueue.Count > 0 && !cancellationTokenSource.Token.IsCancellationRequested)
 		{
-			while (dungeonQueue.Count > 0 && !cancellationTokenSource.Token.IsCancellationRequested)
-			{
-				DungeonRoom currentCenterRoom = dungeonQueue.Dequeue();
+			DungeonRoom currentCenterRoom = dungeonQueue.Dequeue();
 
-				Progress = (dungeonLayout.Count / (float) roomAmount) * 100.0f;
+			Progress = (dungeonLayout.Count / (float) roomAmount) * 100.0f;
 #if UNITY_EDITOR
-				Debug.Log($"Dungeon generation progress: {Progress}% complete");
+			Debug.Log($"Dungeon generation progress: {Progress}% complete");
 #endif
 
-				if (dungeonLayout.Count >= roomAmount)
+			if (dungeonLayout.Count >= roomAmount)
+				continue;
+
+			bool spawnedRoom = false;
+
+			// Go randomly around the current room and try to spawn more rooms checking in the 4 cardinal directions around each room
+			List<Vector3> availableDirections = new List<Vector3>(validSpawnDirections);
+			while (availableDirections.Count > 0)
+			{
+				Vector3 direction = availableDirections.GetRandom();
+
+				availableDirections.Remove(direction);
+
+				Vector3 neighbourPosition = currentCenterRoom.transform.position + Vector3.Scale(direction, (currentCenterRoom.Size.x_z() / 2.0f) + new Vector3(roomSpawnOffset, 0, roomSpawnOffset));
+				Debug.DrawRay(neighbourPosition.x_z(), Vector3.up, Color.red, 25);
+
+				if (!CanSpawnInDirection(neighbourPosition, currentCenterRoom.Size))
 					continue;
 
-				bool spawnedRoom = false;
+				if (currentCenterRoom.Neighbours.Count > 1)
+					continue;
 
-				// Go randomly around the current room and try to spawn more rooms checking in the 4 cardinal directions around each room
-				List<Vector3> availableDirections = new List<Vector3>(validSpawnDirections);
-				while (availableDirections.Count > 0)
-				{
-					Vector3 direction = availableDirections.GetRandom();
+				if (Random.value < 0.5f)
+					continue;
 
-					availableDirections.Remove(direction);
-
-					Vector3 neighbourPosition = currentCenterRoom.transform.position + Vector3.Scale(direction, (currentCenterRoom.Size.x_z() / 2.0f) + new Vector3(roomSpawnOffset, 0, roomSpawnOffset));
-					Debug.DrawRay(neighbourPosition.x_z(), Vector3.up, Color.red, 25);
-
-					if (!CanSpawnInDirection(neighbourPosition, currentCenterRoom.Size))
-						continue;
-
-					if (currentCenterRoom.Neighbours.Count > 1)
-						continue;
-
-					if (Random.value < 0.5f)
-						continue;
-
-					spawnedRoom = true;
-					SpawnRoom(neighbourPosition, dungeonQueue, currentCenterRoom);
-					await UniTask.NextFrame();
-				}
-
-				if (!spawnedRoom)
-					dungeonQueue.Enqueue(StartRoom);
+				spawnedRoom = true;
+				SpawnRoom(neighbourPosition, dungeonQueue, currentCenterRoom);
+				await UniTask.NextFrame();
 			}
-		});
+
+			if (!spawnedRoom)
+				dungeonQueue.Enqueue(StartRoom);
+		}
 
 		foreach (DungeonRoom dungeonRoom in dungeonLayout)
 		{
