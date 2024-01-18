@@ -1,13 +1,12 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Pool;
-using UnityEngine.UIElements;
 
 [HideMonoScript]
 public class Weapon : MonoBehaviour, IDetonator
@@ -73,6 +72,10 @@ public class Weapon : MonoBehaviour, IDetonator
     private ISpread _spread = new RandomSpread();
 
     [SerializeField, Space(8)]
+    private bool _useMoveVelocity = true;
+    [SerializeField, Indent, ShowIf(nameof(_useMoveVelocity))]
+    private float _moveVelocityScale = 0.8f;
+    [SerializeField]
     private bool _isAutomatic;
 
     [SerializeField, Space(8)]
@@ -90,10 +93,15 @@ public class Weapon : MonoBehaviour, IDetonator
         Vector3 position = transform.TransformDirection(_offset) + transform.position;
         Quaternion rotation = _spread.Rotation(transform.rotation * _rotation);
 
+        Vector3 moveVelocity = Vector3.zero;
+        if (_useMoveVelocity && _handler.MoveRigidbody)
+            moveVelocity = _handler.MoveRigidbody.velocity * _moveVelocityScale;
+
         Bullet bullet = _bulletPool.Get();
         bullet.transform.position = position;
         bullet.Pool = _bulletPool;
-        bullet.Shoot(position, rotation);
+
+        bullet.Shoot(position, rotation, moveVelocity);
 
         if (_audioSource != null)
             _audioSource.PlayOneShot(_shootingPlaylist);

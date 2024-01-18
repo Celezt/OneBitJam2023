@@ -10,8 +10,10 @@ public class StaticLifeTime : ILifeTime
     [SuffixLabel("sec", overlay: true), MinValue(0)]
     public float Duration = 2;
 
-    public async UniTask DurationAsync(CancellationToken cancellationToken, IEntity entity)
+    public async UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity)
     {
         await UniTask.WaitForSeconds(Duration, cancellationToken: cancellationToken);
+
+        entity.Destroy();
     }
 }

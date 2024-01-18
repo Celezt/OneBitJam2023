@@ -243,6 +243,8 @@ MonoBehaviour:
     rid: 4988305304911610554
   _spread:
     rid: 1000
+  _useMoveVelocity: 1
+  _moveVelocityScale: 0.9
   _isAutomatic: 1
   _shootingPlaylist:
     _clips:
@@ -259,6 +261,7 @@ MonoBehaviour:
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
         Spread: 4
+        Scale: {x: 0, y: 0, z: 1}
     - rid: 1001
       type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
       data: 

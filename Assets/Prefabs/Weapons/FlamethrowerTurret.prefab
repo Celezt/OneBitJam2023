@@ -322,12 +322,14 @@ MonoBehaviour:
     type: 3}
   _maxBulletCapacity: 100
   _defaultBulletSize: 10
-  _offset: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: -0.8, z: 0}
   _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
   _detonation:
     rid: 1000
   _spread:
     rid: 1001
+  _useMoveVelocity: 1
+  _moveVelocityScale: 0.7
   _isAutomatic: 1
   _shootingPlaylist:
     _clips:
@@ -347,12 +349,13 @@ MonoBehaviour:
     - rid: 1000
       type: {class: InstantDetonation, ns: , asm: Assembly-CSharp}
       data:
-        Amount: 1
-        _cooldown: 0.2
+        Amount: 3
+        _cooldown: 0.3
     - rid: 1001
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
-        Spread: 8
+        Spread: 30
+        Scale: {x: 0, y: 0, z: 1}
     - rid: 4988305331493535989
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 

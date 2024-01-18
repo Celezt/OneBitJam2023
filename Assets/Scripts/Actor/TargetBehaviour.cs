@@ -15,12 +15,27 @@ public class TargetBehaviour : MonoBehaviour
         set => _lookType = value;
     }
 
+    public float Height
+    {
+        get
+        {
+            if (_heightTarget)
+                return _heightTarget.position.y;
+            else 
+                return _initialPosition.y;
+        }
+    }
+
     [SerializeField, Space(8)]
     private Transform _target;
+    [SerializeField, Indent]
+    private Transform _heightTarget;
     [SerializeField, MinMaxSlider(-180, 180, true)]
     private Vector2Int _minMaxLimit = new Vector2Int(-180, 180);
+
     [SerializeField, TitleGroup("Target Settings"), MinValue(0)]
     private float _deadZoneRadius = 1.0f;
+
     [SerializeField, TitleGroup("Direction Settings")]
     private bool _isDirectionWorldSpace = true;
 
@@ -52,14 +67,14 @@ public class TargetBehaviour : MonoBehaviour
             return;
 
         _direction = direction.normalized;
-        _target.position = (transform.position + _direction * _directionDistance).x_z(_initialPosition.y);
+        _target.position = (transform.position + _direction * _directionDistance).x_z(Height);
         _lookType = LookTypes.Direction;
     }
 
     public void LookAt(InputAction.CallbackContext context)
         => LookAt(context.ReadValue<Vector2>());
     public void LookAt(Vector2 target)
-        => LookAt(target.x_z(_initialPosition.y));
+        => LookAt(target.x_z(Height));
     public void LookAt(Vector3 target)
     {
         _worldPosition = target;
@@ -90,7 +105,7 @@ public class TargetBehaviour : MonoBehaviour
                     _target.position = _worldPosition;
                 break;
             case LookTypes.Direction when _isDirectionWorldSpace:
-                _target.position = (position + _direction * _directionDistance).x_z(_initialPosition.y);
+                _target.position = (position + _direction * _directionDistance).x_z(Height);
                 break;
         }
 

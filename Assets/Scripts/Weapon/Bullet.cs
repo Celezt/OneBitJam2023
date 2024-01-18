@@ -44,6 +44,9 @@ public class Bullet : MonoBehaviour, IEntity
     [SerializeField, Space(8)]
     private UnityEvent _onShootEvent;
 
+    [SerializeField]
+    private UnityEvent _onDeactivateEvent;
+
     private string _teamTag;
     private Rigidbody _rigidbody;
     private Collider _collider;
@@ -62,6 +65,8 @@ public class Bullet : MonoBehaviour, IEntity
             _pool.Release(this);
 
         CTSUtility.Clear(ref _cancellationTokenSource);
+
+        _onDeactivateEvent.Invoke();
     }
 
     public void IgnoreCollision(Collider ignoreCollider)
@@ -81,21 +86,23 @@ public class Bullet : MonoBehaviour, IEntity
             IgnoreCollision(ignoreColliders[i]);
     }
 
-    public void Shoot(Vector3 position, Quaternion rotation)
+    public void Shoot(Vector3 position, Quaternion rotation, Vector3 moveVelocity = default)
     {
         Rigidbody.position = position;
         Rigidbody.rotation = rotation;
         Rigidbody.velocity = Vector3.zero;
 
-        _trajectory.Initialize(Rigidbody);
+        if (moveVelocity != default)
+            Rigidbody.AddForce(moveVelocity, ForceMode.VelocityChange);
 
         CTSUtility.Reset(ref _cancellationTokenSource);
+
+        _trajectory.Initialize(Rigidbody);
 
         if (_trajectory is ITrajectoryAsync trajectoryAsync)
             trajectoryAsync.UpdateAsync(Rigidbody, _cancellationTokenSource.Token).Forget();
 
-        _lifeTime.DurationAsync(_cancellationTokenSource.Token, this)
-            .ContinueWith(() => ((IEntity)this).Destroy());
+        _lifeTime.UpdateAsync(_cancellationTokenSource.Token, this);
 
         _onShootEvent.Invoke();
     }

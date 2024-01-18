@@ -6,5 +6,5 @@ using UnityEngine;
 
 public interface ILifeTime
 {
-    public UniTask DurationAsync(CancellationToken cancellationToken, IEntity entity);
+    public UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity);
 }

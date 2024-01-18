@@ -30,11 +30,14 @@ public class WeaponHandler : MonoBehaviour
     }
     public IReadOnlyList<Collider> IgnoreColliders => _ignoreColliders;
     public string TeamTag => _teamTag;
+    public Rigidbody MoveRigidbody => _moveRigidbody;
 
     [SerializeField]
     private string _teamTag;
     [SerializeField]
     private Weapon _weapon;
+    [SerializeField]
+    private Rigidbody _moveRigidbody;
 
     [SerializeField, PropertySpace(SpaceBefore = 8)]
     private Collider[] _ignoreColliders;
