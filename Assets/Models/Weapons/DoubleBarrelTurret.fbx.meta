@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Shotgun
+    second: {fileID: 2100000, guid: 36e3c1195facaa248b5f06ee7c7986b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: ShotgunMaterial
     second: {fileID: 2100000, guid: 36e3c1195facaa248b5f06ee7c7986b5, type: 2}
   - first:
