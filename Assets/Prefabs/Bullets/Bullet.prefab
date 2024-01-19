@@ -95,21 +95,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeTime:
-    rid: 1000
+    rid: 4988305465068487668
+  _hit:
+    rid: 4988305465068487667
   _trajectory:
     rid: 4988305304911609859
   _effects: []
   _onShootEvent:
     m_PersistentCalls:
       m_Calls: []
+  _onDeactivateEvent:
+    m_PersistentCalls:
+      m_Calls: []
   references:
     version: 2
     RefIds:
-    - rid: 1000
-      type: {class: StaticLifeTime, ns: , asm: Assembly-CSharp}
-      data:
-        Duration: 2
     - rid: 4988305304911609859
       type: {class: LinearTrajectory, ns: , asm: Assembly-CSharp}
       data:
         Speed: 20
+    - rid: 4988305465068487667
+      type: {class: DestroyHit, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4988305465068487668
+      type: {class: StaticLifetime, ns: , asm: Assembly-CSharp}
+      data:
+        Duration: 2

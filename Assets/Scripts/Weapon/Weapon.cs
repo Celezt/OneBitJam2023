@@ -85,6 +85,13 @@ public class Weapon : MonoBehaviour, IDetonator
     private ObjectPool<Bullet> _bulletPool;
     private CancellationTokenSource _detonationCancellationTokenSource;
 
+    public struct CallbackContext
+    {
+        public Vector3? MoveVelocity;
+        public bool IsAutomatic;
+        public float DurationUsed;
+    }
+
     public void Trigger()
     {
         if (_bulletPrefab == null)
@@ -92,22 +99,26 @@ public class Weapon : MonoBehaviour, IDetonator
 
         Vector3 position = transform.TransformDirection(_offset) + transform.position;
         Quaternion rotation = _spread.Rotation(transform.rotation * _rotation);
-
-        Vector3 moveVelocity = Vector3.zero;
-        if (_useMoveVelocity && _handler.MoveRigidbody)
-            moveVelocity = _handler.MoveRigidbody.velocity * _moveVelocityScale;
+        Vector3? moveVelocity = _useMoveVelocity && _handler.MoveRigidbody ? _handler.MoveRigidbody.velocity * _moveVelocityScale : null;
 
         Bullet bullet = _bulletPool.Get();
         bullet.transform.position = position;
         bullet.Pool = _bulletPool;
 
-        bullet.Shoot(position, rotation, moveVelocity);
+        var context = new CallbackContext
+        {
+            MoveVelocity = moveVelocity,
+            IsAutomatic = IsAutomatic,
+            DurationUsed = _handler.DurationUsed,
+        };
+
+        bullet.Shoot(position, rotation, context);
 
         if (_audioSource != null)
             _audioSource.PlayOneShot(_shootingPlaylist);
     }
 
-    public void Shoot()
+    public void Use()
     {
         _detonation.Initialize(this);
 

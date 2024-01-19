@@ -45,7 +45,7 @@ public class AIRangedAttackBehavior : AIAttackingBase
 
 	public override void OnUpdate()
 	{
-		weaponHandler.OnShoot();
+		weaponHandler.OnUse();
 
 		if (moveTime <= 0.0f)
 		{

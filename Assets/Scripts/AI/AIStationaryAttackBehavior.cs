@@ -39,7 +39,7 @@ public class AIStationaryAttackBehavior : AIAttackingBase
 			return;
 		}
 
-		weaponHandler.OnShoot();
+		weaponHandler.OnUse();
 
 		controller.Look(aiToPlayer2D);
 	}

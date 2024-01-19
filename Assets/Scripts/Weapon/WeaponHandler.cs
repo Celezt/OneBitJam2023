@@ -29,8 +29,14 @@ public class WeaponHandler : MonoBehaviour
         }
     }
     public IReadOnlyList<Collider> IgnoreColliders => _ignoreColliders;
-    public string TeamTag => _teamTag;
     public Rigidbody MoveRigidbody => _moveRigidbody;
+    public string TeamTag => _teamTag;
+    public float DurationUsed => Time.time - _onUseTime;
+    public bool IsUsing
+    {
+        get => _isUsing;
+        set => _isUsing = value;
+    }
 
     [SerializeField]
     private string _teamTag;
@@ -42,41 +48,39 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField, PropertySpace(SpaceBefore = 8)]
     private Collider[] _ignoreColliders;
 
-    private float _lastFiredTime;
-    private bool _isShooting;
+    private float _onUseTime;
+    private float _lastOnUsedTime;
+    private bool _isUsing;
 
-    public void OnShoot()
+    public void OnUse()
     {
         if (_weapon == null)
             return;
 
-        if ((Time.time - _lastFiredTime) > _weapon.Cooldown)
+        if ((Time.time - _lastOnUsedTime) > _weapon.Cooldown)
         {
-            _weapon.Shoot();
-            _lastFiredTime = Time.time;
+            _weapon.Use();
+            _lastOnUsedTime = Time.time;
         }
     }
 
-    public void OnShoot(InputAction.CallbackContext context)
+    public void OnUse(InputAction.CallbackContext context)
     {
         if (_weapon == null)
             return;
 
         if (_weapon.IsAutomatic)
         {
-            _isShooting = context.performed;
+            _isUsing = context.performed;
+            _onUseTime = Time.time;
         }
         else if(context.started)
-        {
-            OnShoot();
-        }
+            OnUse();
     }
 
     private void Update()
     {
-        if (_isShooting)
-        {
-            OnShoot();
-        }
+        if (_isUsing)
+            OnUse();
     }
 }

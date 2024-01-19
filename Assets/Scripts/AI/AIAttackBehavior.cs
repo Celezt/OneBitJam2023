@@ -110,7 +110,7 @@ public class AIAttackBehavior : AIAttackingBase
 			}
 		}
 
-		weaponHandler?.OnShoot();
+		weaponHandler?.OnUse();
 
 		if (!useDirectionDeviance)
 			controller.Look(aiToPlayer2D);

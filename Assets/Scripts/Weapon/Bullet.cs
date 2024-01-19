@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour, IEntity
     }
 
     [SerializeReference]
-    private ILifeTime _lifeTime = new StaticLifeTime();
+    private ILifetime _lifeTime = new StaticLifetime();
     [SerializeReference, Space(8)]
     private IHit _hit = new DestroyHit();
     [SerializeReference, Space(8)]
@@ -47,6 +47,7 @@ public class Bullet : MonoBehaviour, IEntity
     [SerializeField]
     private UnityEvent _onDeactivateEvent;
 
+    private Weapon.CallbackContext _context;
     private string _teamTag;
     private Rigidbody _rigidbody;
     private Collider _collider;
@@ -86,13 +87,15 @@ public class Bullet : MonoBehaviour, IEntity
             IgnoreCollision(ignoreColliders[i]);
     }
 
-    public void Shoot(Vector3 position, Quaternion rotation, Vector3 moveVelocity = default)
+    public void Shoot(Vector3 position, Quaternion rotation, Weapon.CallbackContext context)
     {
+        _context = context;
+
         Rigidbody.position = position;
         Rigidbody.rotation = rotation;
         Rigidbody.velocity = Vector3.zero;
 
-        if (moveVelocity != default)
+        if (_context.MoveVelocity is { } moveVelocity)
             Rigidbody.AddForce(moveVelocity, ForceMode.VelocityChange);
 
         CTSUtility.Reset(ref _cancellationTokenSource);
@@ -102,7 +105,7 @@ public class Bullet : MonoBehaviour, IEntity
         if (_trajectory is ITrajectoryAsync trajectoryAsync)
             trajectoryAsync.UpdateAsync(Rigidbody, _cancellationTokenSource.Token).Forget();
 
-        _lifeTime.UpdateAsync(_cancellationTokenSource.Token, this);
+        _lifeTime.UpdateAsync(_cancellationTokenSource.Token, this, _context);
 
         _onShootEvent.Invoke();
     }
