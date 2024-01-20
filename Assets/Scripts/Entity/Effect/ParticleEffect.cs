@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ public class ParticleEffect : IEffectAsync
 
     public GameObject ParticlePrefab;
     public string Tag;
+    [MinValue(0)]
     public float Duration = 5;
 
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
