@@ -9,15 +9,15 @@ using UnityEngine.Pool;
 
 public class AudioEffect : IEffectAsync
 {
-    private static Dictionary<string, ObjectPool<AudioSource>> _audioSourcePools = new();
+    private readonly static Dictionary<string, Dictionary<GameObject, ObjectPool<AudioSource>>> _audioSourcePools = new();
 
     public GameObject AudioSourcePrefab;
-    public AudioClip AudioClip;
     public string Tag;
     [MinValue(0)]
     public float Duration = 5;
     [Indent, MinValue(0)]
     public float FadeDuration = 0.5f;
+    public Playlist Playlist;
 
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
@@ -29,9 +29,12 @@ public class AudioEffect : IEffectAsync
         if (Duration - FadeDuration <= 0)
             return;
 
-        if (!_audioSourcePools.TryGetValue(Tag, out ObjectPool<AudioSource> pool))
+        if (!_audioSourcePools.TryGetValue(Tag, out var poolsByTag))
+            _audioSourcePools[Tag] = poolsByTag = new();
+
+        if (!poolsByTag.TryGetValue(AudioSourcePrefab, out ObjectPool<AudioSource> pool))
         {
-            _audioSourcePools[Tag] = pool = new ObjectPool<AudioSource>(
+            poolsByTag[AudioSourcePrefab] = pool = new ObjectPool<AudioSource>(
                 createFunc: () => CreateAudioSource(),
                 actionOnGet: audioSource =>
                 {
@@ -58,7 +61,7 @@ public class AudioEffect : IEffectAsync
         audioSourceTransform.parent = effectorTransform;
         audioSourceTransform.localPosition = Vector3.zero;
 
-        audioSource.Play();
+        audioSource.Play(Playlist);
 
         await UniTask.WaitForSeconds(Duration - FadeDuration, cancellationToken: cancellationToken);
         await audioSource.FadeOut(FadeDuration, cancellationToken);
@@ -83,7 +86,6 @@ public class AudioEffect : IEffectAsync
 
         audioSource.Stop();
         audioSource.playOnAwake = false;
-        audioSource.clip = AudioClip;
 
         return audioSource;
     }

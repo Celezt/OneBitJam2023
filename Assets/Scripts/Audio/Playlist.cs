@@ -2,7 +2,9 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static Playlist;
 
 [Serializable, InlineProperty]
 public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<AudioClip>
@@ -35,24 +37,63 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
     [ListDrawerSettings(CustomAddFunction = nameof(AddClip))]
 #endif
     private List<Clip> _clips = new();
-    [SerializeReference, TypeFilter(nameof(PickerFilter)), Indent]
+#if UNITY_EDITOR
+    [ValueDropdown(nameof(GetPickerDropdown), ExpandAllMenuItems = true)]
+#endif
+    [SerializeReference, Indent]
     private IAudioPicker _picker = new AudioPickerSequence();
-    [SerializeReference, TypeFilter(nameof(ResetterFilter)), Indent, PropertySpace(spaceAfter: 8, spaceBefore: 0)]
+#if UNITY_EDITOR
+    [ValueDropdown(nameof(GetResetterDropdown), ExpandAllMenuItems = true)]
+#endif
+    [SerializeReference, Indent, PropertySpace(spaceAfter: 8, spaceBefore: 0)]
     private IAudioResetter _resetter = new AudioResetterDefault();
 
     [Serializable]
     public struct Clip
     {
+        public readonly bool IsEmpty => AudioClip == null;
+
+#if UNITY_EDITOR
+[InlineButton(nameof(ExpandButton), Icon = SdfIconType.CaretDownFill, Label = "")]
+#endif
         [HorizontalGroup("Split", 0.8f), HideLabel]
         public AudioClip AudioClip;
         [HorizontalGroup("Split"), HideLabel]
         public float VolumeScale;
+        [SerializeReference, HideLabel, ShowIf(nameof(_showFramer))]
+        public IAudioFramer Framer;
+
+        public readonly void Play(AudioSource source, float volumeScale = 1)
+        {
+            if (IsEmpty)
+                return;
+
+            source.clip = AudioClip;
+            source.volume = AudioSourceExtensions.GetDefaultVolume(source) * VolumeScale * volumeScale;
+            source.Play();
+            source.time = Framer?.Frame(in this, AudioClip.length) ?? 0;
+        }
+
+        public readonly void PlayOneShot(AudioSource source, float volumeScale = 1)
+        {
+            if (IsEmpty)
+                return;
+
+            source.PlayOneShot(AudioClip, VolumeScale * volumeScale);
+        }
+
+#if UNITY_EDITOR
+        private bool _showFramer;
+
+        private void ExpandButton()
+            => _showFramer = !_showFramer;
+#endif
     }
 
-    public Playlist.Clip? Get()
+    public Playlist.Clip Get()
     {
         if (_clips.Count == 0)
-            return null;
+            return default;
 
         if (_resetter.Reset(_picker, _clips))
             ResetPicker();
@@ -64,14 +105,25 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
     public IEnumerator<AudioClip> GetEnumerator()
     {
         for (int i = 0; i < _clips.Count; i++)
-            yield return Get()?.AudioClip;
+            yield return Get().AudioClip;
     }
 
     public void ResetPicker()
         => Picker.Reset();
 
 #if UNITY_EDITOR
-    private Clip AddClip()
-        => new Clip { VolumeScale = 1 };
+    private static Clip AddClip()
+        => new() 
+            { 
+                VolumeScale = 1,
+                Framer = new AudioFramerDefault(),
+            };
+
+    private IEnumerable GetPickerDropdown()
+        => PickerFilter.Select(type => new ValueDropdownItem(type.Name.Replace("AudioPicker", ""),
+            _picker.GetType() == type ? _picker : Activator.CreateInstance(type)));
+    private IEnumerable GetResetterDropdown()
+    => ResetterFilter.Select(type => new ValueDropdownItem(type.Name.Replace("AudioResetter", ""), 
+        _resetter.GetType() == type ? _resetter : Activator.CreateInstance(type)));
 #endif
 }

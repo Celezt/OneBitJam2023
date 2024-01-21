@@ -153,20 +153,36 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: dcf6216cf125ce2488f2e440a34f5215, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 352250483c33b2340ae1442c64b4ff14, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 7efa47f6f2b946243b9b530684b02783, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: fc92221284547b14382788ce8296a23d, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 922aa8a803a0d2840a3a0bc1d23c1039, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 24ba5f95823770145aed7cd750151f45, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: c98ee02e52dbc694684cde577cd283c8, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: c89089d69c30d8040a28b60e8eec3f0b, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     _picker:
       rid: 2403426174628790338
     _resetter:
@@ -178,6 +194,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2403426174628790273
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
@@ -614,20 +632,36 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: dcf6216cf125ce2488f2e440a34f5215, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 352250483c33b2340ae1442c64b4ff14, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 7efa47f6f2b946243b9b530684b02783, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: fc92221284547b14382788ce8296a23d, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 922aa8a803a0d2840a3a0bc1d23c1039, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 24ba5f95823770145aed7cd750151f45, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: c98ee02e52dbc694684cde577cd283c8, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: c89089d69c30d8040a28b60e8eec3f0b, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     _picker:
       rid: 2403426174628790338
     _resetter:
@@ -639,6 +673,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2403426174628790273
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
@@ -1065,12 +1101,20 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: bc5695255a512b7439f1ca5f626e314d, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: cf2c7cdca9311654eba0d968d18ab67f, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: 393064382b3dc96429790628d2f5f14f, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: bb889df3ff6b1254cb575e5d7bf84851, type: 3}
       VolumeScale: 1
+      Framer:
+        rid: -2
     _picker:
       rid: 2403426189741916572
     _resetter:
@@ -1083,6 +1127,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2403426189741916201
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
@@ -1618,6 +1664,11 @@ PrefabInstance:
       objectReference: {fileID: 4022968710921069446}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _playList._clips.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1625,6 +1676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _playlist._clips.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _playlist._clips.Array.data[0].Framer
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}

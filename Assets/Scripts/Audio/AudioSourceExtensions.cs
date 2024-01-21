@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,25 +7,44 @@ using UnityEngine;
 
 public static class AudioSourceExtensions
 {
-    public static void Play(this AudioSource source, Playlist playlist)
+    private readonly static Dictionary<AudioSource, float> _defaultVolumes = new();
+
+    public static UniTask PlayAsync(this AudioSource source, Playlist playlist, CancellationToken cancellationToken = default, PlayerLoopTiming timing = PlayerLoopTiming.Update, float volumeScale = 1)
     {
         var clip = playlist.Get();
 
-        if (clip == null)
-            return;
+        if (clip.IsEmpty)
+            return UniTask.CompletedTask;
 
-        source.clip = clip.Value.AudioClip;
-        source.Play();
+        clip.Play(source, volumeScale);
+
+        bool WaitUntil()
+        {
+            if (source.clip != clip.AudioClip)
+                return true;
+
+            if (!source.isPlaying)
+                return true;
+
+            return false;
+        }
+
+        return UniTask.WaitUntil(WaitUntil, cancellationToken: cancellationToken, timing: timing);
     }
 
+    public static void Play(this AudioSource source, Playlist playlist, float volumeScale = 1)
+        => playlist.Get().Play(source, volumeScale);
+
     public static void PlayOneShot(this AudioSource source, Playlist playlist, float volumeScale = 1)
+        => playlist.Get().PlayOneShot(source, volumeScale);
+
+    public static UniTask CrossFade(this AudioSource audioSource, Playlist playlist, float fadeDuration, CancellationToken cancellationToken)
+    => CrossFade(audioSource, playlist, fadeDuration, fadeDuration, cancellationToken);
+    public static async UniTask CrossFade(this AudioSource audioSource, Playlist playlist, float fadeInDuration, float fadeOutDuration, CancellationToken cancellationToken)
     {
-        var clip = playlist.Get();
+        await FadeOut(audioSource, fadeOutDuration, cancellationToken);
 
-        if (clip == null)
-            return;
-
-        source.PlayOneShot(clip?.AudioClip, clip.Value.VolumeScale * volumeScale);
+        await FadeIn(audioSource, playlist, fadeInDuration, cancellationToken);
     }
 
     public static UniTask CrossFade(this AudioSource audioSource, AudioClip nextAudioClip, float fadeDuration, CancellationToken cancellationToken)
@@ -44,6 +64,25 @@ public static class AudioSourceExtensions
     {
         await FadeOut(audioSource, fadeOutDuration, cancellationToken);
         await FadeIn(nextAudioSource, fadeInDuration, cancellationToken);
+    }
+
+    public static async UniTask FadeIn(this AudioSource audioSource, Playlist playlist, float fadeDuration, CancellationToken cancellationToken)
+    {
+        float defaultVolume = audioSource.volume;
+
+        float startVolume = 0.2f;
+        audioSource.volume = 0;
+
+        audioSource.Play(playlist);
+
+        while (audioSource.volume < defaultVolume && !cancellationToken.IsCancellationRequested)
+        {
+            audioSource.volume += startVolume * (Time.deltaTime / fadeDuration);
+
+            await UniTask.Yield(cancellationToken: cancellationToken);
+        }
+
+        audioSource.volume = defaultVolume;
     }
 
     public static async UniTask FadeIn(this AudioSource audioSource, float fadeDuration, CancellationToken cancellationToken)
@@ -79,5 +118,34 @@ public static class AudioSourceExtensions
         audioSource.Stop();
 
         audioSource.volume = defaultVolume;
+    }
+
+    public static float SetVolume(this AudioSource source, float volume)
+    {
+        float previousVolume = GetDefaultVolume(source);
+
+        if (previousVolume != volume)
+            _defaultVolumes[source] = volume;
+
+        source.volume = volume;
+        return volume;
+    }
+
+    public static float GetDefaultVolume(AudioSource source)
+    {
+        if (!_defaultVolumes.TryGetValue(source, out float defaultVolume))  // Add default volume.
+        {
+            _defaultVolumes[source] = defaultVolume = source.volume;
+            OnDestroyAsync(source).Forget();
+        }
+
+        static async UniTaskVoid OnDestroyAsync(AudioSource source)
+        {
+            await source.OnDestroyAsync();
+
+            _defaultVolumes.Remove(source);
+        }
+
+        return defaultVolume;
     }
 }

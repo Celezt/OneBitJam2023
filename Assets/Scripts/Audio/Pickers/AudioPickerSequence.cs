@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioPickerSequence : IAudioPicker
+public struct AudioPickerSequence : IAudioPicker
 {
     private int _currentIndex;
 
