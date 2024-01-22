@@ -74,7 +74,15 @@ public class AudioEffect : IEffectAsync
     }
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
-        => !effects.Any(x => x is AudioEffect effect && effect.Element == Element);
+    {
+        if (effector.Properties.Any(x => x is IElementalImmunity immunity && immunity.Element == Element))
+            return false;
+
+        if (effects.Any(x => x is AudioEffect effect && effect.Element == Element))
+            return false;
+
+        return true;
+    }
 
     private AudioSource CreateAudioSource()
     {

@@ -16,6 +16,7 @@ public class ParticleEffect : IEffectAsync
     [MinValue(0)]
     public float Duration = 5;
 
+
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
 
@@ -108,7 +109,15 @@ public class ParticleEffect : IEffectAsync
     }
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
-        => !effects.Any(x => x is ParticleEffect effect && effect.Element == Element);
+    {
+        if (effector.Properties.Any(x => x is IElementalImmunity immunity && immunity.Element == Element))
+            return false;
+
+        if (effects.Any(x => x is ParticleEffect effect && effect.Element == Element))
+            return false;
+
+        return true;
+    }
 
     private ParticleSystem CreateParticleSystem()
     {

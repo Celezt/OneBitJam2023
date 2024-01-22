@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TagImmunityEffectorProperty : IEffectorProperty, IElementalImmunity
+public class ElementalImmunityEffectorProperty : IEffectorProperty, IElementalImmunity
 {
     public string Element => _element;
 
