@@ -32,7 +32,7 @@ public class WeaponHandler : MonoBehaviour
     public Rigidbody MoveRigidbody => _moveRigidbody;
     public string TeamTag => _teamTag;
     public float DurationUsed => Time.time - _onUseTime;
-    public bool IsUsing
+    public bool IsUsed
     {
         get => _isUsing;
         set => _isUsing = value;

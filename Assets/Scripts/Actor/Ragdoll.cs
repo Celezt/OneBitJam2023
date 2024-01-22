@@ -8,6 +8,11 @@ using UnityEngine.Events;
 public class Ragdoll : MonoBehaviour
 {
     public bool IsRagdoll => _isRagdoll;
+    public bool TeleportOnDeactivate
+    {
+        get => _teleportOnDeactivate;
+        set => _teleportOnDeactivate = value;
+    }
 
     [SerializeField]
     private Animator _animator;
@@ -73,6 +78,11 @@ public class Ragdoll : MonoBehaviour
 
     public void OnEnableRagdoll()
     {
+        if (_isRagdoll && _isInitialized)
+            return;
+
+        _isRagdoll = true;
+
         foreach (var rigidbody in _ragdollRigidbodies)
         {
             rigidbody.detectCollisions = true;
@@ -92,8 +102,6 @@ public class Ragdoll : MonoBehaviour
         if (_animator)
             _animator.enabled = false;
 
-        _isRagdoll = true;
-
         if (_cachedPush is { } cached)
         {
             if (Time.time - cached.TimeSnapshot > 1f)   // Remove cached if it is older than 1 sec.
@@ -107,38 +115,42 @@ public class Ragdoll : MonoBehaviour
 
     public void OnDisableRagdoll()
     {
+        if (!_isRagdoll && _isInitialized)
+            return;
+
+        _isRagdoll = false;
+
         if (_isInitialized && _teleportOnDeactivate && _copyTransformOnTeleport)
         {
             _actorRigidbody.position = _copyTransformOnTeleport.position;
             _actorRigidbody.rotation.SetLookRotation(_copyTransformOnTeleport.forward._y_().normalized);
         }
 
-        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
-        {
-            var rigidbody = _ragdollRigidbodies[i];
-            rigidbody.detectCollisions = false;
-            rigidbody.useGravity = false;
-            rigidbody.isKinematic = true;
-
-            if (_resetTransformOnDeactivate)
-            {
-                rigidbody.position = _initialPositions[i];
-                rigidbody.rotation = _initialRotation[i];
-            }
-        }
+        _actorRigidbody.detectCollisions = true;
+        _actorRigidbody.isKinematic = false;
 
         foreach (var joint in _joints)
         {
             joint.enableCollision = false;
         }
 
-        _actorRigidbody.detectCollisions = true;
-        _actorRigidbody.isKinematic = false;
+        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
+        {
+            var rigidbody = _ragdollRigidbodies[i];
+            if (_resetTransformOnDeactivate)
+            {
+                var rigidbodyTransform = rigidbody.transform;
+                rigidbodyTransform.position = _initialPositions[i];
+                rigidbodyTransform.rotation = _initialRotation[i];
+            }
+
+            rigidbody.detectCollisions = false;
+            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
+        }
 
         if (_animator)
             _animator.enabled = true;
-
-        _isRagdoll = false;
 
         _onRagdollDeactivateEvent.Invoke();
     }

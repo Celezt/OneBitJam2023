@@ -153,35 +153,35 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: dcf6216cf125ce2488f2e440a34f5215, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 352250483c33b2340ae1442c64b4ff14, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 7efa47f6f2b946243b9b530684b02783, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: fc92221284547b14382788ce8296a23d, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 922aa8a803a0d2840a3a0bc1d23c1039, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 24ba5f95823770145aed7cd750151f45, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: c98ee02e52dbc694684cde577cd283c8, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: c89089d69c30d8040a28b60e8eec3f0b, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     _picker:
       rid: 2403426174628790338
@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 3462357999300230579}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0194, z: 3}
+  m_LocalPosition: {x: 0, y: 1.1657999, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -632,35 +632,35 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: dcf6216cf125ce2488f2e440a34f5215, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 352250483c33b2340ae1442c64b4ff14, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 7efa47f6f2b946243b9b530684b02783, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: fc92221284547b14382788ce8296a23d, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 922aa8a803a0d2840a3a0bc1d23c1039, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 24ba5f95823770145aed7cd750151f45, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: c98ee02e52dbc694684cde577cd283c8, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: c89089d69c30d8040a28b60e8eec3f0b, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     _picker:
       rid: 2403426174628790338
@@ -1101,19 +1101,19 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: bc5695255a512b7439f1ca5f626e314d, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: cf2c7cdca9311654eba0d968d18ab67f, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 393064382b3dc96429790628d2f5f14f, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: bb889df3ff6b1254cb575e5d7bf84851, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     _picker:
       rid: 2403426189741916572
@@ -1194,7 +1194,7 @@ Transform:
   m_GameObject: {fileID: 7098645006973574113}
   serializedVersion: 2
   m_LocalRotation: {x: 1.3442355e-14, y: -0.7071065, z: -1.0930201e-14, w: 0.7071071}
-  m_LocalPosition: {x: 0.001, y: 0.032, z: -0.004}
+  m_LocalPosition: {x: 0.001, y: 0.154, z: -0.004}
   m_LocalScale: {x: 0.8333333, y: 0.8333335, z: 0.8333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1680,6 +1680,11 @@ PrefabInstance:
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _playlist._clips.Array.data[0].Framer
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _playlist._clips.Array.data[0].Settings
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,

@@ -60,8 +60,8 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         public AudioClip AudioClip;
         [HorizontalGroup("Split"), HideLabel]
         public float VolumeScale;
-        [SerializeReference, HideLabel, ShowIf(nameof(_showFramer))]
-        public IAudioFramer Framer;
+        [SerializeReference, HideLabel, ShowIf(nameof(_showSettings))]
+        public IAudioClipSettings Settings;
 
         public readonly void Play(AudioSource source, float volumeScale = 1)
         {
@@ -71,7 +71,10 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
             source.clip = AudioClip;
             source.volume = AudioSourceExtensions.GetDefaultVolume(source) * VolumeScale * volumeScale;
             source.Play();
-            source.time = Framer?.Frame(in this, AudioClip.length) ?? 0;
+
+            float startFrame = 0;
+            Settings?.Initialize(in this, AudioClip.length, out startFrame);
+            source.time = startFrame;
         }
 
         public readonly void PlayOneShot(AudioSource source, float volumeScale = 1)
@@ -83,10 +86,10 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         }
 
 #if UNITY_EDITOR
-        private bool _showFramer;
+        private bool _showSettings;
 
         private void ExpandButton()
-            => _showFramer = !_showFramer;
+            => _showSettings = !_showSettings;
 #endif
     }
 
@@ -116,7 +119,6 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         => new() 
             { 
                 VolumeScale = 1,
-                Framer = new AudioFramerDefault(),
             };
 
     private IEnumerable GetPickerDropdown()

@@ -37,11 +37,14 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             {
                 _onHealthChangedEvent.Invoke(newHealth, _health);
 
-                if (newHealth == _maxHealth)    // If health has reached full capacity.
+                if (newHealth == _maxHealth)        // If health has reached full capacity.
                     _onHealthFullEvent.Invoke();
 
-                if (newHealth <= 0)             // If health has been depleted.
-                    _onHealthEmptyEvent.Invoke();
+                if (newHealth <= 0)                 // Die if health has been depleted.
+                    _onDeathEvent.Invoke();
+
+                if (newHealth > 0 && _health <= 0)  // Resurrect if health is restored after being zero.
+                    _onResurrectEvent.Invoke();
             }
 
             _health = newHealth;
@@ -66,11 +69,19 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     [SerializeField]
     private UnityEvent _onHealthFullEvent;
     [SerializeField]
-    private UnityEvent _onHealthEmptyEvent;
+    private UnityEvent _onDeathEvent;
+    [SerializeField]
+    private UnityEvent _onResurrectEvent;
 
     public void SetHealth(int value) => Value = value;
 
     public void SetMaxHealth(int value) => MaxValue = value;
+
+    public void SetHealthFull()
+        => Value = _maxHealth;
+
+    public void SetHealthEmpty()
+        => Value = 0;
 
 #if UNITY_EDITOR
     private Color GetHealthBarColor(float value)

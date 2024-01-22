@@ -1,10 +1,11 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider)), HideMonoScript]
 public class TriggerHandler : MonoBehaviour
 {
     public bool IsTriggered => _isTriggered;

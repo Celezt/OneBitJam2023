@@ -153,15 +153,15 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     _picker:
       rid: 2403426165908045876
@@ -635,15 +635,15 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: 11338298d927312489c28f24b51703e1, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: fa5b9317de2d73240bf36c1b282e6007, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     - AudioClip: {fileID: 8300000, guid: 2d981b993540460498bc7e1abfd2136b, type: 3}
       VolumeScale: 1
-      Framer:
+      Settings:
         rid: -2
     _picker:
       rid: 2403426165908045877
@@ -1157,6 +1157,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
+      propertyPath: _playlist._clips.Array.data[0].Settings
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _playlist._clips.Array.data[1].Settings
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
       propertyPath: _playList._clips.Array.data[0].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5e925ec85083a1d46a0b3107d9a90554, type: 3}
@@ -1526,12 +1536,27 @@ MonoBehaviour:
   _onHealthFullEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onHealthEmptyEvent:
+  _onDeathEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8568535845531803893}
         m_TargetAssemblyTypeName: Ragdoll, Assembly-CSharp
         m_MethodName: OnEnableRagdoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onResurrectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8568535845531803893}
+        m_TargetAssemblyTypeName: Ragdoll, Assembly-CSharp
+        m_MethodName: OnDisableRagdoll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,13 +10,14 @@ public class DurationUsedLifetime : ILifetime
 {
     public AnimationCurve LifeTimeByDurationUsedCurve = AnimationCurve.Linear(0, 1, 1, 0);
 
-    public UnityEvent<float> OnLifeTimeByDurationUsed;
+    [Space(8)]
+    public UnityEvent<float> OnLifeTimeByDurationUsedEvent;
 
-    public async UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Weapon.CallbackContext context)
+    public async UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Weapon weapon)
     {
-        float duration = LifeTimeByDurationUsedCurve.Evaluate(context.DurationUsed);
+        float duration = LifeTimeByDurationUsedCurve.Evaluate(weapon.Handler.DurationUsed);
 
-        OnLifeTimeByDurationUsed.Invoke(duration);
+        OnLifeTimeByDurationUsedEvent.Invoke(duration);
 
         await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
 

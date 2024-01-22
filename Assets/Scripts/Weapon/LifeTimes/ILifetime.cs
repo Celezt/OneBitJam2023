@@ -6,5 +6,5 @@ using UnityEngine;
 
 public interface ILifetime
 {
-    public UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Weapon.CallbackContext context);
+    public UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Weapon weapon);
 }
