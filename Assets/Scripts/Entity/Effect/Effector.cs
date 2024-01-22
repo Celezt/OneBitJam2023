@@ -11,6 +11,10 @@ public class Effector : MonoBehaviour, IEffector
 {
     public GameObject GameObject => gameObject;
     public IEnumerable<IEffectAsync> Effects => _effects;
+    public IEnumerable<IEffectorProperty> Properties => _properties;
+
+    [SerializeReference]
+    private List<IEffectorProperty> _properties;
 
     private readonly List<IEffectAsync> _effects = new();
     private readonly List<CancellationTokenSource> _cancellationTokenSources = new();
@@ -29,7 +33,6 @@ public class Effector : MonoBehaviour, IEffector
 
             _effects.Add(effectAsync);
             _cancellationTokenSources.Add(cancellationTokenSource);
-
 
             effectAsync.UpdateAsync(this, _effects.Where(x => x != effect), cancellationTokenSource.Token, sender)
                 .ContinueWith(() =>
@@ -79,7 +82,23 @@ public class Effector : MonoBehaviour, IEffector
         return true;
     }
 
-    private void OnDisable()
+    public void AddProperty(IEffectorProperty property)
+    {
+        _properties.Add(property);
+    }
+
+    public void RemoveProperty(IEffectorProperty property)
+    {
+        _properties.Remove(property);
+    }
+
+    private void Start()
+    {
+        foreach (var property in _properties)
+            property.Initialize(this, Properties);
+    }
+
+    private void OnDestroy()
     {
         for (int i = 0; i < _cancellationTokenSources.Count; i++)
         {
@@ -87,8 +106,5 @@ public class Effector : MonoBehaviour, IEffector
             cancellationTokenSource.Cancel();
             cancellationTokenSource.Dispose();
         }
-
-        _effects.Clear();
-        _cancellationTokenSources.Clear();
     }
 }

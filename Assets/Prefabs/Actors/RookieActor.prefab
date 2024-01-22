@@ -950,30 +950,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3308589570090419256, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3308589570090419256, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.data[0].AudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7b86a75ccc83e1646ab73c68cfd07e6e, type: 3}
-    - target: {fileID: 3308589570090419256, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.data[0].VolumeScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _exceedMode
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _angleToRotate
-      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -992,17 +972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
-      propertyPath: _cancelRotateIfExceed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -1018,11 +988,6 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -1057,11 +1022,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetParameter
       objectReference: {fileID: 0}
@@ -1069,11 +1029,6 @@ PrefabInstance:
         type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetParameter
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -1097,11 +1052,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimatorSetFloat, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
       propertyPath: _onSpeedChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: AnimatorSetBase`1[[System.Single, mscorlib
       objectReference: {fileID: 0}
@@ -1113,11 +1063,6 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _onMoveChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _onAngleChangeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
@@ -1137,23 +1082,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
-      propertyPath: _playList._clips.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
       propertyPath: _playlist._clips.Array.size
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playlist._clips.Array.data[0].Framer
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playlist._clips.Array.data[1].Framer
-      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -1167,16 +1097,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
-      propertyPath: _playList._clips.Array.data[0].AudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5e925ec85083a1d46a0b3107d9a90554, type: 3}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.data[1].AudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f30dd586f7b7b3a4e88f8f447e3e7d24, type: 3}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
       propertyPath: _playlist._clips.Array.data[0].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5e925ec85083a1d46a0b3107d9a90554, type: 3}
@@ -1185,16 +1105,6 @@ PrefabInstance:
       propertyPath: _playlist._clips.Array.data[1].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: f30dd586f7b7b3a4e88f8f447e3e7d24, type: 3}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.data[0].VolumeScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
-        type: 3}
-      propertyPath: _playList._clips.Array.data[1].VolumeScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4795283055591903649, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _playlist._clips.Array.data[0].VolumeScale
@@ -1214,6 +1124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022922947344454022, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _properties.Array.size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

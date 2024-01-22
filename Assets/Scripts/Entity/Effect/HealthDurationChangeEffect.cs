@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class HealthDurationChangeEffect : IEffectAsync
 {
-    public string Tag;
+    public string Element;
     public float ValueChange = -1;
     public float Duration = 5;
     [Indent]
@@ -35,5 +35,5 @@ public class HealthDurationChangeEffect : IEffectAsync
     }
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
-        => !effects.Any(x => x is HealthDurationChangeEffect effect && effect.Tag == Tag);
+        => !effects.Any(x => x is HealthDurationChangeEffect effect && effect.Element == Element);
 }
