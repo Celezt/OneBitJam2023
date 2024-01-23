@@ -14,3 +14,12 @@ PresetManager:
         type: 2}
       m_Filter: glob:"*.wav"
       m_Disabled: 0
+  - first:
+      m_NativeTypeID: 1006
+      m_ManagedTypePPtr: {fileID: 0}
+      m_ManagedTypeFallback: 
+    second:
+    - m_Preset: {fileID: 2655988077585873504, guid: ea5215737cc6dae468e57aadaaaf57ac,
+        type: 2}
+      m_Filter: glob:"*.png"
+      m_Disabled: 0
