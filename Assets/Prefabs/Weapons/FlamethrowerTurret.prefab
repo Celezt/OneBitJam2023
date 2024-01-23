@@ -313,7 +313,8 @@ MonoBehaviour:
   _maxBulletCapacity: 100
   _defaultBulletSize: 10
   _offset: {x: 0, y: -1, z: 0}
-  _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
+  _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  _directionType: 1
   _detonation:
     rid: 1000
   _spread:
@@ -325,10 +326,16 @@ MonoBehaviour:
     _clips:
     - AudioClip: {fileID: 8300000, guid: 2761464822687524ab6fd35059d297cd, type: 3}
       VolumeScale: 1
+      Settings:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: ebe3d9437e97a2940b706e291c5cf72a, type: 3}
       VolumeScale: 1
+      Settings:
+        rid: -2
     - AudioClip: {fileID: 8300000, guid: e9d4a34e8f987ca488a21472e7a903cc, type: 3}
       VolumeScale: 1
+      Settings:
+        rid: -2
     _picker:
       rid: 4988305331493536715
     _resetter:
@@ -336,6 +343,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1000
       type: {class: InstantDetonation, ns: , asm: Assembly-CSharp}
       data:
@@ -345,7 +354,7 @@ MonoBehaviour:
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
         Spread: 30
-        Scale: {x: 0, y: 0, z: 1}
+        Scale: {x: 0, y: 1, z: 0}
     - rid: 4988305331493535989
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 

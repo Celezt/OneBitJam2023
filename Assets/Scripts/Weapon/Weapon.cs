@@ -65,6 +65,8 @@ public class Weapon : MonoBehaviour, IDetonator
     private Vector3 _offset;
     [SerializeField, Indent]
     private Quaternion _rotation = Quaternion.identity;
+    [SerializeField, Indent]
+    private DirectionType _directionType = DirectionType.Rotation;
 
     [SerializeReference, Space(8)]
     private IDetonation _detonation = new InstantDetonation();
@@ -86,13 +88,24 @@ public class Weapon : MonoBehaviour, IDetonator
     private ObjectPool<Bullet> _bulletPool;
     private CancellationTokenSource _detonationCancellationTokenSource;
 
+    public enum DirectionType
+    {
+        Rotation,
+        LookRotation,
+    }
+
     public void Trigger()
     {
         if (_bulletPrefab == null)
             return;
 
         Vector3 position = transform.TransformDirection(_offset) + transform.position;
-        Quaternion rotation = _spread.Rotation(transform.rotation * _rotation);
+        Quaternion rotation = _spread.Rotation(_directionType switch
+        {
+            DirectionType.LookRotation => Quaternion.LookRotation(transform.up, Vector3.up),
+            _ => transform.rotation,
+        } * _rotation);
+
 
         Bullet bullet = _bulletPool.Get();
         bullet.transform.position = position;

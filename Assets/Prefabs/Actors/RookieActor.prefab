@@ -238,6 +238,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8895695826063629126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1617016437425882995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8576241290499245132}
+  m_Layer: 0
+  m_Name: HeightTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8576241290499245132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617016437425882995}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.344, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8023089268040972194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3638729392449490971
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 5471483501608432246}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2}
+  m_LocalPosition: {x: 0, y: 1.076, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1225,7 +1256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 224593133680069565}
-  _heightTarget: {fileID: 0}
+  _heightTarget: {fileID: 8576241290499245132}
   _minMaxLimit: {x: -64, y: 64}
   _deadZoneRadius: 1.5
   _isDirectionWorldSpace: 1
@@ -1875,6 +1906,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3053821610911352166}
+    - targetCorrespondingSourceObject: {fileID: -7556953546696047151, guid: fbd02be7d5c809c498d237239371a97a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8576241290499245132}
     - targetCorrespondingSourceObject: {fileID: -7671537148962299555, guid: fbd02be7d5c809c498d237239371a97a,
         type: 3}
       insertIndex: -1
@@ -3237,7 +3272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4574e18e38149408d465e7c1836b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _teamTag: enemy
+  _teamTag: Enemy
   _weapon: {fileID: 9071900012128963697}
   _moveRigidbody: {fileID: 5360605064865235876}
   _ignoreColliders:

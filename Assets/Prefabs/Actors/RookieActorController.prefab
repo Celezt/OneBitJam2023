@@ -176,7 +176,19 @@ MonoBehaviour:
     m_ActionId: bdca9914-4d10-48ba-93a5-6886ed2fc6a2
     m_ActionName: Player/LookDelta
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7015887366440236895}
+        m_TargetAssemblyTypeName: WeaponHandler, Assembly-CSharp
+        m_MethodName: OnUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5abbc46b-b61a-4e98-a2ca-b0ec3991da7e
     m_ActionName: Player/LeftAttack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -463,6 +475,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 340553242134133430}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7015887366440236895 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7342155186016685545, guid: 67fb13db79a57f3479238b3f22d35108,
+    type: 3}
+  m_PrefabInstance: {fileID: 340553242134133430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4574e18e38149408d465e7c1836b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7352377790289082475 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7111474064906371805, guid: 67fb13db79a57f3479238b3f22d35108,

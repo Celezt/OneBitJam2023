@@ -388,19 +388,22 @@ MonoBehaviour:
     type: 3}
   _maxBulletCapacity: 100
   _defaultBulletSize: 10
-  _offset: {x: 0, y: 0, z: 0}
-  _rotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
+  _offset: {x: 0, y: -1.2, z: 0.2}
+  _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  _directionType: 1
   _detonation:
     rid: 4988305331493536590
   _spread:
     rid: 1000
   _useMoveVelocity: 1
-  _moveVelocityScale: {x: 0.8, y: 0.8, z: 0.8}
+  _moveVelocityScale: 0.8
   _isAutomatic: 0
   _shootingPlaylist:
     _clips:
     - AudioClip: {fileID: 8300000, guid: 99cd3f2588c6991418ad27874de45b72, type: 3}
       VolumeScale: 1
+      Settings:
+        rid: -2
     _picker:
       rid: 1001
     _resetter:
@@ -408,11 +411,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1000
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
         Spread: 8
-        Scale: {x: 0, y: 1, z: 1}
+        Scale: {x: 0, y: 1, z: 0}
     - rid: 1001
       type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
       data: 
