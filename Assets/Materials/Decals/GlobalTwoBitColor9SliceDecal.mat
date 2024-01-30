@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlobalTwoBitColorDecal
-  m_Shader: {fileID: -6465566751694194690, guid: c495202b18f27da468f6cdafa6dab1a3,
+  m_Name: GlobalTwoBitColor9SliceDecal
+  m_Shader: {fileID: -6465566751694194690, guid: eab905e69e6feca478e2a482142cd5ae,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _COORDINATES_UV
-  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -129,6 +129,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Border: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _First_Color: {r: 0.31132078, g: 0.04258634, b: 0.2230795, a: 1}
