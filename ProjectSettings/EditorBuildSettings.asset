@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Debug/PlayerControlDebugScene.unity
     guid: ba9bf8fbaeafb3149984619dd84eb163
   - enabled: 0
     path: Assets/Scenes/Debug/EnemyControlDebugScene.unity
     guid: 98d0e51d66fdd6c43981e354b0cd8027
+  - enabled: 1
+    path: Assets/Scenes/Debug/CombatDebugScene.unity
+    guid: d5d3794bfa380cb4bbe8850b2a51b6ae
   m_configObjects: {}

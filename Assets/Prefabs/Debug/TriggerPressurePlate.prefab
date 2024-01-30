@@ -234,7 +234,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1000
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2279290239791404603
 MonoBehaviour:
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281500618
-  m_fontColor: {r: 0.79215693, g: 0.5137255, b: 0.19607845, a: 1}
+  m_fontColor: {r: 0.5754717, g: 0.22857988, b: 0.008143453, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

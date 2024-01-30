@@ -60,7 +60,10 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
         public AudioClip AudioClip;
         [HorizontalGroup("Split"), HideLabel]
         public float VolumeScale;
-        [SerializeReference, HideLabel, ShowIf(nameof(_showSettings))]
+        [SerializeReference, HideLabel]
+#if UNITY_EDITOR
+        [ShowIf(nameof(_showSettings))]
+#endif
         public IAudioClipSettings Settings;
 
         public readonly void Play(AudioSource source, float volumeScale = 1)
