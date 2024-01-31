@@ -1,15 +1,13 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [HideMonoScript]
-public abstract class ScriptableManager : ScriptableObject
+public abstract class ScriptableManager<T> : ScriptableManager where T : ScriptableObject
 {
-    private static ScriptableManager _instance;
-
-    protected virtual bool IsSingleton => false;
+    private static ScriptableObject _instance;
 
     protected virtual void GameStart() { }
     protected virtual void GameExit() { }
@@ -20,19 +18,19 @@ public abstract class ScriptableManager : ScriptableObject
         if (!ValidSingleton())
             return;
 
-        EditorApplication.playModeStateChanged += OnPlayStateChange;
+        UnityEditor.EditorApplication.playModeStateChanged += OnPlayStateChange;
     }
 
     private void OnDisable()
     {
-        EditorApplication.playModeStateChanged -= OnPlayStateChange;
+        UnityEditor.EditorApplication.playModeStateChanged -= OnPlayStateChange;
     }
 
-    private void OnPlayStateChange(PlayModeStateChange state)
+    private void OnPlayStateChange(UnityEditor.PlayModeStateChange state)
     {
-        if (state == PlayModeStateChange.EnteredPlayMode)
+        if (state == UnityEditor.PlayModeStateChange.EnteredPlayMode)
             GameStart();
-        else if (state == PlayModeStateChange.ExitingPlayMode)
+        else if (state == UnityEditor.PlayModeStateChange.ExitingPlayMode)
             GameExit();
     }
 #else
@@ -58,18 +56,28 @@ public abstract class ScriptableManager : ScriptableObject
 
     private bool ValidSingleton()
     {
-        if (IsSingleton)
+        if (_instance != null && _instance != this)
         {
-            if (_instance != null && _instance != this)
-            {
-                Debug.LogError($"Multiple instances of type: {GetType()} is not supported");
-                DestroyImmediate(this);
-                return false;
-            }
-
-            _instance = this;
+            Debug.LogError($"Multiple instances of type: {GetType()} is not supported");
+            DestroyImmediate(this);
+            return false;
         }
 
+        _instance = this;
+
         return true;
+    }
+
+}
+
+public abstract class ScriptableManager : ScriptableObject
+{
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void Initialize()
+    {
+        Addressables.LoadAssetsAsync<ScriptableManager>("manager", x =>
+        {
+
+        });
     }
 }

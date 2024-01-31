@@ -10,14 +10,12 @@ using UnityEngine.Events;
 using UnityEngine.Pool;
 
 [CreateAssetMenu(fileName = "GameManager", menuName = "Game Manager")]
-public class GameManager : ScriptableManager
+public class GameManager : ScriptableManager<GameManager>
 #if UNITY_EDITOR
     , ISerializationCallbackReceiver
 #endif
 {
     public IEnumerable<ISettings> Settings => _settings;
-
-    protected override bool IsSingleton => true;
 
     [SerializeReference, InlineList(ChildSpace = 8)]
     private List<ISettings> _settings = new();
@@ -29,6 +27,7 @@ public class GameManager : ScriptableManager
 
     protected override void GameStart()
     {
+        Debug.Log("Settings: " + _settings.Count);
         foreach (var settings in _settings)
             settings.GameStart(_settings);
 
