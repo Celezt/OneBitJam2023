@@ -12,7 +12,7 @@ public class ParticleEffect : IEffectAsync
     private static Dictionary<string, ObjectPool<ParticleSystem>> _particlePools = new ();
 
     public GameObject ParticlePrefab;
-    public string Element;
+    public string Tag;
     [MinValue(0)]
     public float Duration = 5;
 
@@ -24,9 +24,9 @@ public class ParticleEffect : IEffectAsync
 
     public async UniTask UpdateAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
     {
-        if (!_particlePools.TryGetValue(Element, out ObjectPool<ParticleSystem> pool))
+        if (!_particlePools.TryGetValue(Tag, out ObjectPool<ParticleSystem> pool))
         {
-            _particlePools[Element] = pool = new ObjectPool<ParticleSystem>(
+            _particlePools[Tag] = pool = new ObjectPool<ParticleSystem>(
                 createFunc: () => CreateParticleSystem(),
                 actionOnGet: particle =>
                 {
@@ -110,10 +110,10 @@ public class ParticleEffect : IEffectAsync
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-        if (effector.Properties.Any(x => x is IElementalImmunity immunity && immunity.Element == Element))
+        if (effector.Properties.Any(x => x is IImmunity immunity && immunity.Tag == Tag))
             return false;
 
-        if (effects.Any(x => x is ParticleEffect effect && effect.Element == Element))
+        if (effects.Any(x => x is ParticleEffect effect && effect.Tag == Tag))
             return false;
 
         return true;

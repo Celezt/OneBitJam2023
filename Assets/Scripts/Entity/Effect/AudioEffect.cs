@@ -12,7 +12,7 @@ public class AudioEffect : IEffectAsync
     private readonly static Dictionary<string, Dictionary<GameObject, ObjectPool<AudioSource>>> _audioSourcePools = new();
 
     public GameObject AudioSourcePrefab;
-    public string Element;
+    public string Tag;
     [MinValue(0)]
     public float Duration = 5;
     [Indent, MinValue(0)]
@@ -29,8 +29,8 @@ public class AudioEffect : IEffectAsync
         if (Duration - FadeDuration <= 0)
             return;
 
-        if (!_audioSourcePools.TryGetValue(Element, out var poolsByTag))
-            _audioSourcePools[Element] = poolsByTag = new();
+        if (!_audioSourcePools.TryGetValue(Tag, out var poolsByTag))
+            _audioSourcePools[Tag] = poolsByTag = new();
 
         if (!poolsByTag.TryGetValue(AudioSourcePrefab, out ObjectPool<AudioSource> pool))
         {
@@ -75,10 +75,10 @@ public class AudioEffect : IEffectAsync
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-        if (effector.Properties.Any(x => x is IElementalImmunity immunity && immunity.Element == Element))
+        if (effector.Properties.Any(x => x is IImmunity immunity && immunity.Tag == Tag))
             return false;
 
-        if (effects.Any(x => x is AudioEffect effect && effect.Element == Element))
+        if (effects.Any(x => x is AudioEffect effect && effect.Tag == Tag))
             return false;
 
         return true;

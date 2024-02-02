@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IElement
+public interface IImmunity
 {
-    public string Element { get; }
+    public string Tag { get; }
 }

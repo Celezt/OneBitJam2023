@@ -6,11 +6,9 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-public class HealthDurationChangeEffect : IEffectAsync, IElement
+public class HealthDurationChangeEffect : IEffectAsync
 {
-    string IElement.Element => Element;
-
-    public string Element;
+    public string Tag;
     public float ValueChange = -1;
     public float Duration = 5;
     [Indent]
@@ -38,10 +36,10 @@ public class HealthDurationChangeEffect : IEffectAsync, IElement
 
     public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-        if (effector.Properties.Any(x => x is IElementalImmunity immunity && immunity.Element == Element))
+        if (effector.Properties.Any(x => x is IImmunity immunity && immunity.Tag == Tag))
             return false;
 
-        if (effects.Any(x => x is IElement effect && effect.Element == Element))
+        if (effects.Any(x => x is IHealthChange healthChange && healthChange.Tag == Tag))
             return false;
 
         return true;

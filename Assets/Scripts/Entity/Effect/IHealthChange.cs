@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IElementalImmunity
+public interface IHealthChange
 {
-    public string Element { get; }
+    public string Tag { get; }
 }
