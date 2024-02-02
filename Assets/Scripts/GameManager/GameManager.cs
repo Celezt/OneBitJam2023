@@ -27,7 +27,6 @@ public class GameManager : ScriptableManager<GameManager>
 
     protected override void GameStart()
     {
-        Debug.Log("Settings: " + _settings.Count);
         foreach (var settings in _settings)
             settings.GameStart(_settings);
 
