@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHealthChange
+public interface IHealthChange : IEffectTag
 {
-    public string Tag { get; }
+
 }

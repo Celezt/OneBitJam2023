@@ -7,9 +7,9 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class AudioEffect : IEffectAsync
+public class AudioEffect : IEffectAsync, IEffectValid, IEffectTag
 {
-    private readonly static Dictionary<string, Dictionary<GameObject, ObjectPool<AudioSource>>> _audioSourcePools = new();
+    string IEffectTag.Tag => Tag;
 
     public GameObject AudioSourcePrefab;
     public string Tag;
@@ -19,9 +19,11 @@ public class AudioEffect : IEffectAsync
     public float FadeDuration = 0.5f;
     public Playlist Playlist;
 
+    private AudioPool _audioPool;
+
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-
+        _audioPool = new AudioPool(AudioSourcePrefab);
     }
 
     public async UniTask UpdateAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
@@ -29,31 +31,7 @@ public class AudioEffect : IEffectAsync
         if (Duration - FadeDuration <= 0)
             return;
 
-        if (!_audioSourcePools.TryGetValue(Tag, out var poolsByTag))
-            _audioSourcePools[Tag] = poolsByTag = new();
-
-        if (!poolsByTag.TryGetValue(AudioSourcePrefab, out ObjectPool<AudioSource> pool))
-        {
-            poolsByTag[AudioSourcePrefab] = pool = new ObjectPool<AudioSource>(
-                createFunc: () => CreateAudioSource(),
-                actionOnGet: audioSource =>
-                {
-                    audioSource.gameObject.SetActive(true);
-                },
-                actionOnRelease: audioSource =>
-                {
-                    audioSource.gameObject.SetActive(false);
-                },
-                actionOnDestroy: audioSource =>
-                {
-                    if (audioSource != null)
-                        UnityEngine.Object.Destroy(audioSource.gameObject);
-                },
-                collectionCheck: true
-                );
-        }
-
-        var audioSource = pool.Get();
+        var audioSource = _audioPool.Get();
 
         var effectorTransform = effector.GameObject.transform;
         var audioSourceTransform = audioSource.gameObject.transform;
@@ -70,15 +48,12 @@ public class AudioEffect : IEffectAsync
 
         audioSourceTransform.parent = null;
 
-        pool.Release(audioSource);
+        _audioPool.Release(audioSource);
     }
 
-    public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
+    public bool IsValid(IEffector effector, IEffect effect, GameObject sender)
     {
-        if (effector.Properties.Any(x => x is IImmunity immunity && immunity.Tag == Tag))
-            return false;
-
-        if (effects.Any(x => x is AudioEffect effect && effect.Tag == Tag))
+        if (effector.Effects.Any(x => x is AudioEffect audioEffect && audioEffect.Tag == Tag))
             return false;
 
         return true;

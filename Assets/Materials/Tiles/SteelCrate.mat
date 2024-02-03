@@ -7,15 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RockGroundTile
+  m_Name: SteelCrate
   m_Shader: {fileID: -6465566751694194690, guid: e64c5fdb3133ef1408d68c059ffa0cf9,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 402be55d00007244d85a011e1557bd6b, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _COORDINATES_WORLD
-  m_InvalidKeywords:
-  - _COORDINATES_OBJECT
+  - _COORDINATES_UV
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,14 +27,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 60fb0956b31d9434f8d6598d2094c5c8, type: 3}
-        m_Scale: {x: 0.05, y: 0.05}
+        m_Texture: {fileID: 2800000, guid: 01a2350f09749844290f383601f1e375, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _COORDINATES: 1
-    - _QueueControl: 0
-    - _Rotation: 0
+    m_Floats: []
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

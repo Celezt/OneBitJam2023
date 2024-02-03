@@ -11,7 +11,7 @@ public static class ComponentExtensions
         return component != null;
     }
 
-    public static bool TryGetComponentInChildren<T>(this MonoBehaviour behaviour, out T component)
+    public static bool TryGetComponentInChildren<T>(this Behaviour behaviour, out T component)
     {
         component = behaviour.GetComponentInChildren<T>();
 

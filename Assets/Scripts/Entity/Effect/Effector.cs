@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,11 @@ public class Effector : MonoBehaviour, IEffector
     public IEnumerable<IEffectAsync> Effects => _effects;
     public IEnumerable<IEffectorProperty> Properties => _properties;
 
+    public event Action<IEffector, IEffect, GameObject> OnEffectAddedCallback = delegate { };
+    public event Action<IEffector, IEffect> OnEffectRemovedCallback = delegate { };
+
     [SerializeReference]
-    private List<IEffectorProperty> _properties;
+    private List<IEffectorProperty> _properties = new();
 
     private readonly List<IEffectAsync> _effects = new();
     private readonly List<CancellationTokenSource> _cancellationTokenSources = new();
@@ -23,12 +27,16 @@ public class Effector : MonoBehaviour, IEffector
     {
         effect.Initialize(this, _effects, sender);
 
+        // Don't add if it does not pass all properties with valid check.
+        if (!_properties.OfType<IEffectValid>().All(x => x.IsValid(this, effect, sender)))
+            return false;
+
+        // Don't add if it is not valid.
+        if (effect is IEffectValid validEffect && !validEffect.IsValid(this, effect, sender))
+            return false;
+
         if (effect is IEffectAsync effectAsync)
         {
-            // Don't add if it is not valid.
-            if (!effectAsync.IsValid(this, _effects, sender))
-                return false;
-
             CancellationTokenSource cancellationTokenSource = new();
 
             _effects.Add(effectAsync);
@@ -48,6 +56,8 @@ public class Effector : MonoBehaviour, IEffector
                         }
                     });
         }
+
+        OnEffectAddedCallback(this, effect, sender);
 
         return true;
     }
@@ -79,23 +89,27 @@ public class Effector : MonoBehaviour, IEffector
         _effects.RemoveAt(index);
         _cancellationTokenSources.RemoveAt(index);
 
+        OnEffectRemovedCallback(this, effect);
+
         return true;
     }
 
     public void AddProperty(IEffectorProperty property)
     {
+        property.OnEnable(this);
         _properties.Add(property);
     }
 
     public void RemoveProperty(IEffectorProperty property)
     {
+        property.OnDisable(this);
         _properties.Remove(property);
     }
 
     private void Start()
     {
         foreach (var property in _properties)
-            property.Initialize(this, Properties);
+            property.OnEnable(this);
     }
 
     private void OnDestroy()

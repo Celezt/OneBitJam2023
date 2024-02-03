@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: e64c5fdb3133ef1408d68c059ffa0cf9,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 402be55d00007244d85a011e1557bd6b, type: 2}
-  m_ModifiedSerializedProperties: 4
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _COORDINATES_WORLD
   m_InvalidKeywords: []

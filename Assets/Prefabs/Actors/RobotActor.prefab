@@ -1435,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _moveForce
-      value: 850
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 3677151395975013441, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -1755,7 +1755,7 @@ PrefabInstance:
     - target: {fileID: 6651697219118420470, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: m_Mass
-      value: 80
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7951150382831542722, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
@@ -1884,7 +1884,10 @@ MonoBehaviour:
   _onHealthFullEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onHealthEmptyEvent:
+  _onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onResurrectEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &8308464577660086550 stripped

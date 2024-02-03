@@ -7,15 +7,16 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ParticleEffect : IEffectAsync
+public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 {
     private static Dictionary<string, ObjectPool<ParticleSystem>> _particlePools = new ();
+
+    string IEffectTag.Tag => Tag;
 
     public GameObject ParticlePrefab;
     public string Tag;
     [MinValue(0)]
     public float Duration = 5;
-
 
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
@@ -108,12 +109,9 @@ public class ParticleEffect : IEffectAsync
         pool.Release(particleSystem);
     }
 
-    public bool IsValid(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
+    public bool IsValid(IEffector effector, IEffect effect, GameObject sender)
     {
-        if (effector.Properties.Any(x => x is IImmunity immunity && immunity.Tag == Tag))
-            return false;
-
-        if (effects.Any(x => x is ParticleEffect effect && effect.Tag == Tag))
+        if (effector.Effects.Any(x => x is ParticleEffect particleEffect && particleEffect.Tag == Tag))
             return false;
 
         return true;

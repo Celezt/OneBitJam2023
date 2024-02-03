@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IEffectorProperty
 {
-    public void Initialize(IEffector effector, IEnumerable<IEffectorProperty> properties);
+    public void OnEnable(IEffector effector);
+    public void OnDisable(IEffector effector);
 }
