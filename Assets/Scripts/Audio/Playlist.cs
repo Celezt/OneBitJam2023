@@ -72,7 +72,7 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
                 return;
 
             source.clip = AudioClip;
-            source.volume = AudioSourceExtensions.GetDefaultVolume(source) * VolumeScale * volumeScale;
+            source.SetVolumeScale(VolumeScale * volumeScale);
             source.Play();
 
             float startFrame = 0;

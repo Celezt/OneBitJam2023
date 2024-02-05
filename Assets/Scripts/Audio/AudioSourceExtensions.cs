@@ -106,6 +106,9 @@ public static class AudioSourceExtensions
 
     public static async UniTask FadeOut(this AudioSource audioSource, float fadeDuration, CancellationToken cancellationToken)
     {
+        if (!audioSource.isPlaying)
+            return;
+
         float defaultVolume = audioSource.volume;
 
         while (audioSource.volume > 0 && !cancellationToken.IsCancellationRequested)
@@ -130,6 +133,9 @@ public static class AudioSourceExtensions
         source.volume = volume;
         return volume;
     }
+
+    public static float SetVolumeScale(this AudioSource source, float volumeScale)
+        => source.volume = GetDefaultVolume(source) * volumeScale;
 
     public static float GetDefaultVolume(AudioSource source)
     {

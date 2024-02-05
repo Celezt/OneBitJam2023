@@ -9,18 +9,35 @@ using System.Threading;
 using UnityEngine;
 
 [HideMonoScript]
-public class AudioOnCollision : AudioOnEnterBase
+public class AudioOnCollision : MonoBehaviour
 {
+    [SerializeField]
+    protected AudioSource _audioSource;
+    [SerializeField]
+    protected GameObject _target;
+    [SerializeField]
+    protected LayerMask _layerMask = ~0;
+
     [SerializeField]
     private bool _scaleOfSpeed = false;
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
     private float _maxSpeed = 6.0f;
 
-    protected override async UniTaskVoid OnEnterAsync(CancellationToken cancellationToken)
+    [SerializeField]
+    protected Playlist _playlist;
+
+    private CancellationTokenSource _cancellationTokenSource;
+
+    private void OnEnable()
     {
-        await _target.GetAsyncCollisionEnterTrigger().ForEachAsync(collision =>
+        if (_target == null)
+            return;
+
+        CTSUtility.Reset(ref _cancellationTokenSource);
+
+        _target.GetAsyncCollisionEnterTrigger().ForEachAsync(collision =>
         {
-            if (((1 << collision.collider.gameObject.layer) & _layerMask) != 0)
+            if (((1 << collision.gameObject.layer) & _layerMask) != 0)
             {
                 if (_scaleOfSpeed)
                 {
@@ -31,6 +48,11 @@ public class AudioOnCollision : AudioOnEnterBase
                 else
                     _audioSource.PlayOneShot(_playlist);
             }
-        }, cancellationToken);
+        }, _cancellationTokenSource.Token).Forget();
+    }
+
+    private void OnDisable()
+    {
+        CTSUtility.Clear(ref _cancellationTokenSource);
     }
 }

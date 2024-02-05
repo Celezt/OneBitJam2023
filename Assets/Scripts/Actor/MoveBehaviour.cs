@@ -140,7 +140,6 @@ public class MoveBehaviour : MonoBehaviour
 
     private CancellationTokenSource _dashForceCancellationTokenSource;
     private CancellationTokenSource _stopForceCancellationTokenSource;
-    private UniTask.Awaiter _stopForceAwaiter;
     private Vector3 _direction;
     private Vector3 _localVelocity;
     private Quaternion _lookRotation;
@@ -187,10 +186,11 @@ public class MoveBehaviour : MonoBehaviour
         {
             float angle = Vector3.Angle(transform.forward, _direction);
 
-            if ((angle > _angleDifferenceToDash || !_isMoving) && _stopForceAwaiter.IsCompleted)
+            if ((angle > _angleDifferenceToDash || !_isMoving) && _dashForceCancellationTokenSource == null)
             {
                 CTSUtility.Reset(ref _dashForceCancellationTokenSource);
-                _stopForceAwaiter = DashForceAsync(_dashForceCancellationTokenSource.Token).GetAwaiter();
+                DashForceAsync(_dashForceCancellationTokenSource.Token)
+                    .ContinueWith(() => CTSUtility.Clear(ref _dashForceCancellationTokenSource));
             }
         }
         else
