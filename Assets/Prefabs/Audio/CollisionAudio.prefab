@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5868191090013239315}
   - component: {fileID: 5672543972434144019}
   - component: {fileID: 1161413718734585287}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: CollisionAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,14 +147,14 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 1023
+  _scaleOfSpeed: 1
+  _maxSpeed: 6
   _playlist:
     _clips: []
     _picker:
       rid: 4988305353705259865
     _resetter:
       rid: 4988305353705259808
-  _scaleOfSpeed: 1
-  _maxSpeed: 6
   references:
     version: 2
     RefIds:

@@ -21,6 +21,8 @@ public class AudioOnSliding : MonoBehaviour
     [OnValueChanged(nameof(OnScaleOfSpeedChange))]
 #endif
     [SerializeField]
+    private bool _useAngularSpeed = false;
+    [SerializeField]
     private bool _scaleOfSpeed = false;
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
     private float _maxSpeed = 2.0f;
@@ -68,8 +70,9 @@ public class AudioOnSliding : MonoBehaviour
                 {
                     bool isPlaying = _audioSource.isPlaying;
 
-                    float perpendicularInterval = 1f - Mathf.Abs(Vector3.Dot(_target.velocity.normalized, Physics.gravity.normalized));
-                    float slideSpeed = _target.velocity.magnitude * perpendicularInterval;
+                    Vector3 velocity = _useAngularSpeed ? _target.angularVelocity : _target.velocity;
+                    float perpendicularInterval = 1f - Mathf.Abs(Vector3.Dot(velocity.normalized, Physics.gravity.normalized));
+                    float slideSpeed = velocity.magnitude * perpendicularInterval;
                     float speedInterval = Mathf.Clamp01(slideSpeed / _maxSpeed);
 
                     switch (isPlaying)
@@ -78,8 +81,11 @@ public class AudioOnSliding : MonoBehaviour
                         case false when slideSpeed < _minSpeedStart:
                             _audioSource.Stop();
                             break;
-                        case false:
+                        case false when _scaleOfSpeed:
                             _audioSource.Play(_playlist, speedInterval);
+                            break;
+                        case false:
+                            _audioSource.Play(_playlist);
                             break;
                         case true when _scaleOfSpeed:
                             _audioSource.SetVolumeScale(speedInterval);
