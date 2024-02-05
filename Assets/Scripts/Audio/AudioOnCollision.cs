@@ -24,6 +24,9 @@ public class AudioOnCollision : MonoBehaviour
     private float _maxSpeed = 6.0f;
 
     [SerializeField]
+    private List<Collider> _ignoreColliders;
+
+    [SerializeField]
     protected Playlist _playlist;
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -39,14 +42,31 @@ public class AudioOnCollision : MonoBehaviour
         {
             if (((1 << collision.gameObject.layer) & _layerMask) != 0)
             {
-                if (_scaleOfSpeed)
+                bool ignore = false;
+
+                if (_ignoreColliders.Count > 0)
                 {
-                    float speed = collision.relativeVelocity.magnitude;
-                    float interval = Mathf.Clamp01(speed / _maxSpeed);
-                    _audioSource.PlayOneShot(_playlist, interval);
+                    var thisCollider = collision.GetContact(0).thisCollider;
+                    var hitCollider = collision.collider;
+
+                    if (_ignoreColliders.Contains(thisCollider))
+                        ignore = true;
+
+                    if (_ignoreColliders.Contains(hitCollider))
+                        ignore = true;
                 }
-                else
-                    _audioSource.PlayOneShot(_playlist);
+
+                if (!ignore)
+                {
+                    if (_scaleOfSpeed)
+                    {
+                        float speed = collision.relativeVelocity.magnitude;
+                        float interval = Mathf.Clamp01(speed / _maxSpeed);
+                        _audioSource.PlayOneShot(_playlist, interval);
+                    }
+                    else
+                        _audioSource.PlayOneShot(_playlist);
+                }
             }
         }, _cancellationTokenSource.Token).Forget();
     }

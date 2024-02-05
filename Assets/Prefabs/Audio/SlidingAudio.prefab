@@ -146,7 +146,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1023
   _scaleOfSpeed: 1
   _maxSpeed: 2.5
   _minSpeedStart: 0.5

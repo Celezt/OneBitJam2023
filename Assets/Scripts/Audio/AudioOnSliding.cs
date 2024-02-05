@@ -21,8 +21,6 @@ public class AudioOnSliding : MonoBehaviour
     [OnValueChanged(nameof(OnScaleOfSpeedChange))]
 #endif
     [SerializeField]
-    private bool _useAngularSpeed = false;
-    [SerializeField]
     private bool _scaleOfSpeed = false;
     [SerializeField, Indent, ShowIf(nameof(_scaleOfSpeed))]
     private float _maxSpeed = 2.0f;
@@ -68,14 +66,12 @@ public class AudioOnSliding : MonoBehaviour
 
                 if (_surfaceGameObjects.Count > 0)
                 {
-                    bool isPlaying = _audioSource.isPlaying;
-
-                    Vector3 velocity = _useAngularSpeed ? _target.angularVelocity : _target.velocity;
+                    Vector3 velocity = _target.velocity;
                     float perpendicularInterval = 1f - Mathf.Abs(Vector3.Dot(velocity.normalized, Physics.gravity.normalized));
                     float slideSpeed = velocity.magnitude * perpendicularInterval;
                     float speedInterval = Mathf.Clamp01(slideSpeed / _maxSpeed);
 
-                    switch (isPlaying)
+                    switch (_audioSource.isPlaying)
                     {
                         case true when slideSpeed < _minSpeedEnd:
                         case false when slideSpeed < _minSpeedStart:
