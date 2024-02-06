@@ -11,9 +11,10 @@ public class HealthChangeEffect : IEffect, IHealthChange
 
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
-        if (!effector.GameObject.TryGetComponentInChildren(out IHealth health))
+        if (!effector.GameObject.TryGetComponent(out IHealth health))
             return;
 
-        health.Value += ValueChange;
+        if (health.Value > 0)
+            health.Value += ValueChange;
     }
 }

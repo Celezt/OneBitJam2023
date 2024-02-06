@@ -32,10 +32,10 @@ public static class AudioSourceExtensions
         return UniTask.WaitUntil(WaitUntil, cancellationToken: cancellationToken, timing: timing);
     }
 
-    public static void Play(this AudioSource source, Playlist playlist, float volumeScale = 1)
+    public static Playlist.Clip Play(this AudioSource source, Playlist playlist, float volumeScale = 1)
         => playlist.Get().Play(source, volumeScale);
 
-    public static void PlayOneShot(this AudioSource source, Playlist playlist, float volumeScale = 1)
+    public static Playlist.Clip PlayOneShot(this AudioSource source, Playlist playlist, float volumeScale = 1)
         => playlist.Get().PlayOneShot(source, volumeScale);
 
     public static UniTask CrossFade(this AudioSource audioSource, Playlist playlist, float fadeDuration, CancellationToken cancellationToken)

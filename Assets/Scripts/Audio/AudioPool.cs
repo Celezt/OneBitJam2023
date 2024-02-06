@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 
 public struct AudioPool
 {
-    private readonly static Dictionary<GameObject, ObjectPool<AudioSource>> _audioSourcePool = new();
+    private readonly static Dictionary<GameObject, ObjectPool<AudioSource>> _audioSourcePools = new();
 
     public bool IsEmpty => _prefab == null;
     public GameObject Prefab => _prefab;
@@ -22,7 +22,7 @@ public struct AudioPool
 
         Assert.IsNotNull(_prefab.GetComponent<AudioSource>());
 
-        if (!_audioSourcePool.ContainsKey(audioPrefab))
+        if (!_audioSourcePools.ContainsKey(audioPrefab))
         {
             AudioSource CreateAudioSource()
             {
@@ -55,7 +55,7 @@ public struct AudioPool
                     UnityEngine.Object.Destroy(audioSource.gameObject);
             }
 
-            _audioSourcePool[audioPrefab] = new ObjectPool<AudioSource>(
+            _audioSourcePools[audioPrefab] = new ObjectPool<AudioSource>(
                 createFunc: CreateAudioSource,
                 actionOnGet: OnGetAudioSource,
                 actionOnRelease: OnReleaseAudioSource,
@@ -72,7 +72,7 @@ public struct AudioPool
             return null;
         }
 
-        var audioSource = _audioSourcePool[_prefab].Get();
+        var audioSource = _audioSourcePools[_prefab].Get();
         return audioSource;
     }
 
@@ -84,12 +84,12 @@ public struct AudioPool
             return;
         }
 
-        _audioSourcePool[_prefab].Release(audioSource);
+        _audioSourcePools[_prefab].Release(audioSource);
     }
 
     public static void Release(GameObject audioPrefab, AudioSource audioSource)
     {
-        _audioSourcePool[audioPrefab].Release(audioSource);
+        _audioSourcePools[audioPrefab].Release(audioSource);
     }
 
     public static AudioSource Get(GameObject audioPrefab)
@@ -100,6 +100,6 @@ public struct AudioPool
 
     public static void Remove(GameObject audioPrefab)
     {
-        _audioSourcePool.Remove(audioPrefab);
+        _audioSourcePools.Remove(audioPrefab);
     }
 }

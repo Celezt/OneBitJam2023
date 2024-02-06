@@ -278,6 +278,7 @@ MonoBehaviour:
         AudioSourcePrefab: {fileID: 1258299363896563263, guid: fcd31003e3a66ef43b47f1e3f20a1bfb,
           type: 3}
         Tag: fire
+        CustomDuration: 1
         Duration: 5
         FadeDuration: 0.5
         Playlist:

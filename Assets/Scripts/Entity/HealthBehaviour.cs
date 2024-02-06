@@ -17,11 +17,11 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         set
         {
             float newMaxHealth = Mathf.Max(value, 0);
-
-            if (newMaxHealth != _maxHealth) // If any change has been made. 
-                _onMaxHealthChangedEvent.Invoke(newMaxHealth, _maxHealth);
-
+            float oldMaxHealth = _maxHealth;
             _maxHealth = newMaxHealth;
+
+            if (newMaxHealth != oldMaxHealth) // If any change has been made. 
+                _onMaxHealthChangedEvent.Invoke(newMaxHealth, oldMaxHealth);
 
             Value = _health;   // Update if the new max health is less than the current health.
         }
@@ -32,22 +32,21 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         set
         {
             float newHealth = Mathf.Clamp(value, 0, MaxValue);
+            float oldHealth = _health;
+            _health = newHealth;
 
-            if (newHealth != _health)   // If any change has been made.
+            if (newHealth != oldHealth)   // If any change has been made.
             {
-                _onHealthChangedEvent.Invoke(newHealth, _health);
+                _onHealthChangedEvent.Invoke(newHealth, oldHealth);
 
                 if (newHealth == _maxHealth)        // If health has reached full capacity.
                     _onHealthFullEvent.Invoke();
-
-                if (newHealth <= 0)                 // Die if health has been depleted.
+                if (newHealth <= 0)  // Die if health has been depleted.
                     _onDeathEvent.Invoke();
 
-                if (newHealth > 0 && _health <= 0)  // Resurrect if health is restored after being zero.
+                if (newHealth > 0 && oldHealth <= 0)  // Resurrect if health is restored after being zero.
                     _onResurrectEvent.Invoke();
             }
-
-            _health = newHealth;
         }
     }
 
@@ -56,21 +55,21 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     [OnValueChanged(nameof(UpdateHealth))]
 #endif
     private float _maxHealth = 100;
-    [SerializeField, Indent]
 #if UNITY_EDITOR
     [ProgressBar(0, nameof(_maxHealth), ColorGetter = nameof(GetHealthBarColor))]
 #endif
+    [SerializeField, Indent]
     private float _health = 100;
 
-    [SerializeField]
+    [SerializeField, FoldoutGroup("Events")]
     private UnityEvent<float, float> _onHealthChangedEvent;
-    [SerializeField]
+    [SerializeField, FoldoutGroup("Events")]
     private UnityEvent<float, float> _onMaxHealthChangedEvent;
-    [SerializeField]
+    [SerializeField, FoldoutGroup("Events")]
     private UnityEvent _onHealthFullEvent;
-    [SerializeField]
+    [SerializeField, FoldoutGroup("Events")]
     private UnityEvent _onDeathEvent;
-    [SerializeField]
+    [SerializeField, FoldoutGroup("Events")]
     private UnityEvent _onResurrectEvent;
 
     public void SetHealth(int value) => Value = value;

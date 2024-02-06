@@ -66,10 +66,10 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
 #endif
         public IAudioClipSettings Settings;
 
-        public readonly void Play(AudioSource source, float volumeScale = 1)
+        public readonly Clip Play(AudioSource source, float volumeScale = 1)
         {
             if (IsEmpty)
-                return;
+                return this;
 
             source.clip = AudioClip;
             source.SetVolumeScale(VolumeScale * volumeScale);
@@ -78,14 +78,18 @@ public class Playlist : IEnumerable, IEnumerable<AudioClip>, IReadOnlyList<Audio
             float startFrame = 0;
             Settings?.Initialize(in this, AudioClip.length, out startFrame);
             source.time = startFrame;
+
+            return this;
         }
 
-        public readonly void PlayOneShot(AudioSource source, float volumeScale = 1)
+        public readonly Clip PlayOneShot(AudioSource source, float volumeScale = 1)
         {
             if (IsEmpty)
-                return;
+                return this;
 
             source.PlayOneShot(AudioClip, VolumeScale * volumeScale);
+
+            return this;
         }
 
 #if UNITY_EDITOR

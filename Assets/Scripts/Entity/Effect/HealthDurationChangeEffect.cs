@@ -25,7 +25,7 @@ public class HealthDurationChangeEffect : IEffectAsync, IEffectTag, IEffectValid
     {
         float initialTime = Time.time;
 
-        if (!effector.GameObject.TryGetComponentInChildren(out IHealth health))
+        if (!effector.GameObject.TryGetComponent(out IHealth health))
             return;
 
         while (Time.time - initialTime < Duration && !cancellationToken.IsCancellationRequested)

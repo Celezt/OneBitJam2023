@@ -1,16 +1,16 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.Pool;
 
 public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 {
-    private static Dictionary<string, ObjectPool<ParticleSystem>> _particlePools = new ();
-
     string IEffectTag.Tag => Tag;
 
     public GameObject ParticlePrefab;
@@ -18,35 +18,31 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
     [MinValue(0)]
     public float Duration = 5;
 
+    private ParticlePool _particlePool;
+
     public void Initialize(IEffector effector, IEnumerable<IEffectAsync> effects, GameObject sender)
     {
+        _particlePool = new ParticlePool(ParticlePrefab, particleSystem =>
+        {
+            if (particleSystem.isPlaying)
+                particleSystem.Stop();
 
+            var shape = particleSystem.shape;
+            if (shape.shapeType != ParticleSystemShapeType.Rectangle)
+            {
+                shape.shapeType = ParticleSystemShapeType.Rectangle;
+                shape.scale = Vector3.one;
+            }
+
+            var main = particleSystem.main;
+            main.playOnAwake = false;
+            main.loop = false;
+        });
     }
 
     public async UniTask UpdateAsync(IEffector effector, IEnumerable<IEffectAsync> effects, CancellationToken cancellationToken, GameObject sender)
     {
-        if (!_particlePools.TryGetValue(Tag, out ObjectPool<ParticleSystem> pool))
-        {
-            _particlePools[Tag] = pool = new ObjectPool<ParticleSystem>(
-                createFunc: () => CreateParticleSystem(),
-                actionOnGet: particle =>
-                {
-                    particle.gameObject.SetActive(true);
-                },
-                actionOnRelease: particle =>
-                {
-                    particle.gameObject.SetActive(false);
-                },
-                actionOnDestroy: particle =>
-                {
-                    if (particle != null)
-                        UnityEngine.Object.Destroy(particle.gameObject);
-                },
-                collectionCheck: true
-                );
-        }
-
-        var particleSystem = pool.Get();
+        var particleSystem = _particlePool.Get();
 
         var effectorTransform = effector.GameObject.transform;
         var particleTransform = particleSystem.gameObject.transform;
@@ -81,8 +77,8 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 
         // Set emission.
         var emission = particleSystem.emission;
-        float defaultRateOverTime = 0;
         var rateOverTimeMode = emission.rateOverTime.mode;
+        float defaultRateOverTime = 0;
         switch (rateOverTimeMode) // Modify based on surface area.
         {
             case ParticleSystemCurveMode.Constant:
@@ -106,7 +102,7 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 
         particleTransform.parent = null;
 
-        pool.Release(particleSystem);
+        _particlePool.Release(particleSystem);
     }
 
     public bool IsValid(IEffector effector, IEffect effect, GameObject sender)
@@ -115,30 +111,5 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
             return false;
 
         return true;
-    }
-
-    private ParticleSystem CreateParticleSystem()
-    {
-        if (ParticlePrefab == null)
-            return null;
-
-        GameObject particleObject = UnityEngine.Object.Instantiate(ParticlePrefab);
-        ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
-
-        if (particleSystem.isPlaying)
-            particleSystem.Stop();
-
-        var shape = particleSystem.shape;
-        if (shape.shapeType != ParticleSystemShapeType.Rectangle)
-        {
-            shape.shapeType = ParticleSystemShapeType.Rectangle;
-            shape.scale = Vector3.one;
-        }
-
-        var main = particleSystem.main;
-        main.playOnAwake = false;
-        main.loop = false;
-
-        return particleSystem;
     }
 }
