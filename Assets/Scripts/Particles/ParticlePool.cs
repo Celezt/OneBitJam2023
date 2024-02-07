@@ -4,15 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public struct ParticlePool
 {
-    private readonly static Dictionary<GameObject, ObjectPool<ParticleSystem>> _particlePools = new();
+    private readonly static Dictionary<GameObject, ObjectPool<ParticleSystem>> _particleSystemPools = new();
 
     public bool IsEmpty => _prefab == null;
     public GameObject Prefab => _prefab;
 
     private readonly GameObject _prefab;
+
+    static ParticlePool()
+    {
+        SceneManager.activeSceneChanged += (newScene, oldScene) =>
+        {
+            foreach (var pools in _particleSystemPools.Values)
+                pools.Clear();
+        };
+    }
 
     public ParticlePool(GameObject particlePrefab, Action<ParticleSystem> onCreateCallback = null)
     {
@@ -20,7 +30,7 @@ public struct ParticlePool
 
         Assert.IsNotNull(_prefab.GetComponent<ParticleSystem>());
 
-        if (!_particlePools.ContainsKey(particlePrefab))
+        if (!_particleSystemPools.ContainsKey(particlePrefab))
         {
             ParticleSystem CreateParticleSystem()
             {
@@ -52,7 +62,7 @@ public struct ParticlePool
                     UnityEngine.Object.Destroy(particleSystem.gameObject);
             }
 
-            _particlePools[particlePrefab] = new ObjectPool<ParticleSystem>(
+            _particleSystemPools[particlePrefab] = new ObjectPool<ParticleSystem>(
                 createFunc: CreateParticleSystem,
                 actionOnGet: OnGetParticleSystem,
                 actionOnRelease: OnReleaseParticleSystem,
@@ -69,7 +79,7 @@ public struct ParticlePool
             return null;
         }
 
-        var particleSystem = _particlePools[_prefab].Get();
+        var particleSystem = _particleSystemPools[_prefab].Get();
         return particleSystem;
     }
 
@@ -81,12 +91,12 @@ public struct ParticlePool
             return;
         }
 
-        _particlePools[_prefab].Release(particleSystem);
+        _particleSystemPools[_prefab].Release(particleSystem);
     }
 
     public static void Release(GameObject particlePrefab, ParticleSystem particleSystem)
     {
-        _particlePools[particlePrefab].Release(particleSystem);
+        _particleSystemPools[particlePrefab].Release(particleSystem);
     }
 
     public static ParticleSystem Get(GameObject particlePrefab)
@@ -97,6 +107,6 @@ public struct ParticlePool
 
     public static void Remove(GameObject particlePrefab)
     {
-        _particlePools.Remove(particlePrefab);
+        _particleSystemPools.Remove(particlePrefab);
     }
 }

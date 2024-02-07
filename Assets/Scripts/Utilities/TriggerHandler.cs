@@ -13,22 +13,33 @@ public class TriggerHandler : MonoBehaviour
     public event Action<Collider> OnTriggerEnterCallback = delegate { };
     public event Action<Collider> OnTriggerExitCallback = delegate { };
 
-    public UnityEvent<Collider> OnTriggerEnterEvent;
-    public UnityEvent<Collider> OnTriggerExitEvent;
+    [SerializeField]
+    private string _tag;
+
+    [SerializeField, Space(8)]
+    private UnityEvent<Collider> _onTriggerEnterEvent;
+    [SerializeField]
+    private UnityEvent<Collider> _onTriggerExitEvent;
 
     private bool _isTriggered;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!string.IsNullOrEmpty(_tag) && _tag != other.tag)
+            return;
+
         _isTriggered = true;
         OnTriggerEnterCallback(other);
-        OnTriggerEnterEvent.Invoke(other);
+        _onTriggerEnterEvent.Invoke(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!string.IsNullOrEmpty(_tag) && _tag != other.tag)
+            return;
+
         _isTriggered = false;
         OnTriggerExitCallback(other);
-        OnTriggerExitEvent.Invoke(other);
+        _onTriggerExitEvent.Invoke(other);
     }
 }

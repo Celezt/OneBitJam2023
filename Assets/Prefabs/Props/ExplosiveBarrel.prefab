@@ -71,6 +71,55 @@ MonoBehaviour:
     - rid: 5080271624487305361
       type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
       data: 
+--- !u!1 &6189487716831023808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2317712962643524662}
+  - component: {fileID: 2227491957290232412}
+  m_Layer: 6
+  m_Name: ExplosionParticlePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2317712962643524662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189487716831023808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4387419045545652415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2227491957290232412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189487716831023808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb4817e1907c944ea0d9513c62d7384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystemPrefab: {fileID: 1482327661315688003, guid: 10e8a4caa635ee747b3a7486dc9b09e2,
+    type: 3}
+  _attachToParent: 0
+  _customDuration: 0
+  _duration: 5
 --- !u!1001 &8691281479012735387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,6 +205,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7872531368443433461}
+    - targetCorrespondingSourceObject: {fileID: 4935553854410615076, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2317712962643524662}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5707552456712663966, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}
@@ -210,18 +263,6 @@ MonoBehaviour:
   _onDeathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4010718031339088389}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1077873325632522217}
         m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
         m_MethodName: Invoke
@@ -234,10 +275,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2227491957290232412}
+        m_TargetAssemblyTypeName: ParticlePoolBehaviour, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4214891180383125253}
         m_TargetAssemblyTypeName: AudioPoolBehaviour, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4010718031339088389}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

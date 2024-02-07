@@ -13,7 +13,7 @@ public class AudioPoolBehaviour : MonoBehaviour
     [SerializeField]
     public bool _attachToParent = true;
 
-    [SerializeField]
+    [SerializeField, Space(4)]
     public bool _customDuration;
     [SerializeField, MinValue(0), ShowIf(nameof(_customDuration))]
     public float _duration = 5;
@@ -24,12 +24,10 @@ public class AudioPoolBehaviour : MonoBehaviour
     public Playlist _playlist;
 
     private AudioPool _audioPool;
-    private CancellationTokenSource _cancellationTokenSource;
 
     public void Play()
     {
-        CTSUtility.Reset(ref _cancellationTokenSource);
-        PlayAudioAsync(_cancellationTokenSource.Token).Forget();
+        PlayAudioAsync().Forget();
     }
 
     private void Start()
@@ -37,17 +35,13 @@ public class AudioPoolBehaviour : MonoBehaviour
         _audioPool = new AudioPool(_audioSourcePrefab);
     }
 
-    private void OnDisable()
-    {
-        CTSUtility.Clear(ref _cancellationTokenSource);
-    }
-
-    private async UniTaskVoid PlayAudioAsync(CancellationToken cancellationToken)
+    private async UniTaskVoid PlayAudioAsync()
     {
         if (_customDuration && _duration - _fadeDuration <= 0)
             return;
 
         var audioSource = _audioPool.Get();
+        var destroyCancellationToken = audioSource.GetCancellationTokenOnDestroy();
 
         var audioSourceTransform = audioSource.gameObject.transform;
 
@@ -62,10 +56,10 @@ public class AudioPoolBehaviour : MonoBehaviour
         var clip = audioSource.Play(_playlist);
 
         float duration = _customDuration ? _duration - _fadeDuration : clip.AudioClip.length;
-        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(duration, cancellationToken: destroyCancellationToken);
 
         if (_customDuration && _fadeDuration > 0)
-            await audioSource.FadeOut(_fadeDuration, cancellationToken);
+            await audioSource.FadeOut(_fadeDuration, destroyCancellationToken);
 
         audioSource.Stop();
 

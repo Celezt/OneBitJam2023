@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
-using UnityEditor;
 using UnityEngine.InputSystem.Editor;
+using UnityEngine.UIElements;
 #endif
 
 namespace UnityEngine.InputSystem
@@ -26,7 +25,14 @@ namespace UnityEngine.InputSystem
             switch (Coordinate)
             {
                 case 1: // Camera.
-                    _camera ??= Camera.main;
+                    if (!_camera)
+                    {
+                        _camera = Camera.main;
+
+                        if (!_camera)
+                            goto default;
+                    }
+
                     float cameraAngle = _camera.transform.eulerAngles.y;
                     Vector3 relativeDirection = Quaternion.Euler(0, cameraAngle, 0) * value.x_z();
                     return new Vector2(relativeDirection.x, relativeDirection.z).normalized;

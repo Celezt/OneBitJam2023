@@ -75,12 +75,16 @@ public static class AudioSourceExtensions
 
         audioSource.Play(playlist);
 
-        while (audioSource.volume < defaultVolume && !cancellationToken.IsCancellationRequested)
+        try
         {
-            audioSource.volume += startVolume * (Time.deltaTime / fadeDuration);
+            while (audioSource.volume < defaultVolume && !cancellationToken.IsCancellationRequested)
+            {
+                audioSource.volume += startVolume * (Time.deltaTime / fadeDuration);
 
-            await UniTask.Yield(cancellationToken: cancellationToken);
+                await UniTask.Yield(cancellationToken: cancellationToken);
+            }
         }
+        catch { }
 
         audioSource.volume = defaultVolume;
     }
@@ -94,12 +98,16 @@ public static class AudioSourceExtensions
 
         audioSource.Play();
 
-        while (audioSource.volume < defaultVolume && !cancellationToken.IsCancellationRequested)
+        try
         {
-            audioSource.volume += startVolume * (Time.deltaTime / fadeDuration);
+            while (audioSource.volume < defaultVolume && !cancellationToken.IsCancellationRequested)
+            {
+                audioSource.volume += startVolume * (Time.deltaTime / fadeDuration);
 
-            await UniTask.Yield(cancellationToken: cancellationToken);
+                await UniTask.Yield(cancellationToken: cancellationToken);
+            }
         }
+        catch { }
 
         audioSource.volume = defaultVolume;
     }
@@ -111,12 +119,16 @@ public static class AudioSourceExtensions
 
         float defaultVolume = audioSource.volume;
 
-        while (audioSource.volume > 0 && !cancellationToken.IsCancellationRequested)
+        try
         {
-            audioSource.volume -= defaultVolume * (Time.deltaTime / fadeDuration);
+            while (audioSource.volume > 0 && !cancellationToken.IsCancellationRequested)
+            {
+                audioSource.volume -= defaultVolume * (Time.deltaTime / fadeDuration);
 
-            await UniTask.Yield(cancellationToken: cancellationToken);
+                await UniTask.Yield(cancellationToken: cancellationToken);
+            }
         }
+        catch { }
 
         audioSource.Stop();
 

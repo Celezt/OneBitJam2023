@@ -8,6 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "GameManager", menuName = "Game Manager")]
 public class GameManager : ScriptableManager<GameManager>
@@ -40,6 +41,17 @@ public class GameManager : ScriptableManager<GameManager>
 
         _onGameExit.Invoke();
     }
+
+    public static void LoadScene(int sceneBuildIndex)
+        => SceneManager.LoadScene(sceneBuildIndex);
+    public static void LoadScene(string sceneName)
+        => SceneManager.LoadScene(sceneName);
+
+    public static void ReloadScene()
+        => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    public static void QuitGame()
+        => Application.Quit();
 
 #if UNITY_EDITOR
     private bool _isInitialized = false;

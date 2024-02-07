@@ -90,7 +90,11 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 
         particleSystem.Play();
 
-        await UniTask.WaitForSeconds(Duration, cancellationToken: cancellationToken);
+        try
+        {
+           await UniTask.WaitForSeconds(Duration, cancellationToken: cancellationToken);
+        }
+        catch { }
 
         switch (rateOverTimeMode) // Set to default.
         {

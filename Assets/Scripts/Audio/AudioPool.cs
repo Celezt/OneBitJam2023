@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public struct AudioPool
 {
@@ -15,6 +16,15 @@ public struct AudioPool
     public GameObject Prefab => _prefab;
 
     private readonly GameObject _prefab;
+
+    static AudioPool()
+    {
+        SceneManager.activeSceneChanged += (newScene, oldScene) =>
+        {
+            foreach (var pools in _audioSourcePools.Values)
+                pools.Clear();
+        };
+    }
 
     public AudioPool(GameObject audioPrefab)
     {

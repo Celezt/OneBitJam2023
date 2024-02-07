@@ -50,11 +50,15 @@ public class AudioEffect : IEffectAsync, IEffectValid, IEffectTag
 
         var clip = audioSource.Play(Playlist);
 
-        float duration = CustomDuration ? Duration - FadeDuration : clip.AudioClip.length;
-        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
+        try
+        {
+            float duration = CustomDuration ? Duration - FadeDuration : clip.AudioClip.length;
+            await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
 
-        if (CustomDuration && FadeDuration > 0)
-            await audioSource.FadeOut(FadeDuration, cancellationToken);
+            if (CustomDuration && FadeDuration > 0)
+                await audioSource.FadeOut(FadeDuration, cancellationToken);
+        }
+        catch { }
 
         audioSource.Stop();
 

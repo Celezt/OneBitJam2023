@@ -73,7 +73,11 @@ public class AudioEffectorProperty : IEffectorProperty
 
         audioSourceTransform.position = senderTransform.position;
 
-        await audioSource.PlayAsync(Playlist, cancellationToken);
+        try
+        {
+            await audioSource.PlayAsync(Playlist, cancellationToken);
+        }
+        catch { }
 
         audioSource.loop = defaultLoop;
 

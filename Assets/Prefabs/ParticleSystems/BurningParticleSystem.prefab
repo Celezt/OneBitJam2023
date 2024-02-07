@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3245171428707631869}
   - component: {fileID: 7908154029869947363}
   m_Layer: 0
-  m_Name: BurningEffect
+  m_Name: BurningParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
