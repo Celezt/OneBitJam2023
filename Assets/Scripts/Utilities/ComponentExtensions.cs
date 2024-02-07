@@ -10,10 +10,22 @@ public static class ComponentExtensions
 
         return component != null;
     }
-
-    public static bool TryGetComponentInChildren<T>(this Behaviour behaviour, out T component)
+    public static bool TryGetComponentInChildren<T>(this Component behaviour, out T component)
     {
         component = behaviour.GetComponentInChildren<T>();
+
+        return component != null;
+    }
+
+    public static bool TryGetComponentInParent<T>(this GameObject gameObject, out T component)
+    {
+        component = gameObject.GetComponentInParent<T>();
+
+        return component != null;
+    }
+    public static bool TryGetComponentInParent<T>(this Component behaviour, out T component)
+    {
+        component = behaviour.GetComponentInParent<T>();
 
         return component != null;
     }

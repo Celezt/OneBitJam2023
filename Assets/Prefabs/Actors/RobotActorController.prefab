@@ -270,16 +270,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1286039462387957104, guid: bd45b73470d7bd34db85f6b5e03c35b6,
-        type: 3}
-      propertyPath: _maxDelta
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 1286039462387957104, guid: bd45b73470d7bd34db85f6b5e03c35b6,
-        type: 3}
-      propertyPath: _minDelta
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2240547789958070214, guid: bd45b73470d7bd34db85f6b5e03c35b6,
         type: 3}
       propertyPath: m_Enabled
@@ -319,6 +309,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _rotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635662013535775078, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+        type: 3}
+      propertyPath: managedReferences[5080271644521136408]
+      value: Assembly-CSharp ImmunityEffectorProperty
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635662013535775078, guid: bd45b73470d7bd34db85f6b5e03c35b6,
+        type: 3}
+      propertyPath: managedReferences[5080271644521136408]._tag
+      value: fire
       objectReference: {fileID: 0}
     - target: {fileID: 6712798248584653081, guid: bd45b73470d7bd34db85f6b5e03c35b6,
         type: 3}

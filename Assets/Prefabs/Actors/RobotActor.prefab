@@ -1772,6 +1772,26 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.2535366
       objectReference: {fileID: 0}
+    - target: {fileID: 8022922947344454022, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _properties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022922947344454022, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: _properties.Array.data[0]
+      value: 5080271644521136449
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022922947344454022, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: managedReferences[5080271644521136449]
+      value: Assembly-CSharp ImmunityEffectorProperty
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022922947344454022, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      propertyPath: managedReferences[5080271644521136449]._tag
+      value: fire
+      objectReference: {fileID: 0}
     - target: {fileID: 8139426484537055583, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       propertyPath: _audioSource

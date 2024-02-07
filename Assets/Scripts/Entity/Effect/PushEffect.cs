@@ -41,7 +41,7 @@ public class PushEffect : IEffect
             effectorRigidbody.AddExplosionForce(Force, position, Radius, UpwardsModifier, ForceMode.Impulse);
 
         // Add force to the ragdoll if it exist.
-        if (effector.GameObject.TryGetComponentInChildren(out Ragdoll ragdoll))
+        if (effector.GameObject.TryGetComponent(out Ragdoll ragdoll))
             ragdoll.Push(Force * RagdollMultiplier, position, Radius, UpwardsModifier);
     }
 }

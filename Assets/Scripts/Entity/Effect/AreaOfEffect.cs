@@ -59,7 +59,7 @@ public class AreaOfEffect : MonoBehaviour
             if (_ignoreColliders.Contains(collider))
                 continue;
 
-            if (_collider[i].TryGetComponent(out IEffector effector)) // If effector exist on the object.
+            if (_collider[i].TryGetComponentInParent(out IEffector effector)) // If effector exist on the object.
             {
                 if (_effectors.Contains(effector))
                     continue;
