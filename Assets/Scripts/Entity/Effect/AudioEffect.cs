@@ -58,7 +58,11 @@ public class AudioEffect : IEffectAsync, IEffectValid, IEffectTag
             if (CustomDuration && FadeDuration > 0)
                 await audioSource.FadeOut(FadeDuration, cancellationToken);
         }
-        catch { }
+        catch 
+        {
+            if (!audioSource)
+                return;
+        }
 
         audioSource.Stop();
 
