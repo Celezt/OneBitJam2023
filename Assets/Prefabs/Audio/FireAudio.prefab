@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1905071535104038866
+--- !u!1001 &8045692755702337740
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,20 +10,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1773659119021547833, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
-      propertyPath: Loop
-      value: 0
+      propertyPath: m_Volume
+      value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 1773659119021547833, guid: 842bcbf1a82f8a446818596a20e3b38b,
-        type: 3}
-      propertyPath: Priority
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1773659119021547833, guid: 842bcbf1a82f8a446818596a20e3b38b,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 1034556036034206318, guid: dce18ece4b9cb864b893716d313daa7a,
-        type: 2}
     - target: {fileID: 3459001229349176119, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 5706760447121088562, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
       propertyPath: m_Name
-      value: ExplosionAudio
+      value: FireAudio
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

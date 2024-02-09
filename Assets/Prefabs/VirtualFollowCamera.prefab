@@ -68,7 +68,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 30
+  m_CameraDistance: 5
   m_DeadZoneWidth: 0.23
   m_DeadZoneHeight: 0.09
   m_DeadZoneDepth: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 8
-    NearClipPlane: 0.1
+    NearClipPlane: -12
     FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0

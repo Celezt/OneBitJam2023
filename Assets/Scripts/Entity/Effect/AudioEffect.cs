@@ -11,6 +11,7 @@ public class AudioEffect : IEffectAsync, IEffectValid, IEffectTag
 {
     string IEffectTag.Tag => Tag;
 
+    [AssetsOnly]
     public GameObject AudioSourcePrefab;
     public string Tag;
     public bool AttachToParent = true;

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class AudioEffectorProperty : IEffectorProperty
 {
+    [AssetsOnly]
     public GameObject AudioSourcePrefab;
     public InclusionType Inclusion = InclusionType.Include;
     [LabelText("@Inclusion == InclusionType.Include ? \"Include Tags\" : \"Exclude Tags\""), Indent]
@@ -77,7 +78,11 @@ public class AudioEffectorProperty : IEffectorProperty
         {
             await audioSource.PlayAsync(Playlist, cancellationToken);
         }
-        catch { }
+        catch 
+        {
+            if (!audioSource)
+                return;
+        }
 
         audioSource.loop = defaultLoop;
 

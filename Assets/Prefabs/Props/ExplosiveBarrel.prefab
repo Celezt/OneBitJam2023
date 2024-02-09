@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed525f8c75f03164982f94d0d5d39752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSourcePrefab: {fileID: 1258299363896563263, guid: 897055274f0d4634bbfe6a1bb527f54b,
+  _audioSourcePrefab: {fileID: 6143560887131404256, guid: e79599377c2669846971657212b46e1e,
     type: 3}
   _attachToParent: 0
   _customDuration: 0
@@ -138,6 +138,12 @@ PrefabInstance:
       propertyPath: _properties.Array.data[0]
       value: 5080271548059746714
       objectReference: {fileID: 0}
+    - target: {fileID: 631966308425186324, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: managedReferences[5080271548059746714].AudioSourcePrefab
+      value: 
+      objectReference: {fileID: 6143560887131404256, guid: e79599377c2669846971657212b46e1e,
+        type: 3}
     - target: {fileID: 4935553854410615076, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}
       propertyPath: m_LocalPosition.x

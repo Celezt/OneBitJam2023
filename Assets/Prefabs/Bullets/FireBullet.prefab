@@ -275,7 +275,7 @@ MonoBehaviour:
     - rid: 4988305486826700969
       type: {class: AudioEffect, ns: , asm: Assembly-CSharp}
       data:
-        AudioSourcePrefab: {fileID: 1258299363896563263, guid: fcd31003e3a66ef43b47f1e3f20a1bfb,
+        AudioSourcePrefab: {fileID: 2349320494587883774, guid: 2b54671a1b238f64e867e560fad15e94,
           type: 3}
         Tag: fire
         AttachToParent: 1

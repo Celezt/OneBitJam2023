@@ -13,6 +13,7 @@ public class ParticleEffect : IEffectAsync, IEffectValid, IEffectTag
 {
     string IEffectTag.Tag => Tag;
 
+    [AssetsOnly]
     public GameObject ParticlePrefab;
     public string Tag;
     [MinValue(0)]

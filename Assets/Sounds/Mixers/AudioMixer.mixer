@@ -67,7 +67,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Impact
+  m_Name: Collision
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 091a85e9e82b0e44e983019458bcf522
   m_Children: []

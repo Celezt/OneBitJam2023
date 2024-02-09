@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7157347354630645340
+--- !u!1001 &2737836267955416012
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -15,10 +15,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773659119021547833, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -2907351262028891079, guid: dce18ece4b9cb864b893716d313daa7a,
-        type: 2}
+      propertyPath: m_Volume
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3459001229349176119, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,86 +71,10 @@ PrefabInstance:
     - target: {fileID: 5706760447121088562, guid: 842bcbf1a82f8a446818596a20e3b38b,
         type: 3}
       propertyPath: m_Name
-      value: CollisionAudio
+      value: HitAudio
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5706760447121088562, guid: 842bcbf1a82f8a446818596a20e3b38b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2510812654152276009}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 842bcbf1a82f8a446818596a20e3b38b, type: 3}
---- !u!1 &3199382142260971118 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5706760447121088562, guid: 842bcbf1a82f8a446818596a20e3b38b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7157347354630645340}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2510812654152276009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3199382142260971118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a31e40299b2caf4bbf187a5689abdc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioSource: {fileID: 8919745118366205797}
-  _target: {fileID: 0}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1023
-  _scaleOfSpeed: 1
-  _maxSpeed: 6
-  _ignoreColliders: []
-  _playlist:
-    _clips: []
-    _picker:
-      rid: 4988305353705259865
-    _resetter:
-      rid: 4988305353705259808
-  references:
-    version: 2
-    RefIds:
-    - rid: 4988305353705259808
-      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 4988305353705259865
-      type: {class: AudioPickerShuffle, ns: , asm: Assembly-CSharp}
-      data:
-        Distribution: 0
-        WeightDistribution:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
---- !u!82 &8919745118366205797 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1773659119021547833, guid: 842bcbf1a82f8a446818596a20e3b38b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7157347354630645340}
-  m_PrefabAsset: {fileID: 0}
