@@ -86,14 +86,14 @@ public class Bullet : MonoBehaviour, IEntity
             IgnoreCollision(ignoreColliders[i]);
     }
 
-    public void Shoot(Vector3 position, Quaternion rotation, Firearm weapon)
+    public void Shoot(Vector3 position, Quaternion rotation, Firearm firearm)
     {
         Rigidbody.position = position;
         Rigidbody.rotation = rotation;
         Rigidbody.velocity = Vector3.zero;
 
-        if (weapon.MoveVelocity != default)
-            Rigidbody.AddForce(weapon.MoveVelocity, ForceMode.VelocityChange);
+        if (firearm.MoveVelocity != default)
+            Rigidbody.AddForce(firearm.MoveVelocity, ForceMode.VelocityChange);
 
         CTSUtility.Reset(ref _cancellationTokenSource);
 
@@ -102,7 +102,7 @@ public class Bullet : MonoBehaviour, IEntity
         if (_trajectory is ITrajectoryAsync trajectoryAsync)
             trajectoryAsync.UpdateAsync(Rigidbody, _cancellationTokenSource.Token).Forget();
 
-        _lifeTime.UpdateAsync(_cancellationTokenSource.Token, this, weapon);
+        _lifeTime.UpdateAsync(_cancellationTokenSource.Token, this, firearm);
 
         _onShootEvent.Invoke();
     }
