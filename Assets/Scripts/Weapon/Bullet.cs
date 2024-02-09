@@ -86,7 +86,7 @@ public class Bullet : MonoBehaviour, IEntity
             IgnoreCollision(ignoreColliders[i]);
     }
 
-    public void Shoot(Vector3 position, Quaternion rotation, Weapon weapon)
+    public void Shoot(Vector3 position, Quaternion rotation, Firearm weapon)
     {
         Rigidbody.position = position;
         Rigidbody.rotation = rotation;

@@ -9,7 +9,9 @@ public static class AudioSourceExtensions
 {
     private readonly static Dictionary<AudioSource, float> _defaultVolumes = new();
 
-    public static UniTask PlayAsync(this AudioSource source, Playlist playlist, CancellationToken cancellationToken = default, PlayerLoopTiming timing = PlayerLoopTiming.Update, float volumeScale = 1)
+    public static UniTask PlayAsync(this AudioSource source, Playlist playlist, 
+        CancellationToken cancellationToken = default, PlayerLoopTiming timing = PlayerLoopTiming.Update, 
+        float volumeScale = 1, int frameOffset = 0)
     {
         var clip = playlist.Get();
 
@@ -18,9 +20,13 @@ public static class AudioSourceExtensions
 
         clip.Play(source, volumeScale);
 
+        float length = source.clip.length;
         bool WaitUntil()
         {
             if (source.clip != clip.AudioClip)
+                return true;
+
+            if (source.time >= length - Time.deltaTime * frameOffset)
                 return true;
 
             if (!source.isPlaying)

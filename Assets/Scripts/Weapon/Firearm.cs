@@ -6,10 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 
 [HideMonoScript]
-public class Weapon : MonoBehaviour, IDetonator
+public class Firearm : MonoBehaviour, IDetonator
 {
     public GameObject BulletPrefab
     {
@@ -52,9 +53,7 @@ public class Weapon : MonoBehaviour, IDetonator
 
     public event Action<GameObject> OnBulletChangeCallback = delegate { };
 
-    [SerializeField]
-    private AudioSource _audioSource;
-    [SerializeField, AssetsOnly, Space(8)]
+    [SerializeField, AssetsOnly]
     private GameObject _bulletPrefab;
     [SerializeField, Indent, MinValue(0)]
     private int _maxBulletCapacity = 100;
@@ -82,8 +81,13 @@ public class Weapon : MonoBehaviour, IDetonator
     private bool _isAutomatic;
 
     [SerializeField, Space(8)]
-    private Playlist _shootingPlaylist;
+    private UnityEvent _onTriggerEvent;
+    [SerializeField]
+    private UnityEvent _onBeginUseEvent;
+    [SerializeField]
+    private UnityEvent _onEndUseEvent;
 
+    private bool _isUsed;
     private WeaponHandler _handler;
     private ObjectPool<Bullet> _bulletPool;
     private CancellationTokenSource _detonationCancellationTokenSource;
@@ -106,25 +110,32 @@ public class Weapon : MonoBehaviour, IDetonator
             _ => transform.rotation,
         } * _rotation);
 
-
         Bullet bullet = _bulletPool.Get();
         bullet.transform.position = position;
         bullet.Pool = _bulletPool;
 
         bullet.Shoot(position, rotation, this);
 
-        if (_audioSource != null)
-            _audioSource.PlayOneShot(_shootingPlaylist);
+        _onTriggerEvent.Invoke();
     }
 
     public void Use()
     {
+        if (!Handler)
+            return;
+
         _detonation.Initialize(this);
 
         if (_detonation is IDetonationAsync detonationAsync)
         {
             CTSUtility.Reset(ref _detonationCancellationTokenSource);
             detonationAsync.UpdateAsync(this, _detonationCancellationTokenSource.Token).Forget();
+        }
+
+        if (!_isUsed)
+        {
+            _isUsed = true;
+            _onBeginUseEvent.Invoke();
         }
     }
 
@@ -136,6 +147,15 @@ public class Weapon : MonoBehaviour, IDetonator
 
             if (_handler != null)
                 _bulletPool = CreateBulletPool(_handler.IgnoreColliders, _handler.TeamTag);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isUsed && ((Handler && !Handler.IsUsed) || !Handler))
+        {
+            _isUsed = false;
+            _onEndUseEvent.Invoke();
         }
     }
 

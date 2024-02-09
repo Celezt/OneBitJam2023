@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7645595366806070174
+--- !u!1 &504550196703412497
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6071704425967872664}
-  - component: {fileID: 8064409660111571029}
-  m_Layer: 8
+  - component: {fileID: 2410861553996095938}
+  - component: {fileID: 7186369750522399897}
+  - component: {fileID: 410610039588531618}
+  m_Layer: 0
   m_Name: ShootAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6071704425967872664
+--- !u!4 &2410861553996095938
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7645595366806070174}
+  m_GameObject: {fileID: 504550196703412497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.738, z: 0.191}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5715014680638973355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &8064409660111571029
+--- !u!82 &7186369750522399897
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7645595366806070174}
+  m_GameObject: {fileID: 504550196703412497}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -214941414172602671, guid: dce18ece4b9cb864b893716d313daa7a,
@@ -129,6 +130,40 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &410610039588531618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504550196703412497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e84b3a5abe4e8543bb774ff4762e4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 7186369750522399897}
+  _playlist:
+    _clips:
+    - AudioClip: {fileID: 8300000, guid: 99cd3f2588c6991418ad27874de45b72, type: 3}
+      VolumeScale: 1
+      Settings:
+        rid: -2
+    _picker:
+      rid: 5080271688327758844
+    _resetter:
+      rid: 5080271688327758845
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5080271688327758844
+      type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5080271688327758845
+      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1001 &4400668335115860617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,7 +332,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1df3722bc99616d4f9af01ddef334bb1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6071704425967872664}
+      addedObject: {fileID: 2410861553996095938}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1df3722bc99616d4f9af01ddef334bb1,
         type: 3}
       insertIndex: -1
@@ -383,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1857ac0813b20e478123b000ea39c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 8064409660111571029}
+  _audioSource: {fileID: 0}
   _bulletPrefab: {fileID: 1661048253651800018, guid: ccf65636aaa3de744a2bfffe7f911cde,
     type: 3}
   _maxBulletCapacity: 100
@@ -398,32 +433,32 @@ MonoBehaviour:
   _useMoveVelocity: 1
   _moveVelocityScale: 0.8
   _isAutomatic: 0
-  _shootingPlaylist:
-    _clips:
-    - AudioClip: {fileID: 8300000, guid: 99cd3f2588c6991418ad27874de45b72, type: 3}
-      VolumeScale: 1
-      Settings:
-        rid: -2
-    _picker:
-      rid: 1001
-    _resetter:
-      rid: 1002
+  _onTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 410610039588531618}
+        m_TargetAssemblyTypeName: PlaylistBehaviour, Assembly-CSharp
+        m_MethodName: PlayOneShot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1000
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
         Spread: 8
         Scale: {x: 0, y: 1, z: 0}
-    - rid: 1001
-      type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 1002
-      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
-      data: 
     - rid: 4988305331493536590
       type: {class: InstantDetonation, ns: , asm: Assembly-CSharp}
       data:

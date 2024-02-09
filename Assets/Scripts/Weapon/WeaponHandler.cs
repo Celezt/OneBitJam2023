@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 [HideMonoScript]
 public class WeaponHandler : MonoBehaviour
 {
-    public Weapon Weapon
+    public Firearm Weapon
     {
         get => _weapon;
         set 
@@ -31,7 +31,7 @@ public class WeaponHandler : MonoBehaviour
     public IReadOnlyList<Collider> IgnoreColliders => _ignoreColliders;
     public Rigidbody MoveRigidbody => _moveRigidbody;
     public string TeamTag => _teamTag;
-    public float DurationUsed => Time.time - _onUseTime;
+    public float DurationUsed => IsUsed ? Time.time - _onUseTime : 0;
     public bool IsUsed
     {
         get => _isUsing;
@@ -41,7 +41,7 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField]
     private string _teamTag;
     [SerializeField]
-    private Weapon _weapon;
+    private Firearm _weapon;
     [SerializeField]
     private Rigidbody _moveRigidbody;
 

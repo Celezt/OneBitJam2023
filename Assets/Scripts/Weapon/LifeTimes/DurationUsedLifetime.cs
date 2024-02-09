@@ -13,7 +13,7 @@ public class DurationUsedLifetime : ILifetime
     [Space(8)]
     public UnityEvent<float> OnLifeTimeByDurationUsedEvent;
 
-    public async UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Weapon weapon)
+    public async UniTask UpdateAsync(CancellationToken cancellationToken, IEntity entity, Firearm weapon)
     {
         float duration = LifeTimeByDurationUsedCurve.Evaluate(weapon.Handler.DurationUsed);
 

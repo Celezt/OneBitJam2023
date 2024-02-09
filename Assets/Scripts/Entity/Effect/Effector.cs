@@ -50,9 +50,8 @@ public class Effector : MonoBehaviour, IEffector
                         if (index > -1)
                         {
                             _effects.RemoveAt(index);
+                            _cancellationTokenSources[index].Dispose();
                             _cancellationTokenSources.RemoveAt(index);
-
-                            CTSUtility.Clear(ref cancellationTokenSource);
                         }
                     });
         }

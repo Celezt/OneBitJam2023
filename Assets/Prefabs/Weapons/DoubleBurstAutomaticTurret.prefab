@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7605860045883593781}
   - component: {fileID: 5161845984408058250}
+  - component: {fileID: 4672415601885301302}
   m_Layer: 0
   m_Name: ShootAudio
   m_TagString: Untagged
@@ -129,6 +130,40 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4672415601885301302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7414540661083409772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e84b3a5abe4e8543bb774ff4762e4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 5161845984408058250}
+  _playlist:
+    _clips:
+    - AudioClip: {fileID: 8300000, guid: 99cd3f2588c6991418ad27874de45b72, type: 3}
+      VolumeScale: 1
+      Settings:
+        rid: -2
+    _picker:
+      rid: 5080271688327758844
+    _resetter:
+      rid: 5080271688327758845
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5080271688327758844
+      type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5080271688327758845
+      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1001 &3002582073595304824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,32 +282,32 @@ MonoBehaviour:
   _useMoveVelocity: 1
   _moveVelocityScale: 0.9
   _isAutomatic: 1
-  _shootingPlaylist:
-    _clips:
-    - AudioClip: {fileID: 8300000, guid: 99cd3f2588c6991418ad27874de45b72, type: 3}
-      VolumeScale: 1
-      Settings:
-        rid: -2
-    _picker:
-      rid: 1001
-    _resetter:
-      rid: 1002
+  _onTriggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4672415601885301302}
+        m_TargetAssemblyTypeName: PlaylistBehaviour, Assembly-CSharp
+        m_MethodName: PlayOneShot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1000
       type: {class: RandomSpread, ns: , asm: Assembly-CSharp}
       data:
         Spread: 4
         Scale: {x: 0, y: 1, z: 0}
-    - rid: 1001
-      type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 1002
-      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
-      data: 
     - rid: 4988305304911610554
       type: {class: BurstDetonation, ns: , asm: Assembly-CSharp}
       data:
