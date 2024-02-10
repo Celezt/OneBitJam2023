@@ -1,17 +1,19 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 [HideMonoScript]
-public class Ragdoll : MonoBehaviour
+public class RagdollDetach : MonoBehaviour, IRagdoll
 {
     public bool IsRagdoll => _isRagdoll;
     public bool TeleportOnDeactivate
     {
         get => _teleportOnDeactivate;
         set => _teleportOnDeactivate = value;
+
     }
 
     [SerializeField]
@@ -19,7 +21,7 @@ public class Ragdoll : MonoBehaviour
     [SerializeField]
     private bool _activateOnStart = false;
 
-    [SerializeField]
+    [SerializeField, Space(4)]
     private bool _resetTransformOnDeactivate = true;
     [SerializeField]
     private bool _teleportOnDeactivate = false;
@@ -29,20 +31,21 @@ public class Ragdoll : MonoBehaviour
     [SerializeField, PropertySpace(SpaceBefore = 4)]
     private Rigidbody _actorRigidbody;
 
-    [SerializeField, PropertySpace(SpaceBefore = 8), DrawWithUnity, DisableInPlayMode]
+    [SerializeField, Space(8), DisableInPlayMode]
+    private SkinnedMeshRenderer[] _shinnedMeshes;
+    [SerializeField, PropertySpace(8, 4), DisableInPlayMode]
     private Rigidbody[] _ragdollRigidbodies;
 
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
+    [FoldoutGroup("Events"), SerializeField]
     private UnityEvent _onRagdollActivateEvent;
-    [SerializeField]
+    [FoldoutGroup("Events"), SerializeField]
     private UnityEvent _onRagdollDeactivateEvent;
 
-    private Vector3[] _initialPositions;
-    private Quaternion[] _initialRotation;
-    private List<Joint> _joints = new();
     private bool _isRagdoll;
     private bool _isInitialized;
     private CachedPush? _cachedPush;
+    private Vector3[] _initialPositions;
+    private Quaternion[] _initialRotation;
 
     private struct CachedPush
     {
@@ -83,21 +86,25 @@ public class Ragdoll : MonoBehaviour
 
         _isRagdoll = true;
 
+        foreach (var skinnedMeshRenderer in _shinnedMeshes)
+        {
+            skinnedMeshRenderer.enabled = false;
+        }
+
         foreach (var rigidbody in _ragdollRigidbodies)
         {
             rigidbody.detectCollisions = true;
-            rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.velocity = Vector3.zero;
+
+            if (rigidbody.TryGetComponent<Renderer>(out var renderer))
+                renderer.enabled = true;
         }
 
-        foreach (var joint in _joints)
+        if (_actorRigidbody)
         {
-            joint.enableCollision = true;
+            _actorRigidbody.detectCollisions = false;
+            _actorRigidbody.isKinematic = true;
         }
-
-        _actorRigidbody.detectCollisions = false;
-        _actorRigidbody.isKinematic = true;
 
         if (_animator)
             _animator.enabled = false;
@@ -120,19 +127,20 @@ public class Ragdoll : MonoBehaviour
 
         _isRagdoll = false;
 
-        if (_isInitialized && _teleportOnDeactivate && _copyTransformOnTeleport)
+        if (_actorRigidbody)
         {
-            _actorRigidbody.position = _copyTransformOnTeleport.position;
-            _actorRigidbody.rotation.SetLookRotation(_copyTransformOnTeleport.forward._y_().normalized);
+            if (_isInitialized && _teleportOnDeactivate && _copyTransformOnTeleport)
+            {
+                _actorRigidbody.position = _copyTransformOnTeleport.position;
+                _actorRigidbody.rotation.SetLookRotation(_copyTransformOnTeleport.forward._y_().normalized);
+            }
+
+            _actorRigidbody.detectCollisions = true;
+            _actorRigidbody.isKinematic = false;
         }
 
-        _actorRigidbody.detectCollisions = true;
-        _actorRigidbody.isKinematic = false;
-
-        foreach (var joint in _joints)
-        {
-            joint.enableCollision = false;
-        }
+        foreach (var skinnedMeshRenderer in _shinnedMeshes)
+            skinnedMeshRenderer.enabled = true;
 
         for (int i = 0; i < _ragdollRigidbodies.Length; i++)
         {
@@ -145,8 +153,10 @@ public class Ragdoll : MonoBehaviour
             }
 
             rigidbody.detectCollisions = false;
-            rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
+
+            if (rigidbody.TryGetComponent<Renderer>(out var renderer))
+                renderer.enabled = false;
         }
 
         if (_animator)
@@ -164,9 +174,6 @@ public class Ragdoll : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             var rigidbody = _ragdollRigidbodies[i];
-            var joint = rigidbody.GetComponent<Joint>();
-            if (joint != null)
-                _joints.Add(joint);
 
             _initialPositions[i] = rigidbody.position;
             _initialRotation[i] = rigidbody.rotation;
@@ -184,10 +191,7 @@ public class Ragdoll : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private const string ACTIVATE_RAGDOLL = "Activate Ragdoll";
-    private const string DEACTIVATE_RAGDOLL = "Deactivate Ragdoll";
-
-    [Button("@_isRagdoll ? DEACTIVATE_RAGDOLL : ACTIVATE_RAGDOLL"), PropertyOrder(-1), HideInEditorMode]
+    [Button("@_isRagdoll ? \"Deactivate Ragdoll\" : \"Activate Ragdoll\""), PropertyOrder(-1), HideInEditorMode]
     private void SwitchState()
     {
         if (!_isRagdoll)
