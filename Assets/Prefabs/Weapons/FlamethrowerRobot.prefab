@@ -306,7 +306,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7dfec7e745428d742911ca95a1073606,
         type: 3}
       propertyPath: m_Name
-      value: FlamethrowerTurret
+      value: FlamethrowerRobot
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7dfec7e745428d742911ca95a1073606,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -320,6 +325,14 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1931912106834451699}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dfec7e745428d742911ca95a1073606,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5963729617616487260}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dfec7e745428d742911ca95a1073606,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1881644586037316083}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dfec7e745428d742911ca95a1073606,
         type: 3}
       insertIndex: -1
@@ -337,6 +350,55 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7362755178021311978}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &5963729617616487260
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704721091061475515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1225708136648297533, guid: 7dfec7e745428d742911ca95a1073606, type: 3}
+--- !u!54 &1881644586037316083
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704721091061475515}
+  serializedVersion: 4
+  m_Mass: 18
+  m_Drag: 0.1
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &20210477933865244
 MonoBehaviour:
   m_ObjectHideFlags: 0

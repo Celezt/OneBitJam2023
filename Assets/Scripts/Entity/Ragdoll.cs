@@ -30,7 +30,7 @@ public class Ragdoll : MonoBehaviour, IRagdoll
     private Rigidbody _actorRigidbody;
 
     [SerializeField, PropertySpace(SpaceBefore = 8), DisableInPlayMode]
-    private Rigidbody[] _ragdollRigidbodies;
+    private List<Rigidbody> _ragdollRigidbodies;
 
     [FoldoutGroup("Events"), SerializeField, PropertySpace(SpaceBefore = 8)]
     private UnityEvent _onRagdollActivateEvent;
@@ -68,7 +68,7 @@ public class Ragdoll : MonoBehaviour, IRagdoll
         }
         else
         {
-            for (int i = 0; i < _ragdollRigidbodies.Length; i++)
+            for (int i = 0; i < _ragdollRigidbodies.Count; i++)
             {
                 var rigidbody = _ragdollRigidbodies[i];
                 rigidbody.AddExplosionForce(force, position, radius, upwardsModifier, ForceMode.Impulse);
@@ -138,7 +138,7 @@ public class Ragdoll : MonoBehaviour, IRagdoll
             joint.enableCollision = false;
         }
 
-        for (int i = 0; i < _ragdollRigidbodies.Length; i++)
+        for (int i = 0; i < _ragdollRigidbodies.Count; i++)
         {
             var rigidbody = _ragdollRigidbodies[i];
             if (_resetTransformOnDeactivate)
@@ -160,7 +160,7 @@ public class Ragdoll : MonoBehaviour, IRagdoll
 
     private void Awake()
     {
-        int length = _ragdollRigidbodies.Length;
+        int length = _ragdollRigidbodies.Count;
         _initialPositions = new Vector3[length];
         _initialRotation = new Quaternion[length];
 
