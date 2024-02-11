@@ -12,6 +12,7 @@ public class HealthDurationChangeEffect : IEffectAsync, IEffectTag, IEffectValid
 
     public string Tag;
     public float ValueChange = -1;
+    [Unit(Units.Second)]
     public float Duration = 5;
     [Indent]
     public int Cycles = 5;

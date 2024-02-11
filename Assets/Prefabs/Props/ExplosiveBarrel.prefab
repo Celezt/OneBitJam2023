@@ -351,6 +351,7 @@ MonoBehaviour:
   _shape: 0
   _radius: 4
   _size: {x: 1, y: 1, z: 1}
+  _delay: 0.25
   _ignoreColliders:
   - {fileID: 2800961566195224229}
   - {fileID: 3103003939234539393}

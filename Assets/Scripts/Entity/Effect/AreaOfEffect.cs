@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,11 +25,13 @@ public class AreaOfEffect : MonoBehaviour
     [SerializeField, Indent, ShowIf(nameof(_shape), ColliderShape.Box)]
     private Vector3 _size = Vector3.one * 4;
 
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
+    [SerializeField, Space(8), Unit(Units.Second)]
+    private float _delay;
+
+    [SerializeField, Space(8)]
     private List<Collider> _ignoreColliders;
 
-
-    [SerializeReference, PropertySpace(SpaceBefore = 8)]
+    [SerializeReference, Space(8)]
     private List<IEffect> _effects;
 
     public enum ColliderShape
@@ -39,37 +42,51 @@ public class AreaOfEffect : MonoBehaviour
 
     public void Invoke()
     {
-        Vector3 worldOffset = transform.TransformDirection(_offset);
-        Vector3 position = transform.position;
-
-        switch (_shape)
+        if (_delay > 0)
         {
-            case ColliderShape.Sphere:
-                _count = Physics.OverlapSphereNonAlloc(position + worldOffset, _radius, _collider, _layerMask);
-                break;
-            case ColliderShape.Box:
-                _count = Physics.OverlapBoxNonAlloc(position + worldOffset, _size, _collider, Quaternion.identity, _layerMask);
-                break;
-        }
-
-        for (int i = 0; i < _count; i++)
-        {
-            Collider collider = _collider[i];
-
-            if (_ignoreColliders.Contains(collider))
-                continue;
-
-            if (_collider[i].TryGetComponentInParent(out IEffector effector)) // If effector exist on the object.
+            UniTask.Void(async () =>
             {
-                if (_effectors.Contains(effector))
+                await UniTask.WaitForSeconds(_delay, cancellationToken: destroyCancellationToken);
+                OnAddEffects();
+            });
+        }
+        else
+            OnAddEffects();
+
+        void OnAddEffects()
+        {
+            Vector3 worldOffset = transform.TransformDirection(_offset);
+            Vector3 position = transform.position;
+
+            switch (_shape)
+            {
+                case ColliderShape.Sphere:
+                    _count = Physics.OverlapSphereNonAlloc(position + worldOffset, _radius, _collider, _layerMask);
+                    break;
+                case ColliderShape.Box:
+                    _count = Physics.OverlapBoxNonAlloc(position + worldOffset, _size, _collider, Quaternion.identity, _layerMask);
+                    break;
+            }
+
+            for (int i = 0; i < _count; i++)
+            {
+                Collider collider = _collider[i];
+
+                if (_ignoreColliders.Contains(collider))
                     continue;
 
-                effector.AddEffects(_effects, gameObject);
-                _effectors.Add(effector);
-            }
-        }
+                if (_collider[i].TryGetComponentInParent(out IEffector effector)) // If effector exist on the object.
+                {
+                    if (_effectors.Contains(effector))
+                        continue;
 
-        _effectors.Clear();
+                    effector.AddEffects(_effects, gameObject);
+                    _effectors.Add(effector);
+                }
+            }
+
+            _effectors.Clear();
+        }
     }
 
 #if UNITY_EDITOR
