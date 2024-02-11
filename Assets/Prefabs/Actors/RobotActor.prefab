@@ -1,5 +1,79 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &358548999518683511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8328202881748827639}
+  - component: {fileID: 7670745339693635163}
+  m_Layer: 0
+  m_Name: ExplosionForce
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8328202881748827639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358548999518683511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7862645622280457619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7670745339693635163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358548999518683511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9b3cbb6d8623447a8004d6c75e7144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0, z: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 321
+  _shape: 0
+  _radius: 3
+  _size: {x: 1, y: 1, z: 1}
+  _ignoreColliders:
+  - {fileID: 3398953139039776987}
+  _effects:
+  - rid: 5080271613525492217
+  - rid: 5080271622828458096
+  _showCollider: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 5080271613525492217
+      type: {class: PushEffect, ns: , asm: Assembly-CSharp}
+      data:
+        Force: 200
+        RagdollMultiplier: 0.8
+        Radius: 3
+        UpwardsModifier: 1
+        Mode: 0
+        Distance: 2
+    - rid: 5080271622828458096
+      type: {class: HealthChangeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        Tag: explosive
+        ValueChange: -40
 --- !u!1 &563129934460213568
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,6 +131,40 @@ MonoBehaviour:
     Gravity: {x: 0, y: 0, z: 0}
     Damping: 0.4
     MotionDecay: 0.1
+--- !u!1 &2983677504926691203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7862645622280457619}
+  m_Layer: 0
+  m_Name: OnDestroy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7862645622280457619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983677504926691203}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5149, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6174049265094694993}
+  - {fileID: 568025157311471161}
+  - {fileID: 8328202881748827639}
+  m_Father: {fileID: 990641494243786660}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3269419878427751701
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +719,77 @@ MonoBehaviour:
       x: 0
       y: 1
       z: 0
+--- !u!1 &8367231762237581298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6174049265094694993}
+  - component: {fileID: 5811274725717278851}
+  m_Layer: 6
+  m_Name: ExplosionAudioPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6174049265094694993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367231762237581298}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7862645622280457619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5811274725717278851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367231762237581298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed525f8c75f03164982f94d0d5d39752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourcePrefab: {fileID: 6143560887131404256, guid: e79599377c2669846971657212b46e1e,
+    type: 3}
+  _attachToParent: 0
+  _customDuration: 0
+  _duration: 5
+  _fadeDuration: 0.5
+  _playlist:
+    _clips:
+    - AudioClip: {fileID: 8300000, guid: fa7917dd2f134fb40a85462b03006c65, type: 3}
+      VolumeScale: 1
+      Settings:
+        rid: -2
+    _picker:
+      rid: 5080271624487305360
+    _resetter:
+      rid: 5080271624487305361
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5080271624487305360
+      type: {class: AudioPickerSequence, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5080271624487305361
+      type: {class: AudioResetterDefault, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1 &8375799505411775391
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +843,55 @@ MonoBehaviour:
     m_PositionWeight: 0
     m_RotationWeight: 1
     m_Space: 0
+--- !u!1 &8544275348616231483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568025157311471161}
+  - component: {fileID: 1269846516479013575}
+  m_Layer: 6
+  m_Name: ExplosionParticlePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568025157311471161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544275348616231483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7862645622280457619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269846516479013575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544275348616231483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb4817e1907c944ea0d9513c62d7384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystemPrefab: {fileID: 7682935117776343991, guid: cabfd104af978764393c4ca0b6a148d4,
+    type: 3}
+  _attachToParent: 0
+  _customDuration: 0
+  _duration: 5
 --- !u!1001 &2546688288959774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2394,6 +2622,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 4
       addedObject: {fileID: 6126418553874358910}
+    - targetCorrespondingSourceObject: {fileID: 2503294214430787396, guid: 964af80d2ebaa8448a8c787ec8465660,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7862645622280457619}
     - targetCorrespondingSourceObject: {fileID: 1267969872020460125, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: -1
@@ -2451,6 +2683,12 @@ MonoBehaviour:
 --- !u!1 &2062308568053587323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3719059962569008539, guid: 964af80d2ebaa8448a8c787ec8465660,
+    type: 3}
+  m_PrefabInstance: {fileID: 3387282941726537952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &3398953139039776987 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 11692466830018619, guid: 964af80d2ebaa8448a8c787ec8465660,
     type: 3}
   m_PrefabInstance: {fileID: 3387282941726537952}
   m_PrefabAsset: {fileID: 0}
@@ -2521,6 +2759,42 @@ MonoBehaviour:
       - m_Target: {fileID: 998097587289457544}
         m_TargetAssemblyTypeName: RagdollDetach, Assembly-CSharp
         m_MethodName: OnEnableRagdoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5811274725717278851}
+        m_TargetAssemblyTypeName: AudioPoolBehaviour, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1269846516479013575}
+        m_TargetAssemblyTypeName: ParticlePoolBehaviour, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7670745339693635163}
+        m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
+        m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -142,7 +142,7 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[5080271548059746714].AudioSourcePrefab
       value: 
-      objectReference: {fileID: 6143560887131404256, guid: e79599377c2669846971657212b46e1e,
+      objectReference: {fileID: 7695741300578913278, guid: ee1322bed62f0644fada27cd7133b724,
         type: 3}
     - target: {fileID: 4935553854410615076, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}

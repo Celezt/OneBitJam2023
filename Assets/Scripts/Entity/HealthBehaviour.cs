@@ -35,6 +35,10 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             float oldHealth = _health;
             _health = newHealth;
 
+#if UNITY_EDITOR
+            _oldHealth = oldHealth;
+#endif
+
             if (newHealth != oldHealth)   // If any change has been made.
             {
                 _onHealthChangedEvent.Invoke(newHealth, oldHealth);
@@ -57,6 +61,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     private float _maxHealth = 100;
 #if UNITY_EDITOR
     [ProgressBar(0, nameof(_maxHealth), ColorGetter = nameof(GetHealthBarColor))]
+    [OnValueChanged(nameof(UpdateHealth))]
 #endif
     [SerializeField, Indent]
     private float _health = 100;
@@ -83,6 +88,8 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         => Value = 0;
 
 #if UNITY_EDITOR
+    private float _oldHealth;
+
     private Color GetHealthBarColor(float value)
     {
         return Color.Lerp(Color.red, Color.green, Mathf.Pow(value / MaxValue, 2));
@@ -90,7 +97,27 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
     private void UpdateHealth()
     {
-        Value = _health;
+        float newHealth = Mathf.Clamp(_health, 0, MaxValue);
+        float oldHealth = _oldHealth;
+
+        _oldHealth = _health;
+        _health = newHealth;
+
+        if (Application.isPlaying)
+        {
+            if (newHealth != oldHealth)   // If any change has been made.
+            {
+                _onHealthChangedEvent.Invoke(newHealth, oldHealth);
+
+                if (newHealth == _maxHealth)        // If health has reached full capacity.
+                    _onHealthFullEvent.Invoke();
+                if (newHealth <= 0)  // Die if health has been depleted.
+                    _onDeathEvent.Invoke();
+
+                if (newHealth > 0 && oldHealth <= 0)  // Resurrect if health is restored after being zero.
+                    _onResurrectEvent.Invoke();
+            }
+        }
     }
 #endif
 }
