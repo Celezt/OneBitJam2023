@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,15 @@ public class PowerBehaviour : MonoBehaviour, IPower
         get => _maxPower;
         set
         {
+            float newMaxPower = Mathf.Max(value, 0);
+            float oldMaxPower = _maxPower;
+            _maxPower = newMaxPower;
 
+            if (newMaxPower != oldMaxPower)
+            {
+                _onMaxPowerChangedEvent.Invoke(newMaxPower, oldMaxPower);
+                OnMaxLimitValueChangedCallback(newMaxPower, oldMaxPower);
+            }
         }
     }
 
@@ -22,12 +31,16 @@ public class PowerBehaviour : MonoBehaviour, IPower
         get => _truePower;
         set
         {
-            float newTruePower = Mathf.Max(value, 0);
+            float newTruePower = Mathf.Clamp(value, 0, MaxLimitValue);
             float oldTruePower = _truePower;
             _truePower = newTruePower;
 
             if (newTruePower != oldTruePower) // If any change has been made. 
+            {
                 _onTruePowerChangedEvent.Invoke(newTruePower, oldTruePower);
+                OnMaxValueChangedCallback(newTruePower, oldTruePower);
+            }
+
 
             Value = _power;   // Update if the new true power is less than the current power.
         }
@@ -44,6 +57,7 @@ public class PowerBehaviour : MonoBehaviour, IPower
             if (newPower != oldPower)   // If any change has been made.
             {
                 _onPowerChangedEvent.Invoke(newPower, oldPower);
+                OnValueChangedCallback(newPower, oldPower);
 
                 if (newPower == _truePower)        // If health has reached full capacity.
                     _onPowerFullEvent.Invoke();
@@ -53,8 +67,13 @@ public class PowerBehaviour : MonoBehaviour, IPower
                 if (newPower > 0 && oldPower <= 0)  // Resurrect if health is restored after being zero.
                     _onResurrectEvent.Invoke();
             }
+
         }
     }
+
+    public event Action<float, float> OnValueChangedCallback = delegate { };
+    public event Action<float, float> OnMaxValueChangedCallback = delegate { };
+    public event Action<float, float> OnMaxLimitValueChangedCallback = delegate { };
 
 #if UNITY_EDITOR
     [OnValueChanged(nameof(UpdatePower))]
@@ -98,8 +117,9 @@ public class PowerBehaviour : MonoBehaviour, IPower
         => Value = 0;
 
 #if UNITY_EDITOR
-    private float _oldPower;
+    private float _oldMaxPower;
     private float _oldTruePower;
+    private float _oldPower;
 
     private Color GetHealthBarColor(float value)
     {
@@ -108,6 +128,12 @@ public class PowerBehaviour : MonoBehaviour, IPower
 
     private void UpdatePower()
     {
+        float newMaxPower = Mathf.Max(_maxPower, 0);
+        float oldMaxPower = _maxPower;
+
+        _oldMaxPower = _maxPower;
+        _maxPower = newMaxPower;
+
         float newTruePower = Mathf.Clamp(_truePower, 0, _maxPower);
         float oldTruePower = _oldTruePower;
 
@@ -120,12 +146,22 @@ public class PowerBehaviour : MonoBehaviour, IPower
         _oldPower = _power;
         _power = newPower;
 
+        if (newMaxPower !=  oldMaxPower)
+        {
+            _onMaxPowerChangedEvent.Invoke(newMaxPower, oldMaxPower);
+            OnMaxLimitValueChangedCallback(newMaxPower, oldMaxPower);
+        }
+
         if (newTruePower != oldTruePower) // If any change has been made. 
+        {
             _onTruePowerChangedEvent.Invoke(newTruePower, oldTruePower);
+            OnMaxValueChangedCallback(newTruePower, oldTruePower);
+        }
 
         if (newPower != oldPower)   // If any change has been made.
         {
             _onPowerChangedEvent.Invoke(newPower, oldPower);
+            OnValueChangedCallback(newPower, oldPower);
 
             if (newPower == _truePower)        // If health has reached full capacity.
                 _onPowerFullEvent.Invoke();

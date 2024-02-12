@@ -21,7 +21,10 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             _maxHealth = newMaxHealth;
 
             if (newMaxHealth != oldMaxHealth) // If any change has been made. 
+            {
                 _onMaxHealthChangedEvent.Invoke(newMaxHealth, oldMaxHealth);
+                OnMaxValueChangedCallback(newMaxHealth, oldMaxHealth);
+            }
 
             Value = _health;   // Update if the new max health is less than the current health.
         }
@@ -42,6 +45,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             if (newHealth != oldHealth)   // If any change has been made.
             {
                 _onHealthChangedEvent.Invoke(newHealth, oldHealth);
+                OnValueChangedCallback(newHealth, oldHealth);
 
                 if (newHealth == _maxHealth)        // If health has reached full capacity.
                     _onHealthFullEvent.Invoke();
@@ -53,6 +57,9 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             }
         }
     }
+
+    public event Action<float, float> OnValueChangedCallback = delegate { };
+    public event Action<float, float> OnMaxValueChangedCallback = delegate { };
 
     [SerializeField, MinValue(0)]
 #if UNITY_EDITOR
@@ -89,6 +96,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
 #if UNITY_EDITOR
     private float _oldHealth;
+    private float _oldMaxHealth;
 
     private Color GetHealthBarColor(float value)
     {
@@ -97,26 +105,36 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
     private void UpdateHealth()
     {
+        float newMaxHealth = Mathf.Max(0, _maxHealth);
+        float oldMaxHealth = _oldMaxHealth;
+
+        _oldMaxHealth = _maxHealth;
+        _maxHealth = newMaxHealth;
+
         float newHealth = Mathf.Clamp(_health, 0, MaxValue);
         float oldHealth = _oldHealth;
 
         _oldHealth = _health;
         _health = newHealth;
 
-        if (Application.isPlaying)
+        if (newMaxHealth !=  oldMaxHealth)
         {
-            if (newHealth != oldHealth)   // If any change has been made.
-            {
-                _onHealthChangedEvent.Invoke(newHealth, oldHealth);
+            _onMaxHealthChangedEvent.Invoke(newMaxHealth, oldMaxHealth);
+            OnMaxValueChangedCallback(newMaxHealth, oldMaxHealth);
+        }
 
-                if (newHealth == _maxHealth)        // If health has reached full capacity.
-                    _onHealthFullEvent.Invoke();
-                if (newHealth <= 0)  // Die if health has been depleted.
-                    _onDeathEvent.Invoke();
+        if (newHealth != oldHealth)   // If any change has been made.
+        {
+            _onHealthChangedEvent.Invoke(newHealth, oldHealth);
+            OnValueChangedCallback(newHealth, oldHealth);
 
-                if (newHealth > 0 && oldHealth <= 0)  // Resurrect if health is restored after being zero.
-                    _onResurrectEvent.Invoke();
-            }
+            if (newHealth == _maxHealth)        // If health has reached full capacity.
+                _onHealthFullEvent.Invoke();
+            if (newHealth <= 0)  // Die if health has been depleted.
+                _onDeathEvent.Invoke();
+
+            if (newHealth > 0 && oldHealth <= 0)  // Resurrect if health is restored after being zero.
+                _onResurrectEvent.Invoke();
         }
     }
 #endif

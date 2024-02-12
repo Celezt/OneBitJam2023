@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,4 +6,5 @@ using UnityEngine;
 public interface IValueMax
 {
     public float MaxValue { get; set; }
+    public event Action<float, float> OnMaxValueChangedCallback;
 }
