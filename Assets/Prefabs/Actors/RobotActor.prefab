@@ -51,6 +51,7 @@ MonoBehaviour:
   _shape: 0
   _radius: 3
   _size: {x: 1, y: 1, z: 1}
+  _delay: 0
   _ignoreColliders:
   - {fileID: 3398953139039776987}
   _effects:
@@ -140,6 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862645622280457619}
+  - component: {fileID: 6386218688684165858}
   m_Layer: 0
   m_Name: OnDestroy
   m_TagString: Untagged
@@ -165,6 +167,57 @@ Transform:
   - {fileID: 8328202881748827639}
   m_Father: {fileID: 990641494243786660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6386218688684165858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983677504926691203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3a63073e3d9004d93d42f0fef15eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInvokeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5811274725717278851}
+        m_TargetAssemblyTypeName: AudioPoolBehaviour, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1269846516479013575}
+        m_TargetAssemblyTypeName: ParticlePoolBehaviour, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7670745339693635163}
+        m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3269419878427751701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,7 +2703,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: 5
-      addedObject: {fileID: 7481523761811152806}
+      addedObject: {fileID: 6335072557556507813}
     - targetCorrespondingSourceObject: {fileID: 5168536633431916422, guid: 964af80d2ebaa8448a8c787ec8465660,
         type: 3}
       insertIndex: 6
@@ -2730,7 +2783,7 @@ MonoBehaviour:
   _onExceedingAngleEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7481523761811152806
+--- !u!114 &6335072557556507813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2739,18 +2792,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7545885958149031782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d407fab30067944ba5a5cde6709177, type: 3}
+  m_Script: {fileID: 11500000, guid: 8996dadff5fceb54698e39789b40311e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
-  _onHealthChangedEvent:
+  _maxPower: 100
+  _truePower: 100
+  _power: 100
+  _onPowerChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onMaxHealthChangedEvent:
+  _onTruePowerChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onHealthFullEvent:
+  _onMaxPowerChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPowerFullEvent:
     m_PersistentCalls:
       m_Calls: []
   _onDeathEvent:
@@ -2768,32 +2825,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5811274725717278851}
-        m_TargetAssemblyTypeName: AudioPoolBehaviour, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1269846516479013575}
-        m_TargetAssemblyTypeName: ParticlePoolBehaviour, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7670745339693635163}
-        m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
+      - m_Target: {fileID: 6386218688684165858}
+        m_TargetAssemblyTypeName: EventReceiver, Assembly-CSharp
         m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
@@ -2952,7 +2985,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7481523761811152806}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -3027,7 +3060,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7481523761811152806}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6

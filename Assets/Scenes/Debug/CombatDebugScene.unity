@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 170972166}
   - component: {fileID: 170972168}
   m_Layer: 5
-  m_Name: Power
+  m_Name: Drain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1291,7 +1291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388499429}
   m_Layer: 5
-  m_Name: Powerbar
+  m_Name: PowerBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 651658209}
   - component: {fileID: 651658210}
   m_Layer: 5
-  m_Name: PowerSlider
+  m_Name: DrainSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2169,7 +2169,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.679
+  m_Value: 0.519
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3035,7 +3035,7 @@ GameObject:
   - component: {fileID: 871742814}
   - component: {fileID: 871742813}
   m_Layer: 5
-  m_Name: Drain
+  m_Name: Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4396,7 +4396,7 @@ GameObject:
   - component: {fileID: 1491483621}
   - component: {fileID: 1491483622}
   m_Layer: 5
-  m_Name: DrainSlider
+  m_Name: PowerSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

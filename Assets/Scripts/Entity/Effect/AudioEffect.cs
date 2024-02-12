@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class AudioEffect : IEffectAsync, IEffectValid, IEffectTag
 {
