@@ -83,7 +83,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.84
+  m_Value: 0.849
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 6
+  m_PixelsPerUnitMultiplier: 6.5
 --- !u!114 &7017385386213446976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.688
+  m_Value: 0.66
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -590,6 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4345274366898958394}
   - component: {fileID: 844456437145060206}
+  - component: {fileID: 5498970667074964309}
   m_Layer: 5
   m_Name: PowerBar
   m_TagString: Untagged
@@ -638,6 +639,43 @@ MonoBehaviour:
   _powerSlider: {fileID: 2917062365910665560}
   _minApproximation: 0.09
   _playerIndex: 0
+  _onPowerIncreasedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPowerDecreasedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5498970667074964309}
+        m_TargetAssemblyTypeName: Shake, Assembly-CSharp
+        m_MethodName: OnShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5498970667074964309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808704983447845900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88befc9d358424a458449bd01fabafd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocity: {x: 50, y: 80, z: 0}
+  _maxOffset: {x: 4, y: 4, z: 0}
+  _timeOffset: {x: 0, y: 50, z: 0}
+  _shakeOnEnable: 0
+  _hasDuration: 1
+  _duration: 0.6
+  _blendDuration: 0.25
 --- !u!1 &8067293652473925087
 GameObject:
   m_ObjectHideFlags: 0

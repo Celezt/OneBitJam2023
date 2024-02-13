@@ -18,6 +18,10 @@ public class PowerBehaviour : MonoBehaviour, IPower
             float oldMaxPower = _maxPower;
             _maxPower = newMaxPower;
 
+#if UNITY_EDITOR
+            _oldMaxPower = _maxPower;
+#endif
+
             if (newMaxPower != oldMaxPower)
             {
                 _onMaxPowerChangedEvent.Invoke(newMaxPower, oldMaxPower);
@@ -34,6 +38,10 @@ public class PowerBehaviour : MonoBehaviour, IPower
             float newTruePower = Mathf.Clamp(value, 0, MaxLimitValue);
             float oldTruePower = _truePower;
             _truePower = newTruePower;
+
+#if UNITY_EDITOR
+            _oldTruePower = _truePower;
+#endif
 
             if (newTruePower != oldTruePower) // If any change has been made. 
             {
@@ -53,6 +61,10 @@ public class PowerBehaviour : MonoBehaviour, IPower
             float newPower = Mathf.Clamp(value, 0, MaxValue);
             float oldPower = _power;
             _power = newPower;
+
+#if UNITY_EDITOR
+            _oldPower = _power;
+#endif
 
             if (newPower != oldPower)   // If any change has been made.
             {

@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -17,6 +18,11 @@ public class PowerSlider : MonoBehaviour
 
     [SerializeField, Space(8), MinValue(0)]
     private int _playerIndex;
+
+    [SerializeField]
+    private UnityEvent _onPowerIncreasedEvent;
+    [SerializeField]
+    private UnityEvent _onPowerDecreasedEvent;
 
     private IPower _power;
 
@@ -46,7 +52,7 @@ public class PowerSlider : MonoBehaviour
             UpdateSlider();
             _power.OnMaxLimitValueChangedCallback += OnValueChanged;
             _power.OnMaxValueChangedCallback += OnValueChanged;
-            _power.OnValueChangedCallback += OnValueChanged;
+            _power.OnValueChangedCallback += OnPowerChanged;
         }
     }
 
@@ -56,12 +62,22 @@ public class PowerSlider : MonoBehaviour
         {
             _power.OnMaxLimitValueChangedCallback -= OnValueChanged;
             _power.OnMaxValueChangedCallback -= OnValueChanged;
-            _power.OnValueChangedCallback -= OnValueChanged;
+            _power.OnValueChangedCallback -= OnPowerChanged;
         }
 
         _power = null;
     }
 
-    private void OnValueChanged(float newValue, float oldValue) 
+    private void OnValueChanged(float newValue, float oldValue)
         => UpdateSlider();
+
+    private void OnPowerChanged(float newValue, float oldValue)
+    {
+        UpdateSlider();
+
+        if (newValue > oldValue)
+            _onPowerIncreasedEvent.Invoke();
+        else if (newValue < oldValue)
+            _onPowerDecreasedEvent.Invoke();
+    }
 }

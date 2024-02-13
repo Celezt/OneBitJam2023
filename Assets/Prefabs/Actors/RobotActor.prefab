@@ -2867,8 +2867,8 @@ MonoBehaviour:
   _animator: {fileID: 2139542124122022816}
   _activateOnStart: 0
   _resetTransformOnDeactivate: 1
-  _teleportOnDeactivate: 1
-  _copyTransformOnTeleport: {fileID: 7600525800872160189}
+  _teleportOnDeactivate: 0
+  _copyTransformOnTeleport: {fileID: 0}
   _actorRigidbody: {fileID: 8308464577660086550}
   _shinnedMeshes:
   - {fileID: 4282472726082267447}
@@ -4260,12 +4260,6 @@ MonoBehaviour:
   _moveRigidbody: {fileID: 8308464577660086550}
   _ignoreColliders:
   - {fileID: 4709114597980444962}
---- !u!4 &7600525800872160189 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6511705460739230324, guid: d8fa9dab0517a394b9adef914c2f476b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5538226394360159793}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8014321082072980269 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2585960226056684828, guid: d8fa9dab0517a394b9adef914c2f476b,

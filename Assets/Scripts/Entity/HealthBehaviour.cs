@@ -20,6 +20,10 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             float oldMaxHealth = _maxHealth;
             _maxHealth = newMaxHealth;
 
+#if UNITY_EDITOR
+            _oldMaxHealth = _maxHealth;
+#endif
+
             if (newMaxHealth != oldMaxHealth) // If any change has been made. 
             {
                 _onMaxHealthChangedEvent.Invoke(newMaxHealth, oldMaxHealth);
@@ -39,7 +43,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
             _health = newHealth;
 
 #if UNITY_EDITOR
-            _oldHealth = oldHealth;
+            _oldHealth = _health;
 #endif
 
             if (newHealth != oldHealth)   // If any change has been made.
