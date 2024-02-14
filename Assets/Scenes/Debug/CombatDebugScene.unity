@@ -5239,6 +5239,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5207652554254871134, guid: d1ff56447130fd44baf6296dcaf28ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207652554254871134, guid: d1ff56447130fd44baf6296dcaf28ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736473515747459226, guid: d1ff56447130fd44baf6296dcaf28ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736473515747459226, guid: d1ff56447130fd44baf6296dcaf28ea3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8914754671878878302, guid: d1ff56447130fd44baf6296dcaf28ea3,
         type: 3}
       propertyPath: m_Pivot.x
