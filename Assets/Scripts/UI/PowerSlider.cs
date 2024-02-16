@@ -11,12 +11,19 @@ using UnityEngine.UI;
 [HideMonoScript]
 public class PowerSlider : MonoBehaviour
 {
-    public int PlayerIndex
+    public IPower Power
     {
-        get => _playerIndex;
-        set => SetPlayerIndex(value);
+        get
+        {
+            if (_power == null && _receiver != null)
+                _power = _receiver.Receive.GetComponentInParent<IPower>();
+
+            return _power;
+        }
     }
 
+    [SerializeField]
+    private Receiver _receiver;
     [SerializeField, DisableInPlayMode]
     private Slider _truePowerSlider;
     [SerializeField, DisableInPlayMode]
@@ -29,41 +36,26 @@ public class PowerSlider : MonoBehaviour
     [SerializeField, ShowIf(nameof(_useLerp)), Indent]
     private float _speed = 4;
 
-    [SerializeField, Space(8), MinValue(0), OnValueChanged(nameof(SetPlayerIndex))]
-    private int _playerIndex;
-
     [SerializeField, Space(8)]
-    private UnityEvent _onPowerIncreasedEvent;
+    private UnityEvent<float> _onPowerIncreasedEvent;
     [SerializeField]
-    private UnityEvent _onPowerDecreasedEvent;
+    private UnityEvent<float> _onPowerDecreasedEvent;
 
     private float _accumulatedTime;
     private IPower _power;
     private CancellationTokenSource _cancellationTokenSource;
 
-    public void SetPlayerIndex(int playerIndex)
-    {
-        _playerIndex = playerIndex;
-        var playerInput = PlayerInput.GetPlayerByIndex(_playerIndex);
-
-        if (playerInput)
-            _power = playerInput.GetComponentInParent<IPower>();
-    }
-
     public void UpdateSliderInstant()
     {
-        if (_power == null || !_truePowerSlider || !_powerSlider)
+        if (Power == null || !_truePowerSlider || !_powerSlider)
             return;
 
-        (float truePowerInterval, float powerInterval) = GetIntervals();
-
-        _truePowerSlider.value = truePowerInterval;
-        _powerSlider.value = powerInterval;
+        (_truePowerSlider.value, _powerSlider.value) = GetIntervals();
     }
 
     public void UpdateSlider()
     {
-        if (_power == null || !_truePowerSlider || !_powerSlider)
+        if (Power == null || !_truePowerSlider || !_powerSlider)
             return;
 
         if (_useLerp)
@@ -106,24 +98,22 @@ public class PowerSlider : MonoBehaviour
 
     private void OnEnable()
     {
-        SetPlayerIndex(_playerIndex);
-
-        if (_power != null)
+        if (Power != null)
         {
             UpdateSliderInstant();
-            _power.OnMaxLimitValueChangedCallback += OnValueChanged;
-            _power.OnMaxValueChangedCallback += OnValueChanged;
-            _power.OnValueChangedCallback += OnPowerChanged;
+            Power.OnMaxLimitValueChangedCallback += OnMaxPowerChanged;
+            Power.OnMaxValueChangedCallback += OnTrueValueChanged;
+            Power.OnValueChangedCallback += OnPowerChanged;
         }
     }
 
     private void OnDisable()
     {
-        if (_power != null)
+        if (Power != null)
         {
-            _power.OnMaxLimitValueChangedCallback -= OnValueChanged;
-            _power.OnMaxValueChangedCallback -= OnValueChanged;
-            _power.OnValueChangedCallback -= OnPowerChanged;
+            Power.OnMaxLimitValueChangedCallback -= OnMaxPowerChanged;
+            Power.OnMaxValueChangedCallback -= OnTrueValueChanged;
+            Power.OnValueChangedCallback -= OnPowerChanged;
         }
 
         _power = null;
@@ -131,24 +121,31 @@ public class PowerSlider : MonoBehaviour
         CTSUtility.Clear(ref _cancellationTokenSource);
     }
 
-    private void OnValueChanged(float newValue, float oldValue)
-        => UpdateSlider();
+    private void OnMaxPowerChanged(float newValue, float oldValue)
+    {
+        UpdateSlider();
+    }
+
+    private void OnTrueValueChanged(float newValue, float oldValue)
+    {
+        UpdateSlider();
+    }
 
     private void OnPowerChanged(float newValue, float oldValue)
     {
         UpdateSlider();
 
         if (newValue > oldValue)
-            _onPowerIncreasedEvent.Invoke();
+            _onPowerIncreasedEvent.Invoke(Power.Value / Power.MaxLimitValue);
         else if (newValue < oldValue)
-            _onPowerDecreasedEvent.Invoke();
+            _onPowerDecreasedEvent.Invoke(Power.Value / Power.MaxLimitValue);
     }
 
     private (float TruePowerInterval, float PowerInterval) GetIntervals()
     {
-        float maxPower = _power.MaxLimitValue;
-        float truePower = _power.MaxValue;
-        float power = _power.Value;
+        float maxPower = Power.MaxLimitValue;
+        float truePower = Power.MaxValue;
+        float power = Power.Value;
 
         float truePowerInterval =
             Mathf.Max(truePower <= float.Epsilon ? 0 : _minApproximation, truePower / maxPower);
