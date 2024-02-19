@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class RectTransformExtensions
 {
+    private static Camera _camera;
+
     public static void GetLocalCorners(this RectTransform rectTransform, Span<Vector3> fourCornersSpan)
     {
         if (fourCornersSpan.Length < 4)
@@ -52,5 +54,33 @@ public static class RectTransformExtensions
             rectTransform.lossyScale.y * rectTransform.rect.size.y);
 
         return new Rect(position, size);
+    }
+
+    /// <see cref="https://forum.unity.com/threads/how-to-get-a-rect-in-screen-space-from-a-recttransform.1490806/#post-9333725"/>
+    public static Rect GetScreenRect(this RectTransform rectTransform)
+    {
+        Span<Vector3> corners = stackalloc Vector3[4];
+        GetWorldCorners(rectTransform, corners);
+
+        if (!_camera)
+            _camera = Camera.current;
+
+        if (!_camera)
+            return new Rect();
+
+        // Convert world space to screen space in pixel values and round to integers.
+        for (int i = 0; i < corners.Length; i++)
+        {
+            corners[i] = _camera.WorldToScreenPoint(corners[i]);
+            corners[i] = new Vector3(Mathf.RoundToInt(corners[i].x), Mathf.RoundToInt(corners[i].y), corners[i].z);
+        }
+
+        // Calculate the screen space rectangle
+        float x = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+        float y = Mathf.Min(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+        float width = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x) - x;
+        float height = Mathf.Max(corners[0].y, corners[1].y, corners[2].y, corners[3].y) - y;
+
+        return new Rect(x, y, width, height);
     }
 }

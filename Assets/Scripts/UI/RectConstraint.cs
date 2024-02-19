@@ -10,8 +10,13 @@ public class RectConstraint : MonoBehaviour
     [SerializeField]
     private RectTransform _constraintRect;
     [SerializeField]
+    private Vector2 _offset;
+    [SerializeField]
     private bool2 _constraintAxis = new bool2(true, true);
 
+    private Vector2 _previousOffset;
+    private Rect _previousWorldConstraintRect;
+    private Rect _previousWorldRect;
     private RectTransform _rectTransform;
 
     private void Start()
@@ -24,12 +29,44 @@ public class RectConstraint : MonoBehaviour
         if (!_constraintRect)
             return;
 
+        Rect worldRect = _rectTransform.GetWorldRect();
+        Rect worldConstraintRect = _constraintRect.GetWorldRect();
+
+#if UNITY_EDITOR
+        bool isDragging = ToolUtility.IsFocusDraggingScene(_rectTransform);
+#endif
+        // No changes has been made.
+        if (worldRect == _previousWorldRect &&
+            worldConstraintRect == _previousWorldConstraintRect
+#if UNITY_EDITOR
+            && !isDragging
+#endif
+            )
+            return;
+
         Vector3 position = _rectTransform.position;
         Vector3 previousPosition = position;
         Vector2 pivot = _rectTransform.pivot;
+        Vector2 anchorMin = _rectTransform.anchorMin;
+        Vector2 anchorMax = _rectTransform.anchorMax;
 
-        Rect worldConstraintRect = _constraintRect.GetWorldRect();
-        Rect worldRect = _rectTransform.GetWorldRect();
+        Vector2 anchor = new Vector2(
+            worldConstraintRect.x + worldConstraintRect.width * (anchorMin.x + anchorMax.x) / 2,
+            worldConstraintRect.y + worldConstraintRect.height * (anchorMin.y + anchorMax.y) / 2);
+
+        if (worldConstraintRect.x != _previousWorldConstraintRect.x ||
+            worldConstraintRect.width != _previousWorldConstraintRect.width ||
+            _offset.x != _previousOffset.x)
+        {
+            position.x = anchor.x + _offset.x;
+        }
+
+        if (worldConstraintRect.y != _previousWorldConstraintRect.y ||
+            worldConstraintRect.height != _previousWorldConstraintRect.height ||
+            _offset.y != _previousOffset.y)
+        {
+            position.y = anchor.y + _offset.y;
+        }
 
         if (_constraintAxis.x)
         {
@@ -52,9 +89,18 @@ public class RectConstraint : MonoBehaviour
             if (previousPosition.y != position.y)
                 position.y += pivot.y * worldRect.height;
         }
+#if UNITY_EDITOR
+        if (isDragging)
+        {
+
+        }
+#endif
 
         if (previousPosition != position)
             _rectTransform.position = position;
-    }
 
+        _previousWorldRect = worldRect;
+        _previousWorldConstraintRect = worldConstraintRect;
+        _previousOffset = _offset;
+    }
 }

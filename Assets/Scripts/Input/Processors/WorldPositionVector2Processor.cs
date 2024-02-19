@@ -16,7 +16,9 @@ namespace UnityEngine.InputSystem
 
         public override Vector2 Process(Vector2 value, InputControl control)
         {
-            _camera ??= Camera.main;
+            if (!_camera)
+                _camera = Camera.main;
+
             Ray ray = _camera.ScreenPointToRay(value);
 
             if (_plane.Raycast(ray, out float enter))
