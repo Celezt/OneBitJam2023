@@ -225,7 +225,6 @@ GameObject:
   - component: {fileID: 3763042638049159654}
   - component: {fileID: 7153108843126998360}
   - component: {fileID: 7932492598026278208}
-  - component: {fileID: 4661806406509878214}
   m_Layer: 5
   m_Name: Power Text
   m_TagString: Untagged
@@ -247,10 +246,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4345274366898958394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -321.89584, y: 1.8503156}
-  m_SizeDelta: {x: 80, y: 40}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -30, y: 0}
+  m_SizeDelta: {x: 60, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3763042638049159654
 CanvasRenderer:
@@ -280,7 +279,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec846a812e0dcc549a251ee438e6a5e1, type: 2}
   m_sharedMaterial: {fileID: -3574581394832182855, guid: ec846a812e0dcc549a251ee438e6a5e1,
@@ -315,7 +314,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -364,24 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textMeshPro: {fileID: 7153108843126998360}
   _beforeText: 
-  _afterText: '%'
---- !u!114 &4661806406509878214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2290063093407386389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7460b38b79b410849b413b951bbb3ec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _constraintRect: {fileID: 1482753415033491249}
-  _offset: {x: -216.24, y: 0}
-  _constraintAxis:
-    x: 1
-    y: 0
+  _afterText: 
 --- !u!1 &3361999926770898553
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +636,6 @@ GameObject:
   - component: {fileID: 3286412375050170602}
   - component: {fileID: 7305530177334830387}
   - component: {fileID: 1976526524980968576}
-  - component: {fileID: 8400310296008384489}
   m_Layer: 5
   m_Name: TruePower Text
   m_TagString: Untagged
@@ -678,8 +659,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200.33197, y: 0}
-  m_SizeDelta: {x: 100.000015, y: 40}
+  m_AnchoredPosition: {x: 74, y: 0}
+  m_SizeDelta: {x: 75, y: 40}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3286412375050170602
 CanvasRenderer:
@@ -709,7 +690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: +100%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec846a812e0dcc549a251ee438e6a5e1, type: 2}
   m_sharedMaterial: {fileID: -3574581394832182855, guid: ec846a812e0dcc549a251ee438e6a5e1,
@@ -744,7 +725,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -794,26 +775,6 @@ MonoBehaviour:
   _textMeshPro: {fileID: 7305530177334830387}
   _beforeText: +
   _afterText: '%'
---- !u!1818360608 &8400310296008384489
-PositionConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4540766348666615176}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: -21.62394, y: 0, z: 0}
-  m_TranslationOffset: {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 3873162186407613267}
-    weight: 1
 --- !u!1 &4612186787921369509
 GameObject:
   m_ObjectHideFlags: 0

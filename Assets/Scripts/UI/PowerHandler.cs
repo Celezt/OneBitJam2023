@@ -35,6 +35,9 @@ public class PowerHandler : MonoBehaviour
     {
         if (Power != null)
         {
+            _onPowerPercentageChangedEvent.Invoke(PowerPercentage);
+            _onTruePowerDifferenceChangedEvent.Invoke(TruePowerDifference);
+
             Power.OnMaxLimitValueChangedCallback += OnValueChanged;
             Power.OnMaxValueChangedCallback += OnValueChanged;
             Power.OnValueChangedCallback += OnValueChanged;
