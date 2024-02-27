@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 1225647116888557018}
   - component: {fileID: 5498970667074964309}
   m_Layer: 5
-  m_Name: PowerBar
+  m_Name: UIPowerBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
