@@ -56,20 +56,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem:UnityEngine.InputSystem:InputActionReference
   m_Asset: {fileID: -1234807753711164764}
   m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
---- !u!114 &-8153845573784247780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/RightAttack
-  m_EditorClassIdentifier: 
-  m_Asset: {fileID: 7363045403836069510}
-  m_ActionId: be080bca-2993-4460-9941-8d8913821643
 --- !u!114 &-7959068350272988233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,20 +252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -2655246981816965805}
   m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
---- !u!114 &-3322578243742810802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/LookPosition
-  m_EditorClassIdentifier: 
-  m_Asset: {fileID: 7363045403836069510}
-  m_ActionId: 662b67b9-10ff-42ab-91b8-ae82de96980c
 --- !u!114 &-3102858991246146505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,6 +748,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Menu
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: fcc309f8-a1d7-42a9-a4fd-847184a4af55
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: Gamepad
       m_Id: 809f371f-c5e2-4e7a-83a1-d867598f40dd
@@ -1081,6 +1061,14 @@ MonoBehaviour:
       m_Groups: XR
       m_Action: TrackedDeviceOrientation
       m_Flags: 0
+    - m_Name: 
+      m_Id: 3534f40a-0d03-4443-a0e8-b768070f824b
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: ;Keyboard&Mouse
+      m_Action: Menu
+      m_Flags: 0
   m_ControlSchemes:
   - m_Name: Keyboard&Mouse
     m_BindingGroup: Keyboard&Mouse
@@ -1109,20 +1097,6 @@ MonoBehaviour:
     m_DeviceRequirements:
     - m_ControlPath: <XRController>
       m_Flags: 0
---- !u!114 &-2184862399073735018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/LeftAttack
-  m_EditorClassIdentifier: 
-  m_Asset: {fileID: 7363045403836069510}
-  m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
 --- !u!114 &-2054154226465383985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2522,6 +2496,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem:UnityEngine.InputSystem:InputActionReference
   m_Asset: {fileID: -1234807753711164764}
   m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
+--- !u!114 &1481589679590686801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/Attack
+  m_EditorClassIdentifier: 
+  m_Asset: {fileID: 7363045403836069510}
+  m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
 --- !u!114 &1536978002359135291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,20 +2552,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem:UnityEngine.InputSystem:InputActionReference
   m_Asset: {fileID: -1234807753711164764}
   m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
---- !u!114 &3177395686817875967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: UI/Debug
-  m_EditorClassIdentifier: 
-  m_Asset: {fileID: 7363045403836069510}
-  m_ActionId: 6f6a094e-01ef-413e-ba33-73495c83ceea
 --- !u!114 &3187459580605217345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3695,6 +3669,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: 7363045403836069510}
   m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
+--- !u!114 &9114271265684611139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: UI/Menu
+  m_EditorClassIdentifier: 
+  m_Asset: {fileID: -2655246981816965805}
+  m_ActionId: fcc309f8-a1d7-42a9-a4fd-847184a4af55
 --- !u!114 &9192318681582839836
 MonoBehaviour:
   m_ObjectHideFlags: 0

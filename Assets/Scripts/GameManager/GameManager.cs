@@ -51,7 +51,13 @@ public class GameManager : ScriptableManager<GameManager>
         => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public static void QuitGame()
-        => Application.Quit();
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 
 #if UNITY_EDITOR
     private bool _isInitialized = false;
