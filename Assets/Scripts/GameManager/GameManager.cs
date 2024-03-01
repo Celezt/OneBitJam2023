@@ -5,8 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UltEvents;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 
@@ -21,17 +23,17 @@ public class GameManager : ScriptableManager<GameManager>
     [SerializeReference, InlineList(ChildSpace = 8)]
     private List<ISettings> _settings = new();
 
-    [SerializeField, PropertySpace(SpaceBefore = 8)]
-    private UnityEvent _onGameStart;
+    [SerializeField, Space(8)]
+    private UltEvent _onGameStartEvent;
     [SerializeField]
-    private UnityEvent _onGameExit;
+    private UltEvent _onGameExitEvent;
 
     protected override void GameStart()
     {
         foreach (var settings in _settings)
             settings.GameStart(_settings);
 
-        _onGameStart.Invoke();
+        _onGameStartEvent.Invoke();
     }
 
     protected override void GameExit()
@@ -39,7 +41,7 @@ public class GameManager : ScriptableManager<GameManager>
         foreach (var settings in _settings)
             settings.GameExit(_settings);
 
-        _onGameExit.Invoke();
+        _onGameExitEvent.Invoke();
     }
 
     public static void LoadScene(int sceneBuildIndex)
@@ -58,6 +60,18 @@ public class GameManager : ScriptableManager<GameManager>
         Application.Quit();
 #endif
     }
+
+    public static void ActivateAllInput()
+        => PlayerInput.all.ForEach(x => x.ActivateInput());
+
+    public static void ActivateInput(int playerIndex) 
+        => PlayerInput.GetPlayerByIndex(playerIndex).ActivateInput();
+
+    public static void DeactivateAllInput()
+    => PlayerInput.all.ForEach(x => x.DeactivateInput());
+
+    public static void DeactivateInput(int playerIndex)
+        => PlayerInput.GetPlayerByIndex(playerIndex).DeactivateInput();
 
 #if UNITY_EDITOR
     private bool _isInitialized = false;

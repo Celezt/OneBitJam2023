@@ -10,16 +10,16 @@ public class SwitchStateBehaviour : MonoBehaviour
     private StateMachineBehaviour _stateMachine;
 
     [SerializeField, Space(4)]
-    private StateBehaviour _firstState;
+    private StateBehaviour _defaultState;
     [SerializeField]
-    private StateBehaviour _secondState;
+    private StateBehaviour _transitionState;
 
     public void Switch()
     {
-        if (_stateMachine.CurrentState == _firstState && _firstState != null)
-            _stateMachine.CurrentState = _secondState;
-        else if (_stateMachine.CurrentState == _secondState && _secondState != null)
-            _stateMachine.CurrentState = _firstState;
+        if (_stateMachine.CurrentState == _defaultState && _defaultState != null && _transitionState != null)
+            _stateMachine.CurrentState = _transitionState;
+        else if (_stateMachine.CurrentState != _defaultState)
+            _stateMachine.CurrentState = _defaultState;
     }
 
     private void OnValidate()

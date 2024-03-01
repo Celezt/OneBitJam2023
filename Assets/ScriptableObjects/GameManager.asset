@@ -14,15 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
   - rid: 2403426258561007680
-  _onGameStart:
-    m_PersistentCalls:
-      m_Calls: []
-  _onGameExit:
-    m_PersistentCalls:
-      m_Calls: []
+  - rid: 1265397190203015168
+  _onGameStartEvent:
+    _PersistentCalls: []
+  _onGameExitEvent:
+    _PersistentCalls: []
   references:
     version: 2
     RefIds:
+    - rid: 1265397190203015168
+      type: {class: AudioSettings, ns: , asm: Assembly-CSharp}
+      data:
+        _audioMixer: {fileID: 24100000, guid: dce18ece4b9cb864b893716d313daa7a, type: 2}
+        _volumeParameters:
+        - master
+        - sfx
     - rid: 2403426258561007680
       type: {class: FrameRateSettings, ns: , asm: Assembly-CSharp}
       data:

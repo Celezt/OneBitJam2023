@@ -3,20 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UltEvents;
 
 [HideMonoScript]
 public class StateBehaviour : MonoBehaviour
 {
-    public UnityEvent OnTransitionEnter => _onTransitionEnter;
-    public UnityEvent OnTransitionExit => _onTransitionExit;
+    public UltEvent OnTransitionEnter => _onTransitionEnter;
+    public UltEvent OnTransitionExit => _onTransitionExit;
 
     [SerializeField]
     private StateMachineBehaviour _stateMachine;
+    [SerializeField]
+    private bool _exitOnStart = true;
 
     [SerializeField, Space(8)]
-    private UnityEvent _onTransitionEnter;
+    private UltEvent _onTransitionEnter;
     [SerializeField]
-    private UnityEvent _onTransitionExit;
+    private UltEvent _onTransitionExit;
 
     public void TransitionToState()
     {
@@ -27,5 +30,11 @@ public class StateBehaviour : MonoBehaviour
     {
         if (_stateMachine == null)
             _stateMachine = GetComponentInParent<StateMachineBehaviour>();
+    }
+
+    private void Start()
+    {
+        if (_exitOnStart && _stateMachine != null && _stateMachine.CurrentState != this)
+            _onTransitionExit.Invoke();
     }
 }
