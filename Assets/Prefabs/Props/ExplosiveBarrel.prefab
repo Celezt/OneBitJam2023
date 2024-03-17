@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4214891180383125253}
   m_Layer: 6
   m_Name: ExplosionAudioPool
-  m_TagString: Untagged
+  m_TagString: Explosive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 2227491957290232412}
   m_Layer: 6
   m_Name: ExplosionParticlePool
-  m_TagString: Untagged
+  m_TagString: Explosive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,6 +128,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 455330513107382618, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 547344891308647505, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
     - target: {fileID: 631966308425186324, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}
       propertyPath: _properties.Array.size
@@ -144,6 +154,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7695741300578913278, guid: ee1322bed62f0644fada27cd7133b724,
         type: 3}
+    - target: {fileID: 2504610324501717480, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609062744499046278, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708231048221524833, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
     - target: {fileID: 4935553854410615076, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -199,6 +224,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveBarrel
       objectReference: {fileID: 0}
+    - target: {fileID: 5707552456712663966, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Explosive
+      objectReference: {fileID: 0}
     - target: {fileID: 6067950446426427979, guid: 5216f6b885cb62e46b1002ad392b3df2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -224,6 +254,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1077873325632522217}
+    - targetCorrespondingSourceObject: {fileID: 5707552456712663966, guid: 5216f6b885cb62e46b1002ad392b3df2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6752059393957978811}
   m_SourcePrefab: {fileID: 100100000, guid: 5216f6b885cb62e46b1002ad392b3df2, type: 3}
 --- !u!136 &2800961566195224229 stripped
 CapsuleCollider:
@@ -270,6 +304,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077873325632522217}
+        m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6752059393957978811}
         m_TargetAssemblyTypeName: AreaOfEffect, Assembly-CSharp
         m_MethodName: Invoke
         m_Mode: 1
@@ -348,10 +394,61 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 321
+  _tag:
+    TagName: Explosive
+    TagFilter: 0
   _shape: 0
   _radius: 4
   _size: {x: 1, y: 1, z: 1}
   _delay: 0.25
+  _ignoreColliders:
+  - {fileID: 2800961566195224229}
+  - {fileID: 3103003939234539393}
+  - {fileID: 6751926975866334068}
+  _effects:
+  - rid: 5080271613525492217
+  - rid: 5080271622828458096
+  _showCollider: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 5080271613525492217
+      type: {class: PushEffect, ns: , asm: Assembly-CSharp}
+      data:
+        Force: 400
+        RagdollMultiplier: 0.8
+        Radius: 4
+        UpwardsModifier: 1
+        Mode: 0
+        Distance: 2
+    - rid: 5080271622828458096
+      type: {class: HealthChangeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        Tag: explosive
+        ValueChange: -40
+--- !u!114 &6752059393957978811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010718031339088389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9b3cbb6d8623447a8004d6c75e7144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0, z: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 321
+  _tag:
+    TagName: Explosive
+    TagFilter: 1
+  _shape: 0
+  _radius: 4
+  _size: {x: 1, y: 1, z: 1}
+  _delay: 0
   _ignoreColliders:
   - {fileID: 2800961566195224229}
   - {fileID: 3103003939234539393}

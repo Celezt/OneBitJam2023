@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [HideMonoScript]
 public class AreaOfEffect : MonoBehaviour
@@ -16,7 +15,9 @@ public class AreaOfEffect : MonoBehaviour
     private Vector3 _offset;
 
     [SerializeField]
-    protected LayerMask _layerMask = ~0;
+    private LayerMask _layerMask = ~0;
+    [SerializeField]
+    private Tag _tag;
 
     [SerializeField]
     private ColliderShape _shape = ColliderShape.Sphere;
@@ -71,6 +72,9 @@ public class AreaOfEffect : MonoBehaviour
             for (int i = 0; i < _count; i++)
             {
                 Collider collider = _collider[i];
+
+                if (!_tag.Filter(collider))
+                    continue;
 
                 if (_ignoreColliders.Contains(collider))
                     continue;
