@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Celezt.MeshGeneration
 {
-    //[BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
+    [BurstCompile(FloatPrecision.Standard, FloatMode.Fast, CompileSynchronously = true)]
     public struct MeshJob<TGenerator, TStream> : IJobFor
         where TGenerator : struct, IMeshGenerator 
         where TStream : struct, IMeshStream
@@ -21,13 +21,21 @@ namespace Celezt.MeshGeneration
             Generator.Execute(index, Stream);
         }
 
-        public static JobHandle ScheduleParallel(Mesh.MeshData meshData, JobHandle dependency = default)
+        public static JobHandle ScheduleParallel(Mesh mesh, Mesh.MeshData meshData, TGenerator generator = default, TStream stream = default, JobHandle dependency = default)
         {
-            var job = new MeshJob<TGenerator, TStream>();
-            job.Stream.Setup(meshData, job.Generator.VertexCount, job.Generator.IndexCount);
+            var job = new MeshJob<TGenerator, TStream>()
+            {
+                Generator = generator,
+                Stream = stream,
+            };
+
+            job.Stream.Setup(
+                meshData, 
+                mesh.bounds = job.Generator.Bounds, 
+                job.Generator.VertexCount, 
+                job.Generator.IndexCount);
 
             return job.ScheduleParallel(job.Generator.JobLength, 1, dependency);
-
         }
     }
 }

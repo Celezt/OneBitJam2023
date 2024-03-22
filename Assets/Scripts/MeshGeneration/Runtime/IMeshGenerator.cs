@@ -9,6 +9,7 @@ namespace Celezt.MeshGeneration
         public int VertexCount { get; }
         public int IndexCount { get; }
         public int JobLength {  get; }
+        public Bounds Bounds { get; }
 
         public void Execute<TStream>(int index, TStream stream) where TStream : struct, IMeshStream;
     }

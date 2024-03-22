@@ -15,7 +15,7 @@ namespace Celezt.MeshGeneration
         [NativeDisableContainerSafetyRestriction]
         private NativeArray<Stream0> _stream0;
         [NativeDisableContainerSafetyRestriction]
-        private NativeArray<int3> _triangles;
+        private NativeArray<TriangleUInt16> _triangles;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct Stream0
@@ -25,7 +25,7 @@ namespace Celezt.MeshGeneration
             public float2 TexCoord0;
         }
 
-        public void Setup(Mesh.MeshData meshData, int vertexCount, int indexCount)
+        public void Setup(Mesh.MeshData meshData, Bounds bounds, int vertexCount, int indexCount)
         {
             var descriptors = new NativeArray<VertexAttributeDescriptor>(
                 4, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
@@ -40,16 +40,20 @@ namespace Celezt.MeshGeneration
 
             meshData.SetVertexBufferParams(vertexCount, descriptors);
             descriptors.Dispose();
-
-            meshData.SetIndexBufferParams(indexCount, IndexFormat.UInt32);
+            
+            meshData.SetIndexBufferParams(indexCount, IndexFormat.UInt16);
 
             meshData.subMeshCount = 1;
-            meshData.SetSubMesh(0, new SubMeshDescriptor(0, indexCount),
+            meshData.SetSubMesh(0, new SubMeshDescriptor(0, indexCount)
+                {
+                    bounds = bounds,
+                    vertexCount = vertexCount,
+                },
                 MeshUpdateFlags.DontRecalculateBounds |
                 MeshUpdateFlags.DontValidateIndices);
 
             _stream0 = meshData.GetVertexData<Stream0>();
-            _triangles = meshData.GetIndexData<int>().Reinterpret<int3>(4);
+            _triangles = meshData.GetIndexData<ushort>().Reinterpret<TriangleUInt16>(2);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
