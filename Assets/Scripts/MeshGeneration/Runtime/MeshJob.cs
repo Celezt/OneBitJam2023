@@ -21,6 +21,8 @@ namespace Celezt.MeshGeneration
             Generator.Execute(index, Stream);
         }
 
+        public static JobHandle ScheduleParallel(Mesh mesh, Mesh.MeshData meshData, IMeshGenerator generator = default, IMeshStream stream = default, JobHandle dependency = default)
+            => ScheduleParallel(mesh, meshData, (TGenerator)generator, (TStream)stream, dependency);
         public static JobHandle ScheduleParallel(Mesh mesh, Mesh.MeshData meshData, TGenerator generator = default, TStream stream = default, JobHandle dependency = default)
         {
             var job = new MeshJob<TGenerator, TStream>()
@@ -38,4 +40,7 @@ namespace Celezt.MeshGeneration
             return job.ScheduleParallel(job.Generator.JobLength, 1, dependency);
         }
     }
+
+    public delegate JobHandle MeshJobScheduleDelegate(
+        Mesh mesh, Mesh.MeshData meshData, IMeshGenerator generator = default, IMeshStream stream = default, JobHandle dependency = default);
 }
