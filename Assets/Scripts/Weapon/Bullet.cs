@@ -90,7 +90,7 @@ public class Bullet : MonoBehaviour, IEntity
     {
         Rigidbody.position = position;
         Rigidbody.rotation = rotation;
-        Rigidbody.velocity = Vector3.zero;
+        Rigidbody.linearVelocity = Vector3.zero;
 
         if (firearm.MoveVelocity != default)
             Rigidbody.AddForce(firearm.MoveVelocity, ForceMode.VelocityChange);

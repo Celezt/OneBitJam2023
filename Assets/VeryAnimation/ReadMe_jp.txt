@@ -29,6 +29,10 @@ twitter: @AlSoSupport
 
 
 【更新履歴】
+Version 1.2.24
+- ADD : Unity2023.2対応
+- FIX : Unity2023.2以降で範囲選択ができない問題の修正
+
 Version 1.2.23
 - ADD : Shortcuts : Pose/QuickSave1とPose/QuickLoad1を追加
 

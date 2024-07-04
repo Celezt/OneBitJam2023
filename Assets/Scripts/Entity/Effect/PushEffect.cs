@@ -29,7 +29,7 @@ public class PushEffect : IEffect
         switch (Mode)
         {
             case LocationMode.Velocity when sender.TryGetComponent(out Rigidbody senderRigidbody):
-                Vector3 direction = senderRigidbody.velocity.normalized;
+                Vector3 direction = senderRigidbody.linearVelocity.normalized;
                 position = sender.transform.position - direction * Distance;
                 break;
             default:

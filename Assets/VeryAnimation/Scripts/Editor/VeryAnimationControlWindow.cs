@@ -1176,6 +1176,7 @@ namespace VeryAnimation
                                             }
                                         }
                                         #endregion
+                                        e.Use();
                                     }
                                     else
                                     {

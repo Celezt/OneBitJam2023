@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4173250465613550348}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5325790555577533413}
   - component: {fileID: 3399773135321545556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Vertical Layout - Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 129619625198295203}
   - component: {fileID: 8636559219319101587}
   - component: {fileID: 1767778352723878585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9014394958845391203}
   - component: {fileID: 5174392630233957242}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6394941950341135357}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119144271068726505}
   - component: {fileID: 7542562483968420485}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Vertical Layout - Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 551171947394636523}
   - component: {fileID: 1354565307651303750}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272758487598211422}
   - component: {fileID: 1735056457505633221}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Disable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6723135979232504952}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2488239693856334826}
   - component: {fileID: 2670770440853407032}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 1525584384384917123}
   - component: {fileID: 237772940879993261}
   - component: {fileID: 2276339530431263155}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ' StateMachine'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 318314098610495984}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BottomRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,6 +791,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton - Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 327011084703415109, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
       propertyPath: m_text
@@ -802,6 +807,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6217404876164288603, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -837,6 +847,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277020387491889844, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377114536657533817, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8444864983967282941, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -977,6 +997,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton - MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 327011084703415109, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
       propertyPath: m_text
@@ -986,6 +1011,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 36.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277020387491889844, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377114536657533817, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8444864983967282941, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1121,6 +1161,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5325790555577533413}
     m_Modifications:
+    - target: {fileID: 305358524604719135, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 515764933635378543, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 953552170796644934, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1131,10 +1181,35 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1713381746351479021, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415050436859455925, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2964803528888312308, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: _parameterName
       value: sfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228445718234249236, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918763169997514544, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936193565665736371, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6129276849693341401, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
@@ -1251,15 +1326,30 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7239791056581278706, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7923114932812709741, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_Name
       value: UIVolumeSlider - SFX
       objectReference: {fileID: 0}
+    - target: {fileID: 7923114932812709741, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689664577875234920, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_text
       value: SFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689664577875234920, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1280,6 +1370,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5325790555577533413}
     m_Modifications:
+    - target: {fileID: 305358524604719135, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 515764933635378543, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 953552170796644934, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1289,6 +1389,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713381746351479021, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415050436859455925, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228445718234249236, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918763169997514544, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936193565665736371, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6129276849693341401, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
@@ -1405,15 +1530,30 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7239791056581278706, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7923114932812709741, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_Name
       value: UIVolumeSlider - Master
       objectReference: {fileID: 0}
+    - target: {fileID: 7923114932812709741, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689664577875234920, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
         type: 3}
       propertyPath: m_text
       value: Master
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689664577875234920, guid: e9afd18f8bb8a084ea5a95dc4679b9f9,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1439,6 +1579,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton - Continue
       objectReference: {fileID: 0}
+    - target: {fileID: 327011084703415109, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
       propertyPath: m_text
@@ -1448,6 +1593,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 41.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6217404876164288603, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1483,6 +1633,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277020387491889844, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377114536657533817, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8444864983967282941, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1623,6 +1783,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton - Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 327011084703415109, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
       propertyPath: m_text
@@ -1632,6 +1797,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 41.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6217404876164288603, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1667,6 +1837,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277020387491889844, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377114536657533817, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8444864983967282941, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1807,6 +1987,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton
       objectReference: {fileID: 0}
+    - target: {fileID: 327011084703415109, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
       propertyPath: m_text
@@ -1816,6 +2001,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSize
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 812730249396330968, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6217404876164288603, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}
@@ -1851,6 +2041,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277020387491889844, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377114536657533817, guid: 1b0892a39b919f94d9063f38d62bedaa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8444864983967282941, guid: 1b0892a39b919f94d9063f38d62bedaa,
         type: 3}

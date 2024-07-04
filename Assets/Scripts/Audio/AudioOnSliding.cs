@@ -66,7 +66,7 @@ public class AudioOnSliding : MonoBehaviour
 
                 if (_surfaceGameObjects.Count > 0)
                 {
-                    Vector3 velocity = _target.velocity;
+                    Vector3 velocity = _target.linearVelocity;
                     float perpendicularInterval = 1f - Mathf.Abs(Vector3.Dot(velocity.normalized, Physics.gravity.normalized));
                     float slideSpeed = velocity.magnitude * perpendicularInterval;
                     float speedInterval = Mathf.Clamp01(slideSpeed / _maxSpeed);

@@ -53,7 +53,7 @@ public class UIDebug : MonoBehaviour
     private void FixedUpdate()
     {
         if (_velocityText != null && _rigidbody != null)
-            _velocityText.text = _rigidbody.velocity.magnitude.ToString("0.00") + " m/s";
+            _velocityText.text = _rigidbody.linearVelocity.magnitude.ToString("0.00") + " m/s";
     }
 
     private void OnDebug(InputAction.CallbackContext context)

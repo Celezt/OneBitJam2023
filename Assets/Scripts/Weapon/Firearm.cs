@@ -49,7 +49,7 @@ public class Firearm : MonoBehaviour, IDetonator
         get => _isAutomatic;
         set => _isAutomatic = value;
     }
-    public Vector3 MoveVelocity => _useMoveVelocity && _handler.MoveRigidbody ? _handler.MoveRigidbody.velocity * _moveVelocityScale : default;
+    public Vector3 MoveVelocity => _useMoveVelocity && _handler.MoveRigidbody ? _handler.MoveRigidbody.linearVelocity * _moveVelocityScale : default;
 
     public event Action<GameObject> OnBulletChangeCallback = delegate { };
 

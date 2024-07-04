@@ -29,6 +29,10 @@ twitter: @AlSoSupport
 
 
 [Update History]
+Version 1.2.24
+- ADD : Unity 2023.2 support
+- FIX : Fixed an issue where range selection was not possible in Unity 2023.2 or later
+
 Version 1.2.23
 - ADD : Shortcuts : Added Pose/QuickSave1 and Pose/QuickLoad1
 

@@ -218,7 +218,7 @@ public class MoveBehaviour : MonoBehaviour
 
         float deltaTime = Time.deltaTime;
         Quaternion rotation = _rigidbody.rotation;
-        Vector3 velocity = _rigidbody.velocity.x_z();
+        Vector3 velocity = _rigidbody.linearVelocity.x_z();
         _localVelocity = transform.InverseTransformDirection(velocity);
         Vector3 dragForce = _direction != Vector3.zero ? -_dragCoefficientHorizontal * velocity : Vector3.zero;
 
@@ -286,7 +286,7 @@ public class MoveBehaviour : MonoBehaviour
 
         float maxDuration = _stopCoefficientCurve[_stopCoefficientCurve.length - 1].time;
         float startTime = Time.time;
-        Vector3 startDirection = _rigidbody.velocity.x_z().normalized;
+        Vector3 startDirection = _rigidbody.linearVelocity.x_z().normalized;
         float moveForce = TrueMoveForce;
 
         while (!cancellationToken.IsCancellationRequested)

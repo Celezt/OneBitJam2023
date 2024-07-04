@@ -17,22 +17,21 @@ public class IslandMeshGenerator : MonoBehaviour
 
     private Mesh _mesh;
 
-    //[BurstCompile]
-    public struct Generator : IJob
+    public struct Generator : IMeshGenerator
     {
-        public Spline Spline;
-        public NativeList<float3> Vertices;
-        public NativeList<int> Indices;
+        public Spline Spline { get; set; }
 
-        public void Execute()
+        public int VertexCount => throw new System.NotImplementedException();
+
+        public int IndexCount => throw new System.NotImplementedException();
+
+        public int JobLength => throw new System.NotImplementedException();
+
+        public Bounds Bounds => throw new System.NotImplementedException();
+
+        public void Execute<TStream>(int index, TStream stream) where TStream : struct, IMeshStream
         {
-            for (int i = 0, indices = 0; i < Spline.Count; i++)
-            {
-                BezierKnot bezierKnot = Spline[i];
-                Vertices.Add(bezierKnot.Position);
-
-                Indices.Add(indices++);
-            }
+            
         }
     }
 

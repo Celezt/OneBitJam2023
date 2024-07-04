@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlinePostProcess
+  m_Name: FullscreenOutline
   m_Shader: {fileID: -6465566751694194690, guid: 6cb3983b071d2d94c802c550817c1c65,
     type: 3}
   m_Parent: {fileID: 0}

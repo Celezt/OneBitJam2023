@@ -34,7 +34,7 @@ namespace VeryAnimation
     [Serializable]
     public class VeryAnimationWindow : EditorWindow
     {
-        public const string Version = "1.2.23";
+        public const string Version = "1.2.24";
         public const int AsmdefVersion = 31;
 
 #if UNITY_2020_1_OR_NEWER
@@ -999,7 +999,7 @@ namespace VeryAnimation
                 {
                     #region UnityVersion
                     {
-#if UNITY_2023_2_OR_NEWER || !UNITY_2019_1_OR_NEWER
+#if UNITY_2023_3_OR_NEWER || !UNITY_2019_1_OR_NEWER
                         EditorGUILayout.HelpBox(Language.GetText(Language.Help.NotSupportUnityMessage), MessageType.Error);
 #endif
                     }
@@ -2168,6 +2168,7 @@ namespace VeryAnimation
                             }
                         }
                         #endregion
+                        e.Use();
                     }
                     else
                     {
